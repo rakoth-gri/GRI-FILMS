@@ -1,0 +1,36 @@
+# React + TypeScript + Vite
+
+**Поле selectFields**:
+- id,
+- externalId,
+- name,
+- enName,
+- alternativeName,
+- names,
+- description, shortDescription,
+- slogan,
+- type,
+- isSeries,
+- status,
+- year,
+- releaseYears,
+- rating, ratingMpaa, ageRating,
+- votes, seasonsInfo,
+- budget,
+- audience,
+- movieLength, seriesLength, totalSeriesLength,
+- genres,
+- countries,
+- poster,
+- ticketsOnSale,
+- videos,
+- persons,
+- facts,
+- fees,
+- premiere,
+- similarMovies,
+- sequelsAndPrequels,
+- top250,
+- updatedAt, createdAt!
+
+

@@ -1,0 +1,1 @@
+export { SingleMoviePage } from './SingleMoviePage';

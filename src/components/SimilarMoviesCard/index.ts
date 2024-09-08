@@ -1,0 +1,2 @@
+export { SimilarMoviesCard } from './SimilarMoviesCard';
+

@@ -1,0 +1,1 @@
+export { MyModalWrapper } from './MyModalWrapper';

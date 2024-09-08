@@ -1,0 +1,1 @@
+export { MyFilterTrigger } from './MyFilterTrigger';

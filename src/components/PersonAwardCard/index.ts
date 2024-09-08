@@ -1,0 +1,2 @@
+export { PersonAwardCard } from './PersonAwardCard';
+
