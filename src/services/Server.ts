@@ -9,6 +9,7 @@ import {
   PERSON_AWARDS_SELECTFIELDS_LIST,
   MOVIE_NOT_NULL_FIELDS_LIST,
   BASE_URL,
+  PERSON_NOT_NULL_FIELDS_LIST,
 } from "../consts/api";
 // utils
 import { getSelectFieldsParam, getNotNullFieldsParam } from "./utils";
@@ -30,12 +31,13 @@ class Server {
     url: string,
     queryParams: Record<string, string>,
     method: T_OBJ_KEYS<typeof queryConstructor>,
-    selectFieldList: string[]
+    selectFieldList: string[],
+    notNullFieldList?: string[]
   ) => {
     return await axios({
       url: `${BASE_URL}${url}?${getSelectFieldsParam(selectFieldList)}${
-        method === "movie"
-          ? getNotNullFieldsParam(MOVIE_NOT_NULL_FIELDS_LIST)
+        method === "movie" || method === "person"
+          ? getNotNullFieldsParam(notNullFieldList as string[])
           : ""
       }${new URLSearchParams(queryConstructor[method](queryParams))}`,
       method: "get",
@@ -58,7 +60,8 @@ class Server {
         url,
         queryParams,
         method,
-        selectFields
+        selectFields,
+        MOVIE_NOT_NULL_FIELDS_LIST
       );
       if (res.status !== 200) throw new Error(res.data);
       return responseConstructor[method](res.data) as I_API_OBJECT<I_MOVIE[]>;
@@ -70,7 +73,7 @@ class Server {
   static async movieSearch(
     url: string,
     queryParams: Record<string, string>,
-    method: T_OBJ_KEYS<typeof queryConstructor>
+    method: T_OBJ_KEYS<typeof responseConstructor>
   ): Promise<string | I_API_OBJECT<T_MOVIE_SEARCH[]>> {
     try {
       let res = await axios(getAxiosConfig(url, queryParams, method));
@@ -115,6 +118,29 @@ class Server {
       }
       return responseConstructor[method](res.data) as I_API_OBJECT<
         I_PERSON_SEARCH[]
+      >;
+    } catch (e) {
+      return (e as Error).message;
+    }
+  }
+
+  static async person(
+    url: string,
+    queryParams: Record<string, string>,
+    method: T_OBJ_KEYS<typeof responseConstructor>,
+    selectFields: string[]
+  ): Promise<string | I_API_OBJECT<I_PERSON_FULL[]>> {
+    try {
+      let res = await Server.fetchindDataBySelectFields(
+        url,
+        queryParams,
+        method,
+        selectFields,
+        PERSON_NOT_NULL_FIELDS_LIST
+      );
+      if (res.status !== 200) throw new Error(res.data);
+      return responseConstructor[method](res.data) as I_API_OBJECT<
+        I_PERSON_FULL[]
       >;
     } catch (e) {
       return (e as Error).message;

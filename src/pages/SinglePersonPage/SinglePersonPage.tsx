@@ -93,15 +93,7 @@ export const SinglePersonPage = () => {
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
-      >
-        <MySelect
-          list={PERSON_AWARDS_SORTFIELD_SELECT_LIST}
-          name={"sortField"}
-          action={changePersonStateQueryParams}
-          reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
-        />
-        <MySelect
+      > <MySelect
           list={LIMIT_PARAM_SELECT_LIST}
           name={"limit"}
           action={changePersonStateQueryParams}

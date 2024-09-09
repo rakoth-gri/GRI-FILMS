@@ -1,4 +1,10 @@
-import { Fragment, MouseEventHandler, useEffect, useState } from "react";
+import {
+  Fragment,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // createAsyncThunks
 import { movieThunk, movieSearchThunk } from "../../store/movieThunks";
@@ -31,6 +37,8 @@ import {
 } from "../../consts/api";
 // types:
 import { RootState } from "../../store/store";
+// utils
+import { observerCB, options } from "../../services/utils";
 
 export const MoviesPage = () => {
   const dispatch = useAppDispatch();
@@ -40,6 +48,10 @@ export const MoviesPage = () => {
   const { query, page, loading, movies, error } = useAppSelector(
     (s: RootState) => s.movieSliceReducer
   );
+
+  const ref = useRef<IntersectionObserver | null>(null);
+
+  ref.current = new IntersectionObserver(observerCB, options);
 
   useEffect(() => {
     if (!query)
@@ -52,6 +64,14 @@ export const MoviesPage = () => {
         movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
       );
   }, [page, query]);
+
+  useEffect(() => {
+    let cardImages = document.querySelectorAll(".cardImage");
+    if (cardImages.length)
+      cardImages.forEach((cardImage) =>
+        (ref.current as IntersectionObserver).observe(cardImage)
+      );
+  }, [movies]);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
@@ -109,13 +129,6 @@ export const MoviesPage = () => {
           reducer={"movieSliceReducer"}
           onClick={(e) => e.stopPropagation()}
         />
-        <MySortType
-          list={SORTTYPE_SELECT_LIST}
-          name={"sortType"}
-          reducer="movieSliceReducer"
-          action={changeMovieStateQueryParams}
-          onClick={(e) => e.stopPropagation()}
-        />
         <MySelect
           list={COUNTRIES_SELECT_LIST}
           name={"countries"}
@@ -130,13 +143,22 @@ export const MoviesPage = () => {
           reducer={"movieSliceReducer"}
           onClick={(e) => e.stopPropagation()}
         />
-        {/* <MyRange
-          label={'Рейтинг IMDB'}
+        <MyRange
+          label={"Рейтинг IMDB"}
           name={"ratingIMDB"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
           onClick={(e) => e.stopPropagation()}
-        /> */}
+        />
+        <MyRange
+          label={"Год выпуска"}
+          name={"year"}
+          action={changeMovieStateQueryParams}
+          reducer={"movieSliceReducer"}
+          onClick={(e) => e.stopPropagation()}
+          min={1908}
+          max={2034}
+        />
         <MyMovieSelectFieldsFilter
           color={"success"}
           spacing={2}

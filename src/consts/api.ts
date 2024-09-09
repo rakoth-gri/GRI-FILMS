@@ -1,6 +1,7 @@
 import {
   T_SELECT,
   T_SORTFIELD_SELECT,
+  T_PERSON_SORTFIELD,
   T_MOVIE_SORTFIELD,
   T_IMAGES_SORTFIELD,
   T_REVIEW_SORTFIELD,
@@ -8,6 +9,7 @@ import {
   T_PERSON_AWARDS_SORTFIELD,
   T_MAIN_MENU_LIST_ITEM,
   E_ROUTES,
+  T_PERSON_PROFESSIONS,
 } from "../types/types";
 
 // ! END POINTS ------------------------
@@ -220,6 +222,61 @@ const MOVIE_SORTFIELD_SELECT_LIST: T_SORTFIELD_SELECT<T_MOVIE_SORTFIELD>[] = [
   },
 ];
 
+const PERSON_SORTFIELD_SELECT_LIST: T_SORTFIELD_SELECT<T_PERSON_SORTFIELD>[] = [
+  {
+    value: "",
+    text: "Сортировать по:",
+  },
+  {
+    value: "id",
+    text: "Сортировать по ID:",
+  },
+  {
+    value: "name",
+    text: "Сортировать по имени:",
+  },
+  {
+    value: "sex",
+    text: "Сортировать по полу:",
+  },
+  {
+    value: "growth",
+    text: "Сортировать по росту:",
+  },
+  {
+    value: "death",
+    text: "По дате смерти:",
+  },
+  {
+    value: "age",
+    text: "По возрасту:",
+  },
+  {
+    value: "countAwards",
+    text: "По кол-ву наград:",
+  },
+  {
+    value: "profession.value",
+    text: "По профессии:",
+  },
+  {
+    value: "facts.value",
+    text: "По фактам:",
+  },
+  {
+    value: "movies.name",
+    text: "По именам фильмов:",
+  },
+  {
+    value: "movies.rating",
+    text: "По рейтингу фильмов:",
+  },
+  {
+    value: "movies.description",
+    text: "По описанию фильмов",
+  },
+];
+
 const PERSON_AWARDS_SORTFIELD_SELECT_LIST: T_SORTFIELD_SELECT<T_PERSON_AWARDS_SORTFIELD>[] =
   [
     {
@@ -413,7 +470,7 @@ const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<string>[] = [
     text: "Россия",
   },
   {
-    value: "Россия+США",
+    value: "Актриса",
     text: "Россия и США",
   },
   {
@@ -516,7 +573,8 @@ const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<string>[] = [
   {
     value: "Люксембург",
     text: "Люксембург",
-  },{
+  },
+  {
     value: "Македония",
     text: "Македония",
   },
@@ -591,11 +649,11 @@ const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<string>[] = [
   {
     value: "Югославия",
     text: "Югославия",
-  },  
+  },
   {
     value: "Кувейт",
     text: "Кувейт",
-  },  
+  },
   {
     value: "Мали",
     text: "Мали",
@@ -642,6 +700,85 @@ const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<string>[] = [
   },
 ];
 
+const PERSON_PROFESSION_SELECT_LIST: T_SORTFIELD_SELECT<T_PERSON_PROFESSIONS>[] =
+  [
+    {
+      value: "",
+      text: "Выберите профессию:",
+    },
+    {
+      value: "Актер",
+      text: "Актер",
+    },
+    {
+      value: "Актер дубляжа",
+      text: "Актер дубляжа",
+    },
+    {
+      value: "Актриса",
+      text: "Актриса",
+    },
+    {
+      value: "Актриса дубляжа",
+      text: "Актриса дубляжа",
+    },
+    {
+      value: "В титрах не указаны",
+      text: "В титрах не указаны",
+    },
+    {
+      value: "Группа: играют самих себя",
+      text: "Группа: играют самих себя",
+    },
+    {
+      value: "Директор фильма",
+      text: "Директор фильма",
+    },
+    {
+      value: "Композитор",
+      text: "Композитор",
+    },
+    {
+      value: "Монтажер",
+      text: "Монтажер",
+    },
+    {
+      value: "Художник",
+      text: "Художник",
+    },
+    {
+      value: "Продюсер",
+      text: "Продюсер",
+    },
+    {
+      value: "Режиссер",
+      text: "Режиссер",
+    },
+    {
+      value: "Сценарист",
+      text: "Сценарист",
+    },
+    {
+      value: "Переводчик",
+      text: "Переводчик",
+    },
+    {
+      value: "Оператор",
+      text: "Оператор",
+    },
+  ];
+
+const PERSON_SEX_SELECT_LIST: T_SORTFIELD_SELECT<"Мужской" | "Женский">[] = [
+  {
+    value: "Мужской",
+    text: "Мужской",
+  },
+  {
+    value: "Женский",
+    text: "Женский",
+  },
+];
+
 // ! SELECTFIELDS QUERY PARAMETR LISTS: ------------------------
 
 const MOVIE_SELECTFIELDS_LIST = [
@@ -671,6 +808,24 @@ const MOVIE_SELECTFIELDS_LIST = [
   "similarMovies",
   "sequelsAndPrequels",
   "top250",
+];
+
+const PERSON_SELECTFIELDS_LIST = [
+  "id",
+  "name",
+  "enName",
+  "photo",
+  "sex",
+  "growth",
+  "birthday",
+  "death",
+  "age",
+  "birthPlace",
+  "deathPlace",
+  "profession",
+  "countAwards",
+  "facts",
+  "movies",
 ];
 
 const REVIEW_SELECTFIELDS_LIST = [
@@ -738,6 +893,24 @@ const MOVIE_NOT_NULL_FIELDS_LIST = [
   // "similarMovies.poster.url",
 ];
 
+const PERSON_NOT_NULL_FIELDS_LIST = [
+  "id",
+  "name",
+  "enName",
+  "photo",
+  "sex",
+  "growth",
+  "birthday",
+  "death",
+  "age",
+  // 'birthPlace',
+  // 'deathPlace',
+  // 'profession',
+  // 'countAwards',
+  // 'facts',
+  // 'movies'
+];
+
 // ! MENU -- HEADER: ------------------------
 
 const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [
@@ -777,4 +950,9 @@ export {
   SORTTYPE_SELECT_LIST,
   MAIN_MENU_LIST,
   COUNTRIES_SELECT_LIST,
+  PERSON_NOT_NULL_FIELDS_LIST,
+  PERSON_SELECTFIELDS_LIST,
+  PERSON_SORTFIELD_SELECT_LIST,
+  PERSON_PROFESSION_SELECT_LIST,
+  PERSON_SEX_SELECT_LIST,
 };

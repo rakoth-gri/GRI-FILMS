@@ -1,169 +1,102 @@
-import { useEffect, useState, MouseEventHandler, FC, Fragment } from "react";
+import { useEffect, useState, MouseEvent, FC, useRef } from "react";
 import { useParams } from "react-router-dom";
-// REDUX
-import { movieIdImagesThunk } from "../../store/movieThunks";
-import { useAppDispatch, useAppSelector } from "../../store/store";
-import {
-  changeMovieStateQueryParams,
-  movieImagesPageCleanUp,
-} from "../../store/movieSlice";
+// RTK_QUERY
+import { useGetMovieIdImagesQuery } from "../../store/rtk_query";
 // components
-import {
-  Box,
-  Button,
-  CardMedia,
-  ImageList,
-  ImageListItem,
-} from "@mui/material";
-import { MyPagination } from "../../components/MyPagination";
-import { MyFlexContainer } from "../../components/MyFlexContainer";
+import { MyLoader } from "../../components/MyLoader";
 import { MyImagesModal } from "../../components/MyImagesModal";
-import { MySelect } from "../../components/MySelect";
-import { MyFilterWrapper } from "../../components/MyFilterWrapper";
-import { MyFilterTrigger } from "../../components/MyFilterTrigger";
-import { I_IMAGE } from "../../types/types";
+import { SimplePagination } from "../../components/SimplePagination";
 import { Render } from "../../components/Render";
 import { MyTitle } from "../../components/MyTitle";
-import { MySortType } from "../../components/MySortType";
+import { MyMasonry } from "../../components/MyMasonry";
 // consts
-import {
-  END_POINTS,
-  SORTTYPE_SELECT_LIST,
-  LIMIT_PARAM_SELECT_LIST,  
-} from "../../consts/api";
+import { END_POINTS, IMAGE_SELECTFIELDS_LIST } from "../../consts/api";
 // types:
-
-const BoxStyles = {
-  width: "30%",
-  height: "500px",
-  objectFit: "cover",
-  p: "0.5rem",
-};
-
-const CardMediaStyles = {
-  width: "100%",
-  height: "100%",
-  "&:hover": {
-    transform: "scale(1.05)",
-  },
-};
+// utils:
+import { observerCB, options } from "../../services/utils";
 
 export const MovieImagesPage: FC = () => {
-  const dispatch = useAppDispatch();
-
-  const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [isModalShown, setIsModalShown] = useState(false);
-  const [startIndex, setStartIndex] = useState(0);
-
   const { movieId } = useParams();
 
-  const { images, page, loading, error} = useAppSelector((s) => s.movieSliceReducer);
+  const [state, setState] = useState({
+    page: 1,
+    total: 0,
+    pages: 0,
+    startIndex: 0,
+    isOpenFilter: false,
+    isModalShown: false,
+  });
+
+  const ref = useRef<IntersectionObserver | null>(null);
+  ref.current = new IntersectionObserver(observerCB, options);
+
+  const {
+    data: images,
+    error,
+    isLoading,
+  } = useGetMovieIdImagesQuery({
+    endPoint: END_POINTS.image,
+    selectFieldList: IMAGE_SELECTFIELDS_LIST,
+    method: "image",
+    page: state.page,
+    movieId,
+  });
 
   useEffect(() => {
-    if (movieId)
-      dispatch(
-        movieIdImagesThunk({ url: END_POINTS.image, movieId, method: "image" })
+    let movieImages = document.querySelectorAll(".movieImage");
+    if (movieImages.length)
+      movieImages.forEach((movieImage) =>
+        (ref.current as IntersectionObserver).observe(movieImage)
       );
-  }, [page, movieId]);
+  }, [images]);
 
   useEffect(() => {
-    return () => {
-      dispatch(movieImagesPageCleanUp());
-    };
-  }, []);
+    if (images) {
+      setState((p) => ({ ...p, pages: images.pages, total: images.total }));
+    }
+  }, [images]);
 
-  const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (movieId)
-      dispatch(
-        movieIdImagesThunk({ url: END_POINTS.image, movieId, method: "image" })
-      );
+  const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    if ((e.target as HTMLButtonElement).closest("#next")) {
+      return setState({ ...state, page: state.page + 1 });
+    } else if ((e.target as HTMLButtonElement).closest("#prev")) {
+      return setState({ ...state, page: state.page - 1 });
+    }
+    setState({ ...state, page: 1 });
   };
 
-  const imageClick = (id: string) => {   
-    setIsModalShown(p => !p)
-    setStartIndex(+id)    
-  }
+  const ImagesModalHandler = (id: number) => {
+    setState((p) => ({ ...p, isModalShown: !p.isModalShown, startIndex: id }));
+  };
 
   return (
-    <Fragment>
-      {isModalShown && <MyImagesModal startIndex={startIndex} images={images} onClick={() => setIsModalShown(p => !p)}/>}
-      <MyTitle
-        align="center"
-        color="primary"
-        component="h1"
-        variant="h4"        
-      >
+    <>
+      {state.isModalShown && images && (
+        <MyImagesModal
+          startIndex={state.startIndex}
+          images={images?.data}
+          onClick={() =>
+            setState((p) => ({ ...p, isModalShown: !p.isModalShown }))
+          }
+        />
+      )}
+      <MyTitle align="center" color="primary" component="h1" variant="h4">
         Постеры и изображения:
       </MyTitle>
-      <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
-      <MyFilterWrapper
-        isOpenFilter={isOpenFilter}
-        onClick={() => setIsOpenFilter((prev) => !prev)}
-      >        
-        <MySelect
-          list={LIMIT_PARAM_SELECT_LIST}
-          name={"limit"}
-          action={changeMovieStateQueryParams}
-          reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+      <MyLoader color="info" variant="query" loading={isLoading} />
+      {images && (
+        <MyMasonry
+          error={error as string}
+          isLoading={isLoading}
+          images={images.data}
+          ImagesModalHandler={ImagesModalHandler}
         />
-        <MySortType
-          list={SORTTYPE_SELECT_LIST}
-          name={"sortType"}
-          reducer="movieSliceReducer"
-          action={changeMovieStateQueryParams}
-          onClick={(e) => e.stopPropagation()}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ mt: "0.5rem", width: "90%" }}
-          onClick={clickHandler}
-        >
-          {" "}
-          начать поиск{" "}
-        </Button>
-      </MyFilterWrapper>
-      <ImageList variant="masonry" cols={3} gap={8}>
-        <Render
-          list={images}
-          loading={loading}
-          error={error}
-          cb={(image: I_IMAGE, i: number) => (
-            <ImageListItem key={image.id}>
-              <img
-                srcSet={`${image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                src={`${image.url}?w=248&fit=crop&auto=format`}
-                alt={image.id}
-                loading="lazy"
-                onClick={(e) => imageClick(e.target.dataset.id)}
-                data-id={i}
-              />
-            </ImageListItem>
-          )}
-        />
-      </ImageList>
-      <MyPagination
-        action={changeMovieStateQueryParams}
-        reducer="movieSliceReducer"
+      )}
+      <SimplePagination
+        page={state.page}
+        pages={state.pages}
+        clickHandler={clickHandler}
       />
-    </Fragment>
+    </>
   );
 };
-
-
-
-{
-  /* <MyFlexContainer spacing={0}>
-        <Render
-          list={images}
-          loading={loading}
-          error={error}
-          cb={(image: I_IMAGE) => (
-            <Box key={image.id} sx={BoxStyles}>
-              <CardMedia src={image.url} alt={image.id} component='img' loading="lazy" sx={CardMediaStyles}/>
-            </Box>
-          )}
-        />
-      </MyFlexContainer> */
-}

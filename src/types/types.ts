@@ -80,7 +80,7 @@ export interface I_MOVIE {
   type: string;
   description: string;
   shortDescription: string;
-  videos: {url: string, name: string};
+  videos: { url: string; name: string };
   slogan: string;
   status: string;
   ratingKp: number;
@@ -195,6 +195,24 @@ export interface I_PERSON_AWARDS {
   nomination: string;
 }
 
+export type T_PERSON_PROFESSIONS =
+  | ""
+  | "Актер"
+  | "Актер дубляжа"
+  | "Актриса"
+  | "Актриса дубляжа"
+  | "В титрах не указаны"
+  | "Группа: играют самих себя"
+  | "Директор фильма"
+  | "Композитор"
+  | "Монтажер"
+  | "Оператор"
+  | "Переводчик"
+  | "Продюсер"
+  | "Режиссер"
+  | "Сценарист"
+  | "Художник";
+
 export type T_PERSON_AWARDS_SORTFIELD =
   | "personId"
   | "winning"
@@ -203,7 +221,25 @@ export type T_PERSON_AWARDS_SORTFIELD =
   | "updatedAt"
   | "nomination.award.title";
 
-//! IMAGE сущности  '/image'
+export type T_PERSON_SORTFIELD =
+  | ""
+  | "id"
+  | "photo"
+  | "name"
+  | "enName"
+  | "sex"
+  | "growth"
+  | "birthday"
+  | "death"
+  | "age"
+  | "countAwards"
+  | "profession.value"
+  | "facts.value"
+  | "movies.name"
+  | "movies.rating"
+  | "movies.description";
+
+//! IMAGE сущности  '/image' ------------------------------
 
 export interface I_IMAGE {
   id: string;
@@ -261,8 +297,9 @@ export interface I_MOVIE_STATE {
   type: T_MOVIE_TYPES | "";
   genre: string;
   countries: string;
-  ratingKp: number[],
-  // ratingIMDB: number[],
+  ratingKp: number[];
+  ratingIMDB: number[];
+  year: number[];
   loading: boolean;
   query: string;
   error: string;
@@ -276,7 +313,7 @@ export interface I_MOVIE_STATE {
 }
 
 export interface I_PERSON_STATE {
-  sortField: T_PERSON_AWARDS_SORTFIELD;
+  sortField: T_PERSON_SORTFIELD;
   sortType: number;
   page: number;
   query: string;
@@ -288,7 +325,14 @@ export interface I_PERSON_STATE {
   total: number;
   pages: number;
   person: object;
+  sex: "Мужской" | "Женский";
+  growth: number[];
+  age: number[];
+  countAwards: number[];
+  profession: T_PERSON_PROFESSIONS;
+  moviesRating: number[];
   persons: I_PERSON_SEARCH[];
+  selectFields: string[];
 }
 
 export type T_ACTION_QUERY_PAYLOAD = Record<"name" | "value", unknown>;
@@ -327,6 +371,6 @@ export type T_ROUTES = {
 };
 
 export type T_MAIN_MENU_LIST_ITEM = {
-  to: E_ROUTES,
-  text: string
-}
+  to: E_ROUTES;
+  text: string;
+};

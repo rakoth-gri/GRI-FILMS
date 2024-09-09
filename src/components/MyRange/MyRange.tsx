@@ -19,6 +19,8 @@ interface I_MyRange extends SelectHTMLAttributes<HTMLSelectElement> {
   reducer: keyof RootState;
   name: keyof I_MOVIE_STATE | keyof I_PERSON_STATE | keyof I_REVIEW_STATE;
   label: string;
+  min?: number;
+  max?: number;
 }
 
 export const MyRange = ({
@@ -47,7 +49,7 @@ export const MyRange = ({
       </MyTitle>
       <Slider
         sx={{ width: "90%", color: "inherit", m: "0.25rem", mt: "0px" }}
-        name={name}
+        name={name}        
         shiftStep={1}
         onChange={changeHandler}
         value={value}

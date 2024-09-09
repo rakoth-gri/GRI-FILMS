@@ -1,3 +1,15 @@
+// Response BUILDERS :
+import { movieResponse } from "./movieResponse";
+import { movieSearchResponse } from "./movieSearchResponse";
+import { movieByIdResponse } from "./movieByIdResponse";
+import { personSearchResponse } from "./personSearchResponse";
+import { personByIdResponse } from "./personByIdResponse";
+import { personAwardsResponse } from "./personAwardsResponse";
+import { imageResponse } from "./imageResponse";
+import { reviewByMovieIdResponse } from "./reviewByMovieIdResponse";
+import { reviewByAuthorIdResponse } from "./reviewByAuthorIdResponse";
+import { personResponse } from './personResponse';
+
 // types:
 import {
   I_MOVIE,
@@ -9,16 +21,6 @@ import {
   T_MOVIE_SEARCH,
   I_REVIEW,
 } from "../types/types";
-// Response BUILDERS :
-import { movieResponse } from "./movieResponse";
-import { movieSearchResponse } from "./movieSearchResponse";
-import { movieByIdResponse } from "./movieByIdResponse";
-import { personSearchResponse } from "./personSearchResponse";
-import { personByIdResponse } from "./personByIdResponse";
-import { personAwardsResponse } from "./personAwardsResponse";
-import { imageResponse } from "./imageResponse";
-import { reviewByMovieIdResponse } from "./reviewByMovieIdResponse";
-import { reviewByAuthorIdResponse } from "./reviewByAuthorIdResponse";
 
 const responseConstructor = {
   // ! movie Response -------------------------------------
@@ -70,6 +72,21 @@ const responseConstructor = {
   ): I_API_OBJECT<I_PERSON_SEARCH[]> => {
     const { docs, total, limit, page, pages } = persons;
     return personSearchResponse(docs, total, limit, page, pages);
+  },
+  // ! person Response -------------------------------------
+  person: <
+    T extends {
+      total: number;
+      limit: number;
+      page: number;
+      pages: number;
+      docs: unknown[];
+    }
+  >(
+    person: T
+  ): I_API_OBJECT<I_PERSON_FULL[]> => {
+    const { docs, total, limit, page, pages } = person;
+    return personResponse(docs, total, limit, page, pages);
   },
   // ! personById Response -------------------------------------
   personById: (person: any): I_PERSON_FULL => {    

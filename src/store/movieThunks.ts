@@ -38,8 +38,9 @@ const movieThunk = createAsyncThunk<
       genre,
       countries,
       selectFields,
-      // ratingIMDB,
+      ratingIMDB,
       ratingKp,
+      year,
     } = getState().movieSliceReducer;
 
     const res = await Server[method](
@@ -53,7 +54,8 @@ const movieThunk = createAsyncThunk<
         genre,
         countries,
         ratingKp: getRatingParamValue(ratingKp),
-        // ratingIMDB: getRatingParamValue(ratingIMDB),
+        ratingIMDB: getRatingParamValue(ratingIMDB),
+        year: year.join('-'),
       },
       method,
       selectFields

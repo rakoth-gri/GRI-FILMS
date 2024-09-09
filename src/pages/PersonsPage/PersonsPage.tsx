@@ -1,11 +1,13 @@
 import { Fragment, useEffect, useState, MouseEventHandler } from "react";
 // REDUX
-import { personSearchThunk } from "../../store/personThunks";
-import { changePersonStateQueryParams } from "../../store/personSlice";
+import { personSearchThunk, personThunk } from "../../store/personThunks";
+import { changePersonStateQueryParams, changePersonSex } from "../../store/personSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // components
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
 import { Button } from "@mui/material";
+import { MyRange } from "../../components/MyRange";
+import { MySortType } from "../../components/MySortType";
 import { MySelect } from "../../components/MySelect";
 import { MySearch } from "../../components/MySearch";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
@@ -15,8 +17,15 @@ import { MyPersonCard } from "../../components/MyPersonCard";
 import { Render } from "../../components/Render";
 import { MyLoader } from "../../components/MyLoader";
 import { MyFilterWrapper } from "../../components/MyFilterWrapper";
+import { Toggler } from "../../components/Toggler";
 //consts
-import { END_POINTS, LIMIT_PARAM_SELECT_LIST } from "../../consts/api";
+import {
+  END_POINTS,
+  LIMIT_PARAM_SELECT_LIST,
+  PERSON_PROFESSION_SELECT_LIST,
+  PERSON_SORTFIELD_SELECT_LIST,
+  SORTTYPE_SELECT_LIST,
+} from "../../consts/api";
 
 export const PersonsPage = () => {
   const dispatch = useAppDispatch();
@@ -27,19 +36,25 @@ export const PersonsPage = () => {
   );
 
   useEffect(() => {
-    dispatch(
-      personSearchThunk({
-        url: END_POINTS.personSearch,
-        method: "personSearch",
-      })
-    );
+    if (query)
+      dispatch(
+        personSearchThunk({
+          url: END_POINTS.personSearch,
+          method: "personSearch",
+        })
+      );
   }, [query, page]);
+
+  useEffect(() => {
+    if (!query)
+      dispatch(personThunk({ url: END_POINTS.person, method: "person" }));
+  }, [page, query]);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     dispatch(
-      personSearchThunk({
-        url: END_POINTS.personSearch,
-        method: "personSearch",
+      personThunk({
+        url: END_POINTS.person,
+        method: "person",
       })
     );
   };
@@ -63,11 +78,75 @@ export const PersonsPage = () => {
         onClick={() => setIsOpenFilter((prev) => !prev)}
       >
         <MySelect
+          list={PERSON_SORTFIELD_SELECT_LIST}
+          name={"sortField"}
+          action={changePersonStateQueryParams}
+          reducer={"personSliceReducer"}
+          onClick={(e) => e.stopPropagation()}
+        />
+        <MySelect
           list={LIMIT_PARAM_SELECT_LIST}
           name={"limit"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
           onClick={(e) => e.stopPropagation()}
+        />
+        <MySelect
+          list={PERSON_PROFESSION_SELECT_LIST}
+          name={"profession"}
+          action={changePersonStateQueryParams}
+          reducer={"personSliceReducer"}
+          onClick={(e) => e.stopPropagation()}
+        />
+        <MySortType
+          list={SORTTYPE_SELECT_LIST}
+          name={"sortType"}
+          reducer="personSliceReducer"
+          action={changePersonStateQueryParams}
+          onClick={(e) => e.stopPropagation()}
+        />
+        <MyRange
+          label={"Рост Персонажа"}
+          name={"growth"}
+          action={changePersonStateQueryParams}
+          reducer={"personSliceReducer"}
+          onClick={(e) => e.stopPropagation()}
+          min={140}
+          max={235}
+        />
+        <MyRange
+          label={"Возраст Персонажа"}
+          name={"age"}
+          action={changePersonStateQueryParams}
+          reducer={"personSliceReducer"}
+          onClick={(e) => e.stopPropagation()}
+          min={5}
+          max={100}
+        />
+        <MyRange
+          label={"Количество наград"}
+          name={"countAwards"}
+          action={changePersonStateQueryParams}
+          reducer={"personSliceReducer"}
+          onClick={(e) => e.stopPropagation()}
+          min={0}
+          max={60}
+        />
+        <MyRange
+          label={"Рейтинг фильмов"}
+          name={"moviesRating"}
+          action={changePersonStateQueryParams}
+          reducer={"personSliceReducer"}
+          onClick={(e) => e.stopPropagation()}
+          min={0}
+          max={100}
+        />
+        <Toggler
+          action={changePersonSex}
+          reducer={"personSliceReducer"}
+          title={"Выберите пол"}
+          name={"sex"}
+          onClick={(e: any) => e.stopPropagation()}
         />
         <Button
           variant="contained"

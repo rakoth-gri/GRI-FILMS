@@ -78,10 +78,12 @@ export const MyMovieCard = ({
         {top250 ? `ТОП ${top250}` : null}
       </MyLabel>
       <MyCardMedia
-        image={poster}
+        // image={poster}
+        data-src={poster}
         title={name}
         component={"img"}
         loading="lazy"
+        className='cardImage'
       />
       <CardContent sx={{ padding: "0.5rem" }}>
         <Typography gutterBottom variant="subtitle2" component="h3">
@@ -100,7 +102,7 @@ export const MyMovieCard = ({
         <LinkButton
           id={`${id}`}
           route={E_ROUTES.movies}
-          sx={{ border: "none", fontSize: '9px' }}
+          sx={{ border: "none", fontSize: "9px" }}
         >
           {" "}
           подробнее{" "}

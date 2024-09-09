@@ -2,15 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import { rootReducer } from './rootReducer'
 import { useDispatch, useSelector  } from 'react-redux'
 // RTK
-import { Top250MoviesApi } from './rtk_query'
+import { RTKQueryMoviesApi } from './rtk_query'
 
 const store = configureStore({
   reducer: {
     ...rootReducer,
-    [Top250MoviesApi.reducerPath]: Top250MoviesApi.reducer,
+    [RTKQueryMoviesApi.reducerPath]: RTKQueryMoviesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(Top250MoviesApi.middleware),
+    getDefaultMiddleware().concat(RTKQueryMoviesApi.middleware),
 })
 export type RootState = ReturnType<typeof store.getState>
 export const useAppSelector = useSelector.withTypes<RootState>()

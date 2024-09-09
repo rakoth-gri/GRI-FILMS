@@ -1,20 +1,19 @@
-import { Fragment, useState, useEffect, MouseEvent } from "react";
+import { Fragment, useState, useEffect, MouseEvent, useRef } from "react";
 // RTK-QUERY
 import { useGetTop250MoviesQuery } from "../../store/rtk_query";
 // components
-import { IconButton } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import { SimplePagination } from "../../components/SimplePagination";
 import { MyTitle } from "../../components/MyTitle";
 import { MyLoader } from "../../components/MyLoader";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
-import { MyPagination } from "../../components/MyPagination";
 import { MyMovieCard } from "../../components/MyMovieCard";
 import { MyError } from "../../components/MyError/MyError";
 // consts
 import { END_POINTS, MOVIE_SELECTFIELDS_LIST } from "../../consts/api";
 // types
 import { I_API_OBJECT, I_MOVIE } from "../../types/types";
+// utils
+import { observerCB, options } from "../../services/utils";
 
 export const Top250Page = () => {
   const [state, setState] = useState({
@@ -34,18 +33,27 @@ export const Top250Page = () => {
     page: state.page,
   });
 
+  const ref = useRef<IntersectionObserver | null>(null);
+  ref.current = new IntersectionObserver(observerCB, options);
+
   useEffect(() => {
     if (movies) {
       setState((p) => ({ ...p, pages: movies.pages, total: movies.total }));
     }
   }, [movies]);
 
-  const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    // if(!(e.target instanceof HTMLElement)) return
+  useEffect(() => {
+    let cardImages = document.querySelectorAll(".cardImage");
+    if (cardImages.length)
+      cardImages.forEach((cardImage) =>
+        (ref.current as IntersectionObserver).observe(cardImage)
+      );
+  }, [movies]);
 
-    if (e.target.closest("#next")) {
+  const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    if ((e.target as HTMLButtonElement).closest("#next")) {
       return setState({ ...state, page: state.page + 1 });
-    } else if (e.target.closest("#prev")) {
+    } else if ((e.target as HTMLButtonElement).closest("#prev")) {
       return setState({ ...state, page: state.page - 1 });
     }
     setState({ ...state, page: 1 });
@@ -61,43 +69,25 @@ export const Top250Page = () => {
         sx={{ textTransform: "capitalize" }}
       >
         {" "}
-        ТОП 250 в истории:{" "}
+        Топ 250 по версии Кинопоиска:{" "}
       </MyTitle>
       <MyLoader color="info" variant="query" loading={isLoading} />
       <MyFlexContainer spacing={4} sx={{ minHeight: "45vh" }}>
         {movies && !error ? (
           <>
-            {(movies as I_API_OBJECT<I_MOVIE>).data.map((movie) => (
+            {(movies as I_API_OBJECT<I_MOVIE[]>).data.map((movie) => (
               <MyMovieCard key={movie.id} {...movie} />
             ))}
           </>
         ) : (
-          <MyError> {error} </MyError>
+          <MyError> {error as string} </MyError>
         )}
       </MyFlexContainer>
-      <MyFlexContainer w="100%">
-        <IconButton
-          aria-label="prev"
-          onClick={clickHandler}
-          size="large"
-          disabled={state.page === 1}
-          id="prev"
-        >
-          <NavigateBeforeIcon />
-        </IconButton>
-        <IconButton onClick={clickHandler} size="large">
-          {state.page}
-        </IconButton>
-        <IconButton
-          aria-label="next"
-          id="next"
-          onClick={clickHandler}
-          size="large"
-          disabled={state.page === state.pages}
-        >
-          <NavigateNextIcon />
-        </IconButton>
-      </MyFlexContainer>
+      <SimplePagination
+        page={state.page}
+        pages={state.pages}
+        clickHandler={clickHandler}
+      />
     </Fragment>
   );
 };

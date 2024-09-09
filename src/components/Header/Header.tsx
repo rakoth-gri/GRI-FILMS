@@ -30,6 +30,21 @@ const toolBarSx = {
   p: "1rem",
 };
 
+// const styles = (theme) => ({
+//   root: {
+//     backgroundColor: "inherit",
+//     [theme.breakpoints.down("xs")]: {
+//       backgroundColor: "green",
+//     },
+//     [theme.breakpoints.down("md")]: {
+//       backgroundColor: "blue",
+//     },
+//     [theme.breakpoints.down("purple")]: {
+//       backgroundColor: "red",
+//     },
+//   },
+// });
+
 export function Header() {
   const { pathname } = useLocation();
 
@@ -53,14 +68,19 @@ export function Header() {
           </Link>
         </Tooltip>
         <MyFlexContainer
-          component="nav"
+          component="nav"          
           w="auto"
           spacing={2}
           wrap="nowrap"
           sx={{
             letterSpacing: "0.7px",
             textTransform: "uppercase",
-            display: { xs: "none", md: "flex" },
+            // display: { xs: "none", md: "flex" },
+            backgroundColor: { xs: 'primary.main', lg: "inherit" },
+            flexDirection: { xs: "column", lg: "row" },
+            position: {xs: 'absolute', lg: 'static'},
+            top: {xs: '0%'},
+            right: {xs: '0%'},
           }}
         >
           {MAIN_MENU_LIST.map(({ to, text }, i) => (
@@ -69,10 +89,7 @@ export function Header() {
               component={"li"}
               sx={{ width: "auto", padding: "0.25rem" }}
             >
-              <NavLink                
-                to={to}
-                className={pathname === to ? "active" : ""}
-              >
+              <NavLink to={to} className={pathname === to ? "active" : ""}>
                 {text}
               </NavLink>
             </ListItem>
