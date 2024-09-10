@@ -28,14 +28,17 @@ import {
 // types
 import { RootState } from "../../store/store";
 import { I_PERSON_AWARDS, I_PERSON_FULL } from "../../types/types";
+// hooks
+import { useFetching } from "../../hooks/useFetching";
 
-// const personId = 8816;
+
 export const SinglePersonPage = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   const dispatch = useAppDispatch();
 
   const { personId } = useParams();
+  
   const { person, personAwards, page, loading, error } =
     useAppSelector((s: RootState) => s.personSliceReducer);
 
@@ -121,8 +124,7 @@ export const SinglePersonPage = () => {
           {" "}
           обновить награды{" "}
         </Button>
-      </MyFilterWrapper>
-      
+      </MyFilterWrapper>      
       {!!personAwards.length && !error ? (
         <>
           <ContainerForLists

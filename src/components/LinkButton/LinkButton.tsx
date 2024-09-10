@@ -7,18 +7,25 @@ import "./LinkButton.sass";
 
 interface I_LinkButton extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children?: ReactNode;
-  id: string;
+  id?: string;
   route: string;
   sx?: SxProps<Theme> | undefined;
+  variant: "contained" | "outlined" | "text" | string;
 }
 
-export const LinkButton = ({ children, id, route, ...props }: I_LinkButton) => {
+export const LinkButton = ({
+  children,
+  id,
+  route,
+  variant = "contained",
+  ...props
+}: I_LinkButton) => {
   return (
     <Button
       size="medium"
       component={Link}
       to={`${route}/${id}`}
-      variant="contained"
+      variant={variant}
       {...props}
     >
       {children}

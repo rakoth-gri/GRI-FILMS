@@ -1,4 +1,10 @@
-import { I_MOVIE_STATE, T_OBJ_KEYS, T_PERSON_SORTFIELD, T_PERSON_PROFESSIONS, T_PERSON_AWARDS_SORTFIELD } from './../types/types';
+import {
+  I_MOVIE_STATE,
+  T_OBJ_KEYS,
+  T_PERSON_SORTFIELD,
+  T_PERSON_PROFESSIONS,
+  T_PERSON_AWARDS_SORTFIELD,
+} from "./../types/types";
 export const queryConstructor = {
   //! MOVIE  -----------------------------------------------------
   movie: ({
@@ -13,11 +19,7 @@ export const queryConstructor = {
     ratingKp,
     ratingIMDB,
     year,
-  }: 
-  Record<
-    T_OBJ_KEYS<I_MOVIE_STATE>,
-    string
-  >) => ({
+  }: Record<T_OBJ_KEYS<I_MOVIE_STATE>, string>) => ({
     sortField: sortField || "rating.imdb",
     sortType,
     page,
@@ -42,35 +44,35 @@ export const queryConstructor = {
     page = "1",
     limit = "5",
     sortField,
-    sortType = '-1',
-    sex = 'Мужской',
-    growth = '168-180',
-    age = '35-50',
-    countAwards = '10-40',
+    sortType = "-1",
+    sex = "Мужской",
+    growth = "168-180",
+    age = "35-50",
+    countAwards = "10-40",
     profession,
-    moviesRating = '5-10'    
+    moviesRating = "5-10",
   }: {
-    page: string,
+    page: string;
     limit: string;
-    sortField: T_PERSON_SORTFIELD,
-    sortType: string,
-    sex: 'Мужской' | 'Женский',
-    growth: string,
-    age: string,
-    countAwards: string,
-    profession: T_PERSON_PROFESSIONS,
-    moviesRating: string
+    sortField: T_PERSON_SORTFIELD;
+    sortType: string;
+    sex: "Мужской" | "Женский";
+    growth: string;
+    age: string;
+    countAwards: string;
+    profession: T_PERSON_PROFESSIONS;
+    moviesRating: string;
   }) => ({
     page,
     limit,
-    sortField: sortField || 'name',
+    sortField: sortField || "name",
     sortType,
     sex,
     growth,
     age,
     countAwards,
-    ['profession.value']: profession || "Актер",
-    ['movies.rating']: moviesRating
+    ["profession.value"]: profession || "Актер",
+    ["movies.rating"]: moviesRating,
   }),
   personById: ({ id }: { id: string }) => ({
     id,
@@ -83,7 +85,7 @@ export const queryConstructor = {
     page,
     limit,
     query: query || "Арнольд Шварцнеггер",
-  }),  
+  }),
   personAwards: ({
     page = "1",
     limit = "10",
@@ -95,7 +97,7 @@ export const queryConstructor = {
     limit: string;
     sortType: string;
     personId: string;
-    sortField: T_PERSON_AWARDS_SORTFIELD,
+    sortField: T_PERSON_AWARDS_SORTFIELD;
   }) => ({
     personId,
     sortField,
@@ -165,7 +167,7 @@ export const queryConstructor = {
     sortType,
   }),
   top250: ({
-    sortField = 'top250',
+    sortField = "top250",
     sortType = "1",
     page = "1",
     limit = "15",
@@ -178,8 +180,7 @@ export const queryConstructor = {
     limit?: string;
     type?: string;
     lists?: string;
-  }
-  ) => ({
+  }) => ({
     sortField,
     sortType,
     page,

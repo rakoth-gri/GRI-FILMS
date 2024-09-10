@@ -42,11 +42,16 @@ const observerCB: IntersectionObserverCallback = (entries, observer) => {
   });
 };
 
+const movieLengthFormat = (n: number): string => {
+  return `${Math.floor(n / 60)} ч. ${n % 60} мин.`
+}
+
 export {
   getSelectFieldsParam,
   getNotNullFieldsParam,
   debounce,
   getRatingParamValue,
+  movieLengthFormat,
   observerCB,
   options,
 };

@@ -102,7 +102,7 @@ export const movieByIdResponse = (
           })
         )
       : [],
-    poster: movie?.poster?.url ?? FAKE,
+    poster: movie?.poster?.previewUrl ?? FAKE,
     feesWorld: (movie?.fees as I_FEES)?.world?.value
       ? movie.fees.world.value.toLocaleString() +
         " " +

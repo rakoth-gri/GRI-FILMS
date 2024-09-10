@@ -4,7 +4,7 @@ import { MyFlexContainer } from "../MyFlexContainer";
 interface I_MoviePropListContainer<T> {
   list: T[];
   cb: (item: T, i?: number) => ReactNode;
-  type?: 'awards'
+  type?: "awards";
 }
 
 export function ContainerForLists<T>({
@@ -16,13 +16,11 @@ export function ContainerForLists<T>({
     <MyFlexContainer
       id="moviePropListComp"
       align="start"
-      justify={type === 'awards' ? 'center' : 'flex-start'}
-      style={{margin: '0.8rem 0'}}
+      justify={type === "awards" ? "center" : "flex-start"}
+      style={{ margin: "0.8rem 0" }}
       wrap="nowrap"
     >
-        {
-            list.map(cb)
-        }
+      {list.map(cb)}
     </MyFlexContainer>
   );
 }

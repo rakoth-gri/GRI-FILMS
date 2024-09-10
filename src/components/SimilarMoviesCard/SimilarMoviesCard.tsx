@@ -1,6 +1,5 @@
 // components:
 import { Link } from "react-router-dom";
-import { colors } from "@mui/material";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 // types
 import { I_SIMILAR_MOVIES_PROP, E_ROUTES } from "../../types/types";
@@ -29,12 +28,9 @@ const CardMediaSX = {
 export const SimilarMoviesCard = ({
   id,
   poster,
-  name,
-  
-  enName,
-    
-}: I_SIMILAR_MOVIES_PROP) => {    
-
+  name,  
+  enName,    
+}: I_SIMILAR_MOVIES_PROP) => {  
   return (
     <Link to={`${E_ROUTES.movies}/${id}`}>
       <Card sx={CardSX}>

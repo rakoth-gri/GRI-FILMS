@@ -1,0 +1,2 @@
+export { SingleMoviePropsList } from './SingleMoviePropsList';
+
