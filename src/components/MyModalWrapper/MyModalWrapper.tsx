@@ -18,7 +18,7 @@ const imageFlexContainer = {
 
 interface I_MyModalWrapper extends HTMLAttributes<HTMLElement> {
     children: ReactNode
-    sx?: SxProps<Theme>
+    sx?: SxProps<Theme> | undefined
 }
 
 export const MyModalWrapper = ({children, sx, ...props}: I_MyModalWrapper) => {

@@ -1,17 +1,11 @@
-import { useState, MouseEvent } from "react";
 import {
   AppBar,
   Box,
   Toolbar,
   IconButton,
-  Typography,
-  Menu,
-  Container,
-  Avatar,
-  Button,
   Tooltip,
-  MenuItem,
   ListItem,
+  styled,
 } from "@mui/material";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import TheatersIcon from "@mui/icons-material/Theaters";
@@ -30,20 +24,30 @@ const toolBarSx = {
   p: "1rem",
 };
 
-// const styles = (theme) => ({
-//   root: {
-//     backgroundColor: "inherit",
-//     [theme.breakpoints.down("xs")]: {
-//       backgroundColor: "green",
-//     },
-//     [theme.breakpoints.down("md")]: {
-//       backgroundColor: "blue",
-//     },
-//     [theme.breakpoints.down("purple")]: {
-//       backgroundColor: "red",
-//     },
-//   },
-// });
+// @media ----
+
+const down_lg = {
+  backgroundColor: "primary.main",
+  position: "absolute",
+  top: "0%",
+  right: "0%",
+  flexDirection: "column",
+  display: "none",
+};
+
+const up_lg = {
+  backgroundColor: "inherit",
+  position: "static",
+  flexDirection: "row",
+  display: "flex",
+};
+
+const MyNavContainer = styled(MyFlexContainer)(({theme}) => ({
+  letterSpacing: "0.7px",
+  textTransform: "uppercase",
+  [theme.breakpoints.down("lg")]: down_lg,
+  [theme.breakpoints.up("lg")]: up_lg,
+}));
 
 export function Header() {
   const { pathname } = useLocation();
@@ -67,21 +71,11 @@ export function Header() {
             </IconButton>
           </Link>
         </Tooltip>
-        <MyFlexContainer
-          component="nav"          
+        <MyNavContainer
+          component="nav"
           w="auto"
           spacing={2}
-          wrap="nowrap"
-          sx={{
-            letterSpacing: "0.7px",
-            textTransform: "uppercase",
-            // display: { xs: "none", md: "flex" },
-            backgroundColor: { xs: 'primary.main', lg: "inherit" },
-            flexDirection: { xs: "column", lg: "row" },
-            position: {xs: 'absolute', lg: 'static'},
-            top: {xs: '0%'},
-            right: {xs: '0%'},
-          }}
+          wrap="nowrap"          
         >
           {MAIN_MENU_LIST.map(({ to, text }, i) => (
             <ListItem
@@ -94,8 +88,8 @@ export function Header() {
               </NavLink>
             </ListItem>
           ))}
-        </MyFlexContainer>
-        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+        </MyNavContainer>
+        <Box sx={{ display: { xs: "flex", lg: "none" }}}>
           <MenuIcon
             fontSize="large"
             aria-controls="menu-appbar"

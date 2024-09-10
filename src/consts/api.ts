@@ -825,8 +825,10 @@ const PERSON_SELECTFIELDS_LIST = [
   "profession",
   "countAwards",
   "facts",
-  "movies",
+  // "movies",
 ];
+
+
 
 const REVIEW_SELECTFIELDS_LIST = [
   "id",
@@ -901,11 +903,11 @@ const PERSON_NOT_NULL_FIELDS_LIST = [
   "sex",
   "growth",
   "birthday",
-  "death",
+  // "death",
   "age",
-  // 'birthPlace',
+  'birthday',
   // 'deathPlace',
-  // 'profession',
+  'profession.value',
   // 'countAwards',
   // 'facts',
   // 'movies'

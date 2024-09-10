@@ -78,6 +78,10 @@ export const SinglePersonPage = () => {
       );
   };
 
+  if(!Object.keys(person).length) {
+    return <MyLoader loading={loading} />
+  }
+
   return (
     <Fragment>
       <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
@@ -88,8 +92,9 @@ export const SinglePersonPage = () => {
         variant="h4"        
       >
         {" "}
-        SINGLE PERSON: {personId}
+        {(person as I_PERSON_FULL).name}
       </MyTitle>
+      <MyLoader loading={loading} />
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
@@ -114,10 +119,10 @@ export const SinglePersonPage = () => {
           onClick={clickHandler}
         >
           {" "}
-          начать поиск{" "}
+          обновить награды{" "}
         </Button>
       </MyFilterWrapper>
-      <MyLoader loading={loading} />
+      
       {!!personAwards.length && !error ? (
         <>
           <ContainerForLists

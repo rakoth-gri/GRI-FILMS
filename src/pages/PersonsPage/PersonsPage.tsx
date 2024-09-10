@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, MouseEventHandler } from "react";
+import { Fragment, useEffect, useRef, useState, MouseEventHandler } from "react";
 // REDUX
 import { personSearchThunk, personThunk } from "../../store/personThunks";
 import { changePersonStateQueryParams, changePersonSex } from "../../store/personSlice";
@@ -26,6 +26,8 @@ import {
   PERSON_SORTFIELD_SELECT_LIST,
   SORTTYPE_SELECT_LIST,
 } from "../../consts/api";
+// utils
+import { observerCB, options } from "../../services/utils";
 
 export const PersonsPage = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +36,9 @@ export const PersonsPage = () => {
   const { query, page, loading, error, persons } = useAppSelector(
     (s) => s.personSliceReducer
   );
+
+  const ref = useRef<IntersectionObserver | null>(null);
+  ref.current = new IntersectionObserver(observerCB, options);
 
   useEffect(() => {
     if (query)
@@ -49,6 +54,14 @@ export const PersonsPage = () => {
     if (!query)
       dispatch(personThunk({ url: END_POINTS.person, method: "person" }));
   }, [page, query]);
+
+  useEffect(() => {
+    let personImages = document.querySelectorAll(".personImage");
+    if (persons.length)
+      personImages.forEach((personImage) =>
+        (ref.current as IntersectionObserver).observe(personImage)
+      );
+  }, [persons]);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     dispatch(
@@ -145,7 +158,7 @@ export const PersonsPage = () => {
           action={changePersonSex}
           reducer={"personSliceReducer"}
           title={"Выберите пол"}
-          name={"sex"}
+          name={"sex"}          
           onClick={(e: any) => e.stopPropagation()}
         />
         <Button

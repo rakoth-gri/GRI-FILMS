@@ -324,7 +324,7 @@ export interface I_PERSON_STATE {
   personAwards: I_PERSON_AWARDS[];
   total: number;
   pages: number;
-  person: object;
+  person: object | I_PERSON_FULL;
   sex: "Мужской" | "Женский";
   growth: number[];
   age: number[];

@@ -64,8 +64,9 @@ export const MyPersonCard = ({
         {age ? age + " лет" : null}
       </MyLabel>
       <MyCardMedia
-        image={photo}
+        className="personImage"
         title={enName}
+        data-src={photo}
         component={"img"}
         loading="lazy"
       />
@@ -88,11 +89,9 @@ export const MyPersonCard = ({
           <li className="myPersonCard">Пол: {sex}</li>
           <li className="myPersonCard">Рост: {growth} см.</li>
           <li className="myPersonCard">
-            {!death
-              ? `Жив(а)`
-              : `Дата смерти: ${new Date(death).toLocaleDateString()}` +
-                " " +
-                "г."}
+            {death
+              ? `Дата смерти: ${new Date(death).toLocaleDateString()} г.`
+              : "Дата смерти: -"}
           </li>
         </Box>
       </CardContent>

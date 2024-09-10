@@ -22,14 +22,14 @@ interface I_Toggler {
   title: string;
   name: keyof I_MOVIE_STATE | keyof I_PERSON_STATE | keyof I_REVIEW_STATE;
   reducer: keyof RootState;
-  action: ActionCreatorWithPayload<keyof I_PERSON_STATE>;
+  action: ActionCreatorWithPayload<keyof I_PERSON_STATE>;  
 }
 
 export const Toggler = ({
   title,
   name,
   reducer,
-  action,
+  action,  
   ...props
 }: I_Toggler) => {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ export const Toggler = ({
     >
       <FormLabel component="legend" sx={{ color: "inherit" }}>
         {title}
-      </FormLabel>
+      </FormLabel>      
       <FormControlLabel
         control={
           <Switch
@@ -57,10 +57,10 @@ export const Toggler = ({
             name={name}
             {...props}
             value={value}
-            checked={value === "Мужской" ? true : false}
+            // checked={value === labels[1] ? true : false}
           />
         }
-        label="Мужской"
+        label={value}
       />
       <FormHelperText sx={(theme) => ({ color: theme.palette.error.main })}>
         Обязательное поле{" "}

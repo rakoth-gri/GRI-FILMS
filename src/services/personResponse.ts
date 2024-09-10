@@ -18,7 +18,7 @@ export const personResponse = (
     sex: person?.sex || "Нет данных",
     growth: person?.growth || 0,
     birthday: person?.birthday || "Нет данных",
-    death: person?.death || "Нет данных",
+    death: person?.death || "",
     age: person?.age || 0,
     birthPlace: person?.birthPlace?.length
       ? person?.birthPlace[0]?.value

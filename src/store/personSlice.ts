@@ -24,7 +24,7 @@ const initialState = {
   sortType: -1,
   page: 1,
   query: "",
-  limit: 5,
+  limit: 10,
   id: 0,
   loading: false,
   error: "",
