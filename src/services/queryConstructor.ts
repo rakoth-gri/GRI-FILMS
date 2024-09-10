@@ -4,6 +4,8 @@ import {
   T_PERSON_SORTFIELD,
   T_PERSON_PROFESSIONS,
   T_PERSON_AWARDS_SORTFIELD,
+  T_REVIEW_SORTFIELD,
+  T_IMAGES_SORTFIELD,
 } from "./../types/types";
 export const queryConstructor = {
   //! MOVIE  -----------------------------------------------------
@@ -114,7 +116,7 @@ export const queryConstructor = {
     sortType = "-1",
   }: {
     sortType: string;
-    sortField: string;
+    sortField: T_IMAGES_SORTFIELD;
     movieId: string;
     page: string;
     limit: string;
@@ -135,7 +137,7 @@ export const queryConstructor = {
     limit = "10",
     sortType = "-1",
   }: {
-    sortField: string;
+    sortField: T_REVIEW_SORTFIELD;
     movieId: string;
     page: string;
     limit: string;
@@ -154,7 +156,7 @@ export const queryConstructor = {
     limit = "10",
     sortType = "-1",
   }: {
-    sortField: string;
+    sortField: T_REVIEW_SORTFIELD;
     authorId: string;
     page: string;
     limit: string;
