@@ -9,7 +9,7 @@ import { MyTitle } from "../MyTitle";
 import { I_PERSON_AWARDS } from "../../types/types";
 import "./PersonAwardCard.sass";
 
-const CardStyles = {
+const awardCardStyles = {
   width: '165px',
   padding: "0.35rem",
   height: '215px',
@@ -23,7 +23,7 @@ const CardStyles = {
   fontSize: '0.85em'
 };
 
-const myTitle = {
+const awardTitleStyles = {
   fontSize: '0.95em',
   m: '0.25em',
   color: 'inherit',
@@ -42,11 +42,11 @@ export const PersonAwardCard = ({
   nomination,
 }: I_PERSON_AWARDS) => {
   return (
-    <Card sx={CardStyles} id={id}>
+    <Card sx={awardCardStyles} id={id}>
       <MyTitle       
         variant={"subtitle1"}
         component="h5"
-        sx={myTitle}
+        sx={awardTitleStyles}
       >
         {nomination}
       </MyTitle>
@@ -54,7 +54,7 @@ export const PersonAwardCard = ({
       <MyTitle        
         variant={"subtitle2"}
         component="h6"
-        sx={myTitle}
+        sx={awardTitleStyles}
       > <EmojiEventsIcon sx={{mr: '0.25rem', color: colors.amber[900]}}/>
         {filmAward}
       </MyTitle>

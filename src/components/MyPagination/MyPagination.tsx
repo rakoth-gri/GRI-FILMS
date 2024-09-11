@@ -17,7 +17,7 @@ interface I_MyPagination extends HTMLAttributes<HTMLElement> {
   color?: "primary" | "secondary" | "standard";
 }
 
-const styledPagination = {
+const myPaginationStyles = {
   textAlign: "center",
   display: "flex",
   justifyContent: "center",
@@ -31,8 +31,7 @@ export const MyPagination = ({
 }: I_MyPagination) => {
   const dispatch = useAppDispatch();
 
-  const pages = useAppSelector((s) => s[reducer].pages);
-  const page = useAppSelector((s) => s[reducer].page);
+  const {pages, page} = useAppSelector((s) => s[reducer]);
 
   const changeHandler = (e: ChangeEvent<unknown>, page: number) => {
     dispatch(action({ name: "page", value: page }));
@@ -42,7 +41,7 @@ export const MyPagination = ({
     <Stack sx={{ m: "1.5rem" }}>
       <Pagination
         count={pages ? pages : 1}
-        sx={styledPagination}
+        sx={myPaginationStyles}
         size={props.size || 'large'}
         variant="outlined"
         color={color}

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, MouseEventHandler } from "react";
+import { useEffect, useState, MouseEventHandler } from "react";
 import { useParams } from "react-router-dom";
 // REDUX:
 import { personByIdThunk, personAwardsThunk } from "../../store/personThunks";
@@ -6,13 +6,16 @@ import { changePersonStateQueryParams } from "../../store/personSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { cleanUpSinglePersonInfo } from "../../store/personSlice";
 // components
-import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Button, Box, CardMedia, Divider } from "@mui/material";
+import { MyFlexContainer } from "../../components/MyFlexContainer";
+import { Back } from "../../components/Back";
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
 import { MySortType } from "../../components/MySortType";
+import { SingleMoviePropsList } from "../../components/SingleMoviePropsList";
 import { MyTitle } from "../../components/MyTitle";
-import { PersonFacts } from "../../components/PersonFacts";
+import { MyFacts } from "../../components/MyFacts";
 import { MySelect } from "../../components/MySelect";
-import { ContainerForLists } from "../../components/ContainerForLists";
 import { PersonAwardCard } from "../../components/PersonAwardCard";
 import { MyLoader } from "../../components/MyLoader";
 import { MyFilterWrapper } from "../../components/MyFilterWrapper";
@@ -22,15 +25,26 @@ import { MyPagination } from "../../components/MyPagination";
 import {
   END_POINTS,
   SORTTYPE_SELECT_LIST,
-  PERSON_AWARDS_SORTFIELD_SELECT_LIST,
   LIMIT_PARAM_SELECT_LIST,
 } from "../../consts/api";
 // types
 import { RootState } from "../../store/store";
-import { I_PERSON_AWARDS, I_PERSON_FULL } from "../../types/types";
+import { I_PERSON_AWARDS, I_PERSON_FULL, E_ROUTES } from "../../types/types";
 // hooks
 import { useFetching } from "../../hooks/useFetching";
+// utils
+import {
+  getBoxStyles,
+  birthDetailsFormat,
+  getBestMovies,
+} from "../../services/utils";
 
+const cardMediaStyles = {
+  width: "100%",
+  objectFit: "cover",
+  filter: "grayscale(50%)",
+  "&:hover": { filter: "none" },
+};
 
 export const SinglePersonPage = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
@@ -38,9 +52,10 @@ export const SinglePersonPage = () => {
   const dispatch = useAppDispatch();
 
   const { personId } = useParams();
-  
-  const { person, personAwards, page, loading, error } =
-    useAppSelector((s: RootState) => s.personSliceReducer);
+
+  const { person, personAwards, page, loading, error } = useAppSelector(
+    (s: RootState) => s.personSliceReducer
+  );
 
   useEffect(() => {
     personId &&
@@ -81,27 +96,143 @@ export const SinglePersonPage = () => {
       );
   };
 
-  if(!Object.keys(person).length) {
-    return <MyLoader loading={loading} />
-  }
+  if (!Object.keys(person).length) return <MyLoader loading={loading} />;
+
+  const {
+    id,
+    photo,
+    name,
+    enName,
+    sex,
+    growth,
+    birthday,
+    death,
+    age,
+    birthPlace,
+    deathPlace,
+    profession,
+    countAwards,
+    facts,
+    movies,
+  } = person as I_PERSON_FULL;
+
+  console.log(movies);
 
   return (
-    <Fragment>
-      <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
-      <MyTitle
-        align="center"
-        color="primary"
-        component="h1"
-        variant="h4"        
-      >
-        {" "}
-        {(person as I_PERSON_FULL).name}
-      </MyTitle>
+    <>
+      <MyFlexContainer direction="row" justify="space-between" spacing={2}>
+        <Back to={E_ROUTES.persons}> Назад </Back>
+        <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
+      </MyFlexContainer>
       <MyLoader loading={loading} />
+      <MyFlexContainer align="center" id={`${id}`} spacing={1}>
+        <Box sx={getBoxStyles({ width: "23%", height: "400px", pd: "0px" })}>
+          <CardMedia
+            component={"img"}
+            src={photo}
+            title={enName}
+            sx={cardMediaStyles}
+          />
+        </Box>
+        <Box
+          sx={getBoxStyles({
+            width: "49%",
+            display: "flex",
+            justify: "flex-start",
+            align: "start",
+          })}
+        >
+          <MyTitle align="left" color="inherit" component="h1" variant="h4">
+            {name}
+          </MyTitle>
+          <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
+            {" "}
+            О персоне:{" "}
+          </MyTitle>
+          <Box
+            sx={getBoxStyles({
+              display: "flex",
+              direction: "row",
+              justify: "flex-start",
+            })}
+          >
+            <Box
+              sx={{
+                ...getBoxStyles({
+                  display: "flex",
+                  width: "41%",
+                  fs: "0.85em",
+                  ta: "left",
+                }),
+                opacity: 0.84,
+              }}
+            >
+              <span className="title">Карьера</span>
+              <span className="title"> Рост </span>
+              <span className="title"> Дата рождения </span>
+              <span className="title"> Место рождения </span>
+              <span className="title"> Всего фильмов </span>
+              <span className="title"> Возраст </span>
+              <span className="title"> Пол </span>
+              <span className="title"> Количество наград и номинаций </span>
+              <span className="title"> Дата смерти </span>
+            </Box>
+            <Box
+              sx={getBoxStyles({
+                display: "flex",
+                width: "52%",
+                fs: "0.85em",
+                ta: "left",
+                fw: 500,
+              })}
+            >
+              <span className="desc">{profession}</span>
+              <span className="desc"> {growth} см. </span>
+              <span className="desc"> {birthDetailsFormat(birthday)} </span>
+              <span className="desc"> {birthPlace} </span>
+              <span className="desc"> {movies.length}</span>
+              <span className="desc"> {age} </span>
+              <span className="desc"> {sex} </span>
+              <span className="desc"> {countAwards} </span>
+              <span className="desc">
+                {" "}
+                {death &&
+                  new Date(death as string).toLocaleDateString()} г.,{" "}
+                {death && deathPlace}{" "}
+              </span>
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          sx={getBoxStyles({
+            fw: 400,
+            pd: "0.25rem",
+            display: "flex",
+            align: "center",
+            fs: "0.95em",
+            justify: "center",
+            width: "22%",
+          })}
+        >
+          <MyTitle variant="subtitle" component="h4" color="inherit">
+            Лучшие фильмы:
+          </MyTitle>
+          <>
+            {getBestMovies(movies).map((m, i) => (
+              <Link to={`${E_ROUTES.movies}/${m.id}`} key={m.id}>
+                <span className="actors"> {m.name} </span>
+              </Link>
+            ))}
+          </>
+        </Box>
+      </MyFlexContainer>
+      {/* Cледущие компоненты -------------------------- */}
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
-      > <MySelect
+      >
+        {" "}
+        <MySelect
           list={LIMIT_PARAM_SELECT_LIST}
           name={"limit"}
           action={changePersonStateQueryParams}
@@ -125,30 +256,29 @@ export const SinglePersonPage = () => {
           обновить награды{" "}
         </Button>
       </MyFilterWrapper>      
+      <Divider />
       {!!personAwards.length && !error ? (
-        <>
-          <ContainerForLists
-            type="awards"
-            list={personAwards}
-            cb={(personAwards: I_PERSON_AWARDS, i?: number) => (
-              <PersonAwardCard key={i} {...personAwards} />
-            )}
-          />
-        </>
+        <SingleMoviePropsList
+          list={personAwards}
+          title={"Награды"}
+          cb={(personAwards: I_PERSON_AWARDS, i?: number) => (
+            <PersonAwardCard key={i} {...personAwards} />
+          )}
+        />
       ) : (
         <MyError> {error}</MyError>
       )}
-      {Object.keys(person).length && !error ? (
-        <>
-          <PersonFacts facts={(person as I_PERSON_FULL).facts} />
-        </>
-      ) : (
-        <MyError> {error} </MyError>
-      )}
+      <Divider />
+      <Box sx={getBoxStyles({ mr: "0.5rem" })}>
+        <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
+          А Вы знали, что ...
+        </MyTitle>
+        <MyFacts facts={facts} />
+      </Box>
       <MyPagination
         action={changePersonStateQueryParams}
         reducer="personSliceReducer"
       />
-    </Fragment>
+    </>
   );
 };

@@ -5,7 +5,7 @@ import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { I_SIMILAR_MOVIES_PROP, E_ROUTES } from "../../types/types";
 import "./SimilarMoviesCard.sass";
 
-const CardSX = {
+const SimilarMoviesCardStyles = {
   width: '165px',  
   height: "200px",
   display: "flex",
@@ -17,7 +17,7 @@ const CardSX = {
   color: 'inherit',
 };
 
-const CardMediaSX = {
+const SimilarMoviesCardMediaStyles = {
   height: "70%",
   objectFit: "cover",
   filter: "grayscale(50%)",
@@ -33,13 +33,13 @@ export const SimilarMoviesCard = ({
 }: I_SIMILAR_MOVIES_PROP) => {  
   return (
     <Link to={`${E_ROUTES.movies}/${id}`}>
-      <Card sx={CardSX}>
+      <Card sx={SimilarMoviesCardStyles}>
         <CardMedia
           image={poster.url}
           title={enName}
           component={"img"}
           loading="lazy"
-          sx={CardMediaSX}
+          sx={SimilarMoviesCardMediaStyles}
         />
         <CardContent id='cardContent'>
           <Typography gutterBottom sx={{ font: 'inherit' }} component="h5">

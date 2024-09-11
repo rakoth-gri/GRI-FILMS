@@ -4,7 +4,7 @@ import { MyFlexContainer } from "../MyFlexContainer";
 // types:
 import { SxProps, Theme } from "@mui/material";
 
-const imageFlexContainer = {
+const modalFlexContainerStyles = {
     position: "fixed",
     top: "0%",
     left: "0%",
@@ -24,7 +24,7 @@ interface I_MyModalWrapper extends HTMLAttributes<HTMLElement> {
 export const MyModalWrapper = ({children, sx, ...props}: I_MyModalWrapper) => {
   return (
     <MyFlexContainer
-      sx={{...imageFlexContainer, ...sx}}
+      sx={{...modalFlexContainerStyles, ...sx}}
       direction="column"
       spacing={3}
       {...props}

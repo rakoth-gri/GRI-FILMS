@@ -10,7 +10,7 @@ interface I_LinkButton extends AnchorHTMLAttributes<HTMLAnchorElement> {
   id?: string;
   route: string;
   sx?: SxProps<Theme> | undefined;
-  variant: "contained" | "outlined" | "text" | string;
+  variant?: "contained" | "outlined" | "text" | string;
 }
 
 export const LinkButton = ({

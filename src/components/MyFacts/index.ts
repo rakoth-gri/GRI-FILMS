@@ -1,0 +1,1 @@
+export { MyFacts } from "./MyFacts"

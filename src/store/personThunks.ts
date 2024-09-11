@@ -38,7 +38,7 @@ const personThunk = createAsyncThunk<
       age,
       countAwards,
       profession,
-      moviesRating,
+      // moviesRating,
     } = getState().personSliceReducer;
     const res = await Server[method](
       url,
@@ -52,7 +52,7 @@ const personThunk = createAsyncThunk<
         age: age.join('-'),
         countAwards: countAwards.join('-'),
         profession,
-        moviesRating: getRatingParamValue(moviesRating),
+        // moviesRating: getRatingParamValue(moviesRating),
       },
       method,
       selectFields

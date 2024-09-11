@@ -38,7 +38,7 @@ const initialState = {
   age: [5, 100],
   countAwards: [1, 30],
   profession: "",
-  moviesRating: [70,90],
+  // moviesRating: [70,90],
 } satisfies I_PERSON_STATE as I_PERSON_STATE;
 
 const personSlice = createSlice({

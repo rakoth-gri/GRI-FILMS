@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 // REDUX:
 import { useAppSelector, useAppDispatch } from "../../store/store";
 // components:
@@ -37,7 +37,7 @@ export const Toggler = ({
   const value = useAppSelector((s) => s[reducer][name]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
     dispatch(action(name as keyof I_PERSON_STATE));
   };
 

@@ -21,7 +21,7 @@ export const personByIdResponse = (person: any) => {
       ? person?.deathPlace[0]?.value
       : "Нет данных",
     profession: person?.profession?.length
-      ? person?.profession[0]?.value
+      ? person?.profession?.map(({value}: {value: string}) => value)?.join(", ")
       : "Нет данных",
     countAwards: person?.countAwards || 0,
     facts: person?.facts?.length

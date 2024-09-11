@@ -7,12 +7,12 @@ import { MyModalWrapper } from "../MyModalWrapper";
 // types
 import { I_IMAGE } from "../../types/types";
 
-const imageBox = {
+const imagesModalBoxStyles = {
   width: "70%",
   height: "80%",  
 };
 
-const imageCardMedia = {
+const imagesModalCardMediaStyles = {
   width: "100%",
   height: "100%",
   objectFit: "contain",
@@ -38,12 +38,12 @@ export const MyImagesModal = ({
 
   return (
     <MyModalWrapper {...props} sx={{color: 'white', fontSize: '1.12em'}}>
-      <Box sx={imageBox}>
+      <Box sx={imagesModalBoxStyles}>
         <CardMedia
           src={images[count]?.url}
           alt={images[count]?.id}
           component="img"
-          sx={imageCardMedia}
+          sx={imagesModalCardMediaStyles}
         />
       </Box>
       <Stack

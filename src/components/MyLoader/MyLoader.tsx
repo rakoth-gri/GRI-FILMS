@@ -1,6 +1,6 @@
 import { LinearProgress, Box, styled } from "@mui/material";
 
-const ProgressBox = styled(Box)(() => ({
+const MyLoaderBox = styled(Box)(() => ({
   // margin: '0.5rem auto',
   padding: "0 1rem",
   height: "0.5rem",
@@ -26,8 +26,8 @@ export const MyLoader = ({
   ...props
 }: I_MyLoader) => {
   return (
-    <ProgressBox>
+    <MyLoaderBox>
       {loading && <LinearProgress {...props} color={color} />}
-    </ProgressBox>
+    </MyLoaderBox>
   );
 };

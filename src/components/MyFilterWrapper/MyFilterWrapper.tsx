@@ -2,7 +2,7 @@ import {HTMLAttributes, ReactNode} from "react";
 import { MyFlexContainer } from "../MyFlexContainer";
 import { Box } from "@mui/material";
 
-const filterWrapper = (isOpenFilter: boolean) => ({
+const filterWrapperStyles = (isOpenFilter: boolean) => ({
   willChange: "transform",
   position: "fixed",
   top: "0%",
@@ -18,7 +18,7 @@ const filterWrapper = (isOpenFilter: boolean) => ({
     : "translate3d(-100%, 0px, 0px)",
 });
 
-const filterBox = {
+const filterBoxStyles = {
   width: "100%",
   height: "100vh",
   overflowY: "auto",
@@ -38,12 +38,12 @@ interface I_MyFilterWrapper extends HTMLAttributes<HTMLDivElement> {
 export const MyFilterWrapper = ({children, isOpenFilter, ...props}: I_MyFilterWrapper) => {
   return (
     <MyFlexContainer
-      sx={filterWrapper(isOpenFilter)}
+      sx={filterWrapperStyles(isOpenFilter)}
       w="30%"
       component="aside"      
       {...props}
     >
-      <Box sx={filterBox}>
+      <Box sx={filterBoxStyles}>
         {children}
       </Box>
     </MyFlexContainer>

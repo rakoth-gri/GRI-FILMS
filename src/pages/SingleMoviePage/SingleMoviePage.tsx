@@ -19,11 +19,12 @@ import { MyTitle } from "../../components/MyTitle";
 import { MyLoader } from "../../components/MyLoader";
 import { MyTrailer } from "../../components/MyTrailer";
 import { MoviePersonsCard } from "../../components/MoviePersonsCard";
-import { ContainerForLists } from "../../components/ContainerForLists";
 import { SimilarMoviesCard } from "../../components/SimilarMoviesCard";
 import { LinkButton } from "../../components/LinkButton";
 import { SingleMoviePropsList } from "../../components/SingleMoviePropsList";
 import { MyLabel } from "../../components/MyLabel";
+import { Back } from "../../components/Back";
+import { MyFacts } from "../../components/MyFacts";
 // consts
 import { END_POINTS } from "../../consts/api";
 // types
@@ -32,7 +33,7 @@ import { I_MOVIE, I_SIMILAR_MOVIES_PROP, E_ROUTES } from "../../types/types";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
 import "./SingleMoviePage.sass";
 // utils:
-import { movieLengthFormat } from "../../services/utils";
+import { movieLengthFormat, getBoxStyles } from "../../services/utils";
 
 const MyTrailerTrigger = styled(Button)(({ theme }) => ({
   textTransform: "uppercase",
@@ -41,37 +42,6 @@ const MyTrailerTrigger = styled(Button)(({ theme }) => ({
   borderRadius: "12px",
   color: "white",
 }));
-
-const getBoxStyles = ({
-  width = "100%",
-  height = "auto",
-  display = "block",
-  justify = "center",
-  align = "start",
-  direction = "column",
-  pd = "0.5rem",
-  mr = "0.5rem",
-  wrap = "wrap",
-  fw = 400,
-  fs = "inherit",
-  ta = "left",
-}) => ({
-  width,
-  height,
-  display,
-  justifyContent: justify,
-  alignItems: align,
-  flexDirection: direction,
-  position: "relative",
-  padding: pd,
-  margin: mr,
-  background: "inherit",
-  color: "inherit",
-  flexWrap: wrap,
-  fontWeight: fw,
-  fontSize: fs,
-  textAlign: ta,
-});
 
 const cardMediaStyles = {
   width: "100%",
@@ -135,10 +105,12 @@ export const SingleMoviePage = () => {
     feesRussia,
     feesWorld,
     top250,
+    facts,
   } = movie as I_MOVIE;
 
   return (
     <>
+      <Back to={E_ROUTES.movies}> Назад </Back>
       <MyFlexContainer align="start" id={`${id}`} spacing={1}>
         <Box sx={getBoxStyles({ width: "24%", height: "400px" })}>
           <CardMedia
@@ -261,9 +233,9 @@ export const SingleMoviePage = () => {
             opacity: "0.84",
           }}
         >
-          <span className="title"> {ratingKp} </span>
-          <span className="title"> KP: {votesKp} оценок </span>
-          <span className="title"> IMDB: {votesImdb} оценок </span>
+          <span className="title rating"> {ratingKp} </span>
+          <span className="title votes"> KP: {votesKp} оценок </span>
+          <span className="title votes"> IMDB: {votesImdb} оценок </span>
           <Box
             sx={getBoxStyles({
               fw: 400,
@@ -317,6 +289,21 @@ export const SingleMoviePage = () => {
           {" "}
           См. Трейлер{" "}
         </Button>
+        <LinkButton
+          route={E_ROUTES.reviews}
+          id={movieId}
+          variant="outlined"
+          sx={{
+            letterSpacing: "0.8px",
+            fontFamily: "Montserrat",
+            textTransform: "none",
+            fontSize: "1.02em",
+            color: "purple",
+          }}
+        >
+          {" "}
+          Отзывы {" "}
+        </LinkButton>
       </MyFlexContainer>
       <Box sx={getBoxStyles({ mr: "0.5rem" })}>
         <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
@@ -356,6 +343,13 @@ export const SingleMoviePage = () => {
         title={"Актеры и Создатели:"}
         cb={(item: any, i?: number) => <MoviePersonsCard key={i} {...item} />}
       />
+      <Divider />
+      <Box sx={getBoxStyles({ mr: "0.5rem" })}>
+        <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
+          Факты и подробности производства:
+        </MyTitle>
+        <MyFacts facts={facts} />
+      </Box>
       {isTrailerModal && (
         <MyTrailer
           url={videos?.url}

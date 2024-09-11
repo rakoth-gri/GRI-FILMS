@@ -50,7 +50,7 @@ export const MyMovieCard = ({
   return (
     <MyCard component={"article"}>
       <MyLabel
-        style={{
+        sx={{
           top: "2%",
           left: "2%",
           background: "green",
@@ -62,14 +62,14 @@ export const MyMovieCard = ({
         {ageRating}+{" "}
       </MyLabel>
       <MyLabel
-        style={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)" }}
+        sx={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)" }}
       >
         {" "}
         {movieLength} мин.
       </MyLabel>
       <MyLabel
-        style={{
-          top: "8%",
+        sx={{
+          top: "10%",
           left: "2%",
           backgroundColor: "rgba(0,0,0, .12)",
         }}

@@ -118,6 +118,7 @@ export const movieResponse = (
         movie.fees?.russia?.currency
       : "Нет данных",
     top250: movie?.top250 || 0,
+    facts: movie?.facts?.length ? movie?.facts?.map((f: {value: string}) => f.value) : []
   }));
 
   return {

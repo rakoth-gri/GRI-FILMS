@@ -52,7 +52,7 @@ export const queryConstructor = {
     age = "35-50",
     countAwards = "10-40",
     profession,
-    moviesRating = "5-10",
+    // moviesRating = "5-10",
   }: {
     page: string;
     limit: string;
@@ -63,7 +63,7 @@ export const queryConstructor = {
     age: string;
     countAwards: string;
     profession: T_PERSON_PROFESSIONS;
-    moviesRating: string;
+    // moviesRating: string;
   }) => ({
     page,
     limit,
@@ -74,7 +74,7 @@ export const queryConstructor = {
     age,
     countAwards,
     ["profession.value"]: profession || "Актер",
-    ["movies.rating"]: moviesRating,
+    // ["movies.rating"]: moviesRating,
   }),
   personById: ({ id }: { id: string }) => ({
     id,
@@ -131,7 +131,7 @@ export const queryConstructor = {
   }),
   //! REVIEW -----  -----------------------------------------------------
   reviewByMovieId: ({
-    sortField = "authorId",
+    sortField,
     movieId,
     page = "1",
     limit = "10",
@@ -146,7 +146,7 @@ export const queryConstructor = {
     movieId,
     page,
     limit,
-    sortField,
+    sortField: sortField || 'updatedAt',
     sortType,
   }),
   reviewByAuthorId: ({

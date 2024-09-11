@@ -1,31 +1,39 @@
-import { Fragment, useState } from "react";
-import { colors } from "@mui/material";
+import { Fragment} from "react";
+import { colors, SxProps } from "@mui/material";
+// components:
 import {
   Accordion,
-  AccordionSlots,
   AccordionSummary,
   AccordionDetails,
-  Typography,
-  Fade,
   Box,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { MyTitle } from "../MyTitle";
-import { Render } from "../Render";
 
-const BoxSX = {
+
+const REGEX = /(<([^>]+)>)/gi;
+
+const factsBoxstyles = {
   height: "auto",
   letterSpacing: "0.75px",
+  color: 'inherit',
+  backgroundColor: 'inherit'
 };
 
-export function PersonFacts({ facts }: { facts: string[] }) {  
+const factsAccordionStyles = {
+  letterSpacing: "0.7px",
+  lineHeight: "1.45em",
+  fontWeight: 500,
+  textAlign: "justify",
+};
 
+interface I_MyFacts {
+  facts: string[];
+  sx?: SxProps;
+}
+
+export function MyFacts({ facts, sx }: I_MyFacts) {
   return (
-    <Box sx={BoxSX}>
-      <MyTitle variant="h4" color="inherit">
-        {" "}
-        Факты{" "}
-      </MyTitle>
+    <Box sx={{ ...factsBoxstyles, ...sx }}>      
       {facts.map((fact, i) => (
         <Fragment key={i}>
           <Accordion>
@@ -42,7 +50,9 @@ export function PersonFacts({ facts }: { facts: string[] }) {
             >
               Факт {i + 1}:
             </AccordionSummary>
-            <AccordionDetails>{fact}</AccordionDetails>
+            <AccordionDetails sx={factsAccordionStyles}>
+              {fact.replace(REGEX, '')}
+            </AccordionDetails>
           </Accordion>
         </Fragment>
       ))}

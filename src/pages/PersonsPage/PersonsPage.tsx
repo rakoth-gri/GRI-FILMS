@@ -145,7 +145,7 @@ export const PersonsPage = () => {
           min={0}
           max={60}
         />
-        <MyRange
+        {/* <MyRange
           label={"Рейтинг фильмов"}
           name={"moviesRating"}
           action={changePersonStateQueryParams}
@@ -153,7 +153,7 @@ export const PersonsPage = () => {
           onClick={(e) => e.stopPropagation()}
           min={0}
           max={100}
-        />
+        /> */}
         <Toggler
           action={changePersonSex}
           reducer={"personSliceReducer"}

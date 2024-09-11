@@ -1,7 +1,7 @@
 import { AllHTMLAttributes, ReactNode } from "react";
 import { Typography } from "@mui/material";
 
-const typography = { m: "0.5rem", fontFamily: 'Montserrat'}
+const titleTypographyStyles = { m: "0.5rem", fontFamily: 'Montserrat'}
 
 interface I_Title extends AllHTMLAttributes<HTMLTitleElement> { 
   component?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -51,7 +51,7 @@ export const MyTitle = ({
       component={component}
       align={align}
       color={color}
-      sx={{...typography, ...sx}}
+      sx={{...titleTypographyStyles, ...sx}}
     >
       {children}
     </Typography>

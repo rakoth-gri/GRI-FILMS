@@ -101,6 +101,7 @@ export interface I_MOVIE {
   feesWorld: string;
   feesRussia: string;
   top250: number;
+  facts: string[]
 }
 
 export type T_MOVIE_SEARCH = Omit<
@@ -330,7 +331,7 @@ export interface I_PERSON_STATE {
   age: number[];
   countAwards: number[];
   profession: T_PERSON_PROFESSIONS;
-  moviesRating: number[];
+  // moviesRating: number[];
   persons: I_PERSON_SEARCH[];
   selectFields: string[];
 }
@@ -359,6 +360,8 @@ export enum E_ROUTES {
   movie = "/movies/:movieId",
   persons = "/persons",
   person = "/persons/:personId",
+  reviews = "/reviews",
+  review = "/reviews/:movieId",
   images = "/movies/images",
   image = "/movies/images/:movieId",
   top250 = "/movies/top250",

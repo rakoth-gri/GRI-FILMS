@@ -268,10 +268,6 @@ const PERSON_SORTFIELD_SELECT_LIST: T_SORTFIELD_SELECT<T_PERSON_SORTFIELD>[] = [
     text: "По именам фильмов:",
   },
   {
-    value: "movies.rating",
-    text: "По рейтингу фильмов:",
-  },
-  {
     value: "movies.description",
     text: "По описанию фильмов",
   },
@@ -828,8 +824,6 @@ const PERSON_SELECTFIELDS_LIST = [
   // "movies",
 ];
 
-
-
 const REVIEW_SELECTFIELDS_LIST = [
   "id",
   "movieId",
@@ -859,6 +853,58 @@ const PERSON_AWARDS_SELECTFIELDS_LIST = [
   "updatedAt",
   "movies",
   "updatedAt",
+];
+
+const MOVIE_SELECTFIELDS_FILTER = [
+  {
+    value: "slogan",
+    text: "Слоган",
+  },
+  {
+    value: "releaseYears",
+    text: "Год релиза",
+  },
+  {
+    value: "votes",
+    text: "Количество голосов",
+  },
+  {
+    value: "budget",
+    text: "Бюджет",
+  },
+  {
+    value: "videos",
+    text: "Трейлеры",
+  },
+  {
+    value: "persons",
+    text: "Команда",
+  },
+
+  {
+    value: "facts",
+    text: "Факты",
+  },
+  {
+    value: "fees",
+    text: "Сборы",
+  },
+  {
+    value: "premiere",
+    text: "Дата премьеры",
+  },
+  {
+    value: "similarMovies",
+    text: "Схожие картины",
+  },
+  {
+    value: "sequelsAndPrequels",
+    text: "Сиквелы и приквелы",
+  },
+  {
+    value: "top250",
+    text: "ТОП 250",
+  },
 ];
 
 // ! NOT_NULL_FIELDS QUERY PARAMETR LISTS: ------------------------
@@ -905,9 +951,9 @@ const PERSON_NOT_NULL_FIELDS_LIST = [
   "birthday",
   // "death",
   "age",
-  'birthday',
+  "birthday",
   // 'deathPlace',
-  'profession.value',
+  "profession.value",
   // 'countAwards',
   // 'facts',
   // 'movies'
@@ -957,4 +1003,5 @@ export {
   PERSON_SORTFIELD_SELECT_LIST,
   PERSON_PROFESSION_SELECT_LIST,
   PERSON_SEX_SELECT_LIST,
+  MOVIE_SELECTFIELDS_FILTER,
 };

@@ -1,1 +1,0 @@
-export {PersonFacts} from "./PersonFacts"

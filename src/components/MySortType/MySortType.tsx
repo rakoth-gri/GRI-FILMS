@@ -13,7 +13,7 @@ import { T_ACTION_QUERY_PAYLOAD, T_SORTFIELD_SELECT } from "../../types/types";
 import { RootState } from "../../store/store";
 import { ChangeEventHandler, HTMLAttributes } from "react";
 
-const mySortTypeSX = {
+const mySortTypeStyles = {
   p: "0.5rem",
   flexDirection: "row",
   gap: "1rem",
@@ -46,7 +46,7 @@ export const MySortType = ({
   };
 
   return (
-    <FormControl sx={mySortTypeSX} component="section" {...props}>
+    <FormControl sx={mySortTypeStyles} component="section" {...props}>
       <FormLabel
         id="demo-radio-buttons-group-label"
         style={{ fontWeight: 500 }}

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useGetMovieIdImagesQuery } from "../../store/rtk_query";
 // components
 import { MyLoader } from "../../components/MyLoader";
+import { Back } from "../../components/Back";
 import { MyImagesModal } from "../../components/MyImagesModal";
 import { SimplePagination } from "../../components/SimplePagination";
 import { Render } from "../../components/Render";
@@ -12,6 +13,7 @@ import { MyMasonry } from "../../components/MyMasonry";
 // consts
 import { END_POINTS, IMAGE_SELECTFIELDS_LIST } from "../../consts/api";
 // types:
+import { E_ROUTES } from "../../types/types";
 // utils:
 import { observerCB, options } from "../../services/utils";
 
@@ -71,6 +73,7 @@ export const MovieImagesPage: FC = () => {
 
   return (
     <>
+      <Back to={`${E_ROUTES.movies}/${movieId}`}> Назад </Back>
       {state.isModalShown && images && (
         <MyImagesModal
           startIndex={state.startIndex}

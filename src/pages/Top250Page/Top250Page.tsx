@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, MouseEvent, useRef } from "react";
+import { Fragment, useState, useEffect, MouseEvent, useMemo } from "react";
 // RTK-QUERY
 import { useGetTop250MoviesQuery } from "../../store/rtk_query";
 // components
@@ -16,11 +16,7 @@ import { I_API_OBJECT, I_MOVIE } from "../../types/types";
 import { observerCB, options } from "../../services/utils";
 
 export const Top250Page = () => {
-  const [state, setState] = useState({
-    page: 1,
-    total: 0,
-    pages: 0,
-  });
+  const [state, setState] = useState({ page: 1, pages: 0 });
 
   const {
     data: movies,
@@ -33,21 +29,21 @@ export const Top250Page = () => {
     page: state.page,
   });
 
-  const ref = useRef<IntersectionObserver | null>(null);
-  ref.current = new IntersectionObserver(observerCB, options);
+  const Observer = useMemo(
+    () => new IntersectionObserver(observerCB, options),
+    []
+  );
 
   useEffect(() => {
     if (movies) {
-      setState((p) => ({ ...p, pages: movies.pages, total: movies.total }));
+      setState((p) => ({ ...p, pages: movies.pages }));
     }
   }, [movies]);
 
   useEffect(() => {
     let cardImages = document.querySelectorAll(".cardImage");
     if (cardImages.length)
-      cardImages.forEach((cardImage) =>
-        (ref.current as IntersectionObserver).observe(cardImage)
-      );
+      cardImages.forEach((cardImage) => Observer.observe(cardImage));
   }, [movies]);
 
   const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {

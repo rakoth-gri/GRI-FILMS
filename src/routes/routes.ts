@@ -6,6 +6,7 @@ import { SinglePersonPage } from "../pages/SinglePersonPage";
 import { SingleMoviePage } from "../pages/SingleMoviePage";
 import { MovieImagesPage } from "../pages/MovieImagesPage";
 import { HomePage } from "../pages/HomePage";
+import { ReviewsPage } from "../pages/ReviewsPage";
 import { Top250Page } from "../pages/Top250Page";
 // types
 import { T_ROUTES, E_ROUTES } from "../types/types";
@@ -38,6 +39,10 @@ export const ROUTES: T_ROUTES[] = [
   {
     path: E_ROUTES.top250,
     Element: Top250Page,
+  },
+  {
+    path: E_ROUTES.review,
+    Element: ReviewsPage,
   },
   {
     path: E_ROUTES.notFound,

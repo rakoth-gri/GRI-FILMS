@@ -17,7 +17,7 @@ import { E_ROUTES } from "../../types/types";
 // css
 import "./Header.sass";
 
-const toolBarSx = {
+const toolBarStyles = {
   flexDirection: "row",
   width: "100%",
   justifyContent: "space-between",
@@ -54,7 +54,7 @@ export function Header() {
 
   return (
     <AppBar position="static">
-      <Toolbar sx={toolBarSx}>
+      <Toolbar sx={toolBarStyles}>
         <Tooltip title="На главную">
           <Link to={E_ROUTES.home}>
             <IconButton

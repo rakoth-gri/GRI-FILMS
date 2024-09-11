@@ -9,7 +9,7 @@ import { T_ACTION_QUERY_PAYLOAD } from "../../types/types";
 // utils:
 import { debounce } from "../../services/utils";
 
-const MyBox = styled(Box)(() => ({
+const MySearchBox = styled(Box)(() => ({
   padding: "0.5rem",
   borderRadius: 1,
   margin: "0.5rem",
@@ -50,7 +50,7 @@ export const MySearch = ({
   }, [])
 
   return (
-    <MyBox component="section">
+    <MySearchBox component="section">
       <TextField
         name="query"
         id="query"
@@ -63,6 +63,6 @@ export const MySearch = ({
         value={query}
         onChange={changeHandler}
       />
-    </MyBox>
+    </MySearchBox>
   );
 };

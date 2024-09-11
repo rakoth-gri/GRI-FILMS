@@ -35,7 +35,7 @@ const MyCardMedia = styled(CardMedia)(() => ({
   "&:hover": { filter: "none" },
 }));
 
-const ul = {
+const personCardBoxStyles = {
   textAlign: "justify",
   letterSpacing: "0.8px",
   fontWeight: 400,
@@ -80,7 +80,7 @@ export const MyPersonCard = ({
           {name}
         </MyTitle>
         {/* <Divider/> */}
-        <Box component="ul" sx={ul}>
+        <Box component="ul" sx={personCardBoxStyles}>
           <li className="myPersonCard">
             {" "}
             Дата рождения:{" "}
