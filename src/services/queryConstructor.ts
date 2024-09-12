@@ -48,9 +48,9 @@ export const queryConstructor = {
     sortField,
     sortType = "-1",
     sex = "Мужской",
-    growth = "168-180",
+    // growth = "168-180",
     age = "35-50",
-    countAwards = "10-40",
+    // countAwards = "10-40",
     profession,
     // moviesRating = "5-10",
   }: {
@@ -59,20 +59,20 @@ export const queryConstructor = {
     sortField: T_PERSON_SORTFIELD;
     sortType: string;
     sex: "Мужской" | "Женский";
-    growth: string;
+    growth?: string;
     age: string;
-    countAwards: string;
+    countAwards?: string;
     profession: T_PERSON_PROFESSIONS;
-    // moviesRating: string;
+    moviesRating?: string;
   }) => ({
     page,
     limit,
     sortField: sortField || "name",
     sortType,
     sex,
-    growth,
+    // growth,
     age,
-    countAwards,
+    // countAwards,
     ["profession.value"]: profession || "Актер",
     // ["movies.rating"]: moviesRating,
   }),

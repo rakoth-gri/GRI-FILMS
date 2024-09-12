@@ -9,7 +9,10 @@ import { useParams } from "react-router-dom";
 // components
 import { Divider } from "@mui/material";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
+import { Render } from "../../components/Render";
+import { MyReviewCard } from "../../components/MyReviewCard";
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
+import { MyLoader } from "../../components/MyLoader";
 import { MyPagination } from "../../components/MyPagination";
 import { Back } from "../../components/Back";
 import { MyTitle } from "../../components/MyTitle";
@@ -31,7 +34,7 @@ export const ReviewsPage = () => {
   const dispatch = useAppDispatch();
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
-  const { sortField, limit, sortType, page } = useAppSelector(
+  const { sortField, limit, sortType, page, error, loading, reviews } = useAppSelector(
     (s: RootState) => s.reviewSliceReducer
   );
   const { movieId } = useParams();
@@ -65,7 +68,7 @@ export const ReviewsPage = () => {
         <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       </MyFlexContainer>
       <MyTitle variant="h4">Отзывы к Фильму c ID: {movieId}</MyTitle>
-      {/* Cледущие компоненты -------------------------- */}
+      <MyLoader loading={loading} />
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
@@ -101,6 +104,14 @@ export const ReviewsPage = () => {
           обновить отзывы{" "}
         </Button>
       </MyFilterWrapper>
+      <MyFlexContainer spacing={4} sx={{ minHeight: "45vh" }}>
+        <Render
+          list={reviews}
+          loading={loading}
+          error={error}
+          cb={(item: any) => <MyReviewCard key={item.id} {...item} />}
+        />
+      </MyFlexContainer>
       <Divider />
       <MyPagination
         action={changeReviewStateQueryParams}

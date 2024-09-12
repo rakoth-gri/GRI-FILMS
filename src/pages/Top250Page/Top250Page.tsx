@@ -58,11 +58,10 @@ export const Top250Page = () => {
   return (
     <Fragment>
       <MyTitle
-        align="center"
-        color="primary"
+        align="center"        
         component="h1"
         variant="h4"
-        sx={{ textTransform: "capitalize" }}
+        sx={{ textTransform: "capitalize", color: 'var(--app-default-color)' }}
       >
         {" "}
         Топ 250 по версии Кинопоиска:{" "}

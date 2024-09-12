@@ -74,7 +74,7 @@ export const PersonsPage = () => {
 
   return (
     <Fragment>
-      <MyTitle align="center" color="primary" component="h1" variant="h4">
+      <MyTitle align="center" sx={{color: 'var(--app-default-color)'}} component="h1" variant="h4">
         {" "}
         Поиск по людям:{" "}
       </MyTitle>
@@ -118,7 +118,7 @@ export const PersonsPage = () => {
           action={changePersonStateQueryParams}
           onClick={(e) => e.stopPropagation()}
         />
-        <MyRange
+        {/* <MyRange
           label={"Рост Персонажа"}
           name={"growth"}
           action={changePersonStateQueryParams}
@@ -126,7 +126,7 @@ export const PersonsPage = () => {
           onClick={(e) => e.stopPropagation()}
           min={140}
           max={235}
-        />
+        /> */}
         <MyRange
           label={"Возраст Персонажа"}
           name={"age"}
@@ -136,7 +136,7 @@ export const PersonsPage = () => {
           min={5}
           max={100}
         />
-        <MyRange
+        {/* <MyRange
           label={"Количество наград"}
           name={"countAwards"}
           action={changePersonStateQueryParams}
@@ -144,7 +144,7 @@ export const PersonsPage = () => {
           onClick={(e) => e.stopPropagation()}
           min={0}
           max={60}
-        />
+        /> */}
         {/* <MyRange
           label={"Рейтинг фильмов"}
           name={"moviesRating"}

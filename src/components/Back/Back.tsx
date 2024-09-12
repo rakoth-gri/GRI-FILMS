@@ -7,7 +7,7 @@ interface I_Back extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   sx?: SxProps;
   variant?: "contained" | "outlined" | "text" | string;
-  to: E_ROUTES | string;
+  to?: E_ROUTES | string;
 }
 
 const BackButtonStyles = {

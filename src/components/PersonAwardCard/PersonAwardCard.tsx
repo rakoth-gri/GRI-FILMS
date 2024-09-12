@@ -25,8 +25,7 @@ const awardCardStyles = {
 
 const awardTitleStyles = {
   fontSize: '0.95em',
-  m: '0.25em',
-  color: 'inherit',
+  m: '0.25em', 
   display: 'flex',
   alignItems: 'center',
   width: '100%',

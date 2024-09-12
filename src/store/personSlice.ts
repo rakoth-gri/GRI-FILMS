@@ -20,7 +20,7 @@ import { PERSON_SELECTFIELDS_LIST } from "../consts/api";
 
 const initialState = {
   selectFields: PERSON_SELECTFIELDS_LIST,
-  sortField: "",
+  sortField: "countAwards",
   sortType: -1,
   page: 1,
   query: "",
@@ -34,9 +34,9 @@ const initialState = {
   person: {},
   persons: [],
   sex: "Мужской",
-  growth: [168, 180],
+  // growth: [168, 180],
   age: [5, 100],
-  countAwards: [1, 30],
+  // countAwards: [1, 30],
   profession: "",
   // moviesRating: [70,90],
 } satisfies I_PERSON_STATE as I_PERSON_STATE;
@@ -60,7 +60,7 @@ const personSlice = createSlice({
     cleanUpSinglePersonInfo(state) {
       state.personAwards = [];
       state.person = {};
-      state.sortField = "name";
+      state.sortField = "countAwards";
       state.sortType = -1;
       state.limit = 5;
     },

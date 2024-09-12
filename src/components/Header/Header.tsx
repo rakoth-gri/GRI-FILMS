@@ -1,3 +1,5 @@
+// REDUX:
+import { changeThemeParam } from "../../store/themeSlice";
 import {
   AppBar,
   Box,
@@ -10,12 +12,14 @@ import {
 import { NavLink, Link, useLocation } from "react-router-dom";
 import TheatersIcon from "@mui/icons-material/Theaters";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Toggler } from "../Toggler";
 // consts
 import { MAIN_MENU_LIST } from "../../consts/api";
 import { MyFlexContainer } from "../MyFlexContainer";
 import { E_ROUTES } from "../../types/types";
 // css
 import "./Header.sass";
+
 
 const toolBarStyles = {
   flexDirection: "row",
@@ -71,6 +75,7 @@ export function Header() {
             </IconButton>
           </Link>
         </Tooltip>
+        <Toggler action={changeThemeParam} reducer={'themeSliceReducer'} name={'theme'} title='Выберите тему'/>
         <MyNavContainer
           component="nav"
           w="auto"

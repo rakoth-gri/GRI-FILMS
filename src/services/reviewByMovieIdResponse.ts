@@ -14,7 +14,7 @@ export const reviewByMovieIdResponse = (
     author: review?.author ?? "Нет данных",
     title: review?.title ?? "Нет данных",
     type: review?.type ?? "Нет данных",
-    date: review?.date ?? "Нет данных",
+    date: review?.date ?? "",
     review: review?.review ?? "Нет данных",
   }));
 

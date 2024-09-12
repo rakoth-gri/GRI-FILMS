@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // createAsyncThunks
 import { movieByIdThunk } from "../../store/movieThunks";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -31,7 +31,6 @@ import { END_POINTS } from "../../consts/api";
 import { RootState } from "../../store/store";
 import { I_MOVIE, I_SIMILAR_MOVIES_PROP, E_ROUTES } from "../../types/types";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
-import "./SingleMoviePage.sass";
 // utils:
 import { movieLengthFormat, getBoxStyles } from "../../services/utils";
 
@@ -53,6 +52,8 @@ const cardMediaStyles = {
 export const SingleMoviePage = () => {
   const dispatch = useAppDispatch();
   const [isTrailerModal, setIsTrailerModal] = useState(false);
+
+  const location = useNavigate();
 
   const { movie, loading } = useAppSelector(
     (s: RootState) => s.movieSliceReducer
@@ -110,8 +111,8 @@ export const SingleMoviePage = () => {
 
   return (
     <>
-      <Back to={E_ROUTES.movies}> Назад </Back>
-      <MyFlexContainer align="start" id={`${id}`} spacing={1}>
+      <Back onClick={() => location(-1)}> Назад </Back>
+      <MyFlexContainer align="start" id={`${id}`} spacing={1} sx={{m: '1rem'}}>
         <Box sx={getBoxStyles({ width: "24%", height: "400px" })}>
           <CardMedia
             component={"img"}
@@ -119,7 +120,10 @@ export const SingleMoviePage = () => {
             title={enName}
             sx={cardMediaStyles}
           />
-          <MyLabel sx={{ top: "3%", left: "4%" }}> ТОП {top250} </MyLabel>
+          <MyLabel sx={{ top: "3%", left: "4%" }}>
+            {" "}
+            {!!top250 && `ТОП ${top250}`}{" "}
+          </MyLabel>
         </Box>
         <Box
           sx={getBoxStyles({
@@ -194,8 +198,8 @@ export const SingleMoviePage = () => {
               })}
             >
               <span className="desc">{year}</span>
-              <span className="desc"> {countries.join(", ")}</span>
-              <span className="desc"> {genres.join(", ")}</span>
+              {/* <span className="desc"> {countries.join(", ")}</span>
+              <span className="desc"> {genres.join(", ")}</span> */}
               <span className="desc">
                 {" "}
                 <q>{slogan}</q>{" "}
@@ -224,11 +228,11 @@ export const SingleMoviePage = () => {
           sx={{
             ...getBoxStyles({
               width: "24%",
-              fs: "0.9em",
+              fs: "0.95em",
               fw: 700,
               pd: "0.5rem",
               display: "flex",
-              align: "center",
+              align: "start",
             }),
             opacity: "0.84",
           }}
@@ -239,13 +243,13 @@ export const SingleMoviePage = () => {
           <Box
             sx={getBoxStyles({
               fw: 400,
-              pd: "0.25rem",
+              pd: "0rem",
               display: "flex",
               align: "center",
               fs: "0.95em",
             })}
           >
-            <MyTitle variant="subtitle" component="h4" color="inherit">
+            <MyTitle variant="subtitle" component="h4" color="inherit" sx={{m: '0px'}}>
               В главных ролях:
             </MyTitle>
             <>
@@ -258,53 +262,7 @@ export const SingleMoviePage = () => {
           </Box>
         </Box>
       </MyFlexContainer>
-      <Divider />
-      <MyFlexContainer justify="flex-start">
-        <LinkButton
-          route={E_ROUTES.images}
-          id={movieId}
-          variant="outlined"
-          sx={{
-            letterSpacing: "0.8px",
-            fontFamily: "Montserrat",
-            textTransform: "none",
-            fontSize: "1.02em",
-            color: "purple",
-          }}
-        >
-          {" "}
-          Изображения{" "}
-        </LinkButton>
-        <Button
-          variant="outlined"
-          sx={{
-            letterSpacing: "0.8px",
-            fontFamily: "Montserrat",
-            textTransform: "none",
-            fontSize: "1.02em",
-            color: "purple",
-          }}
-          onClick={() => setIsTrailerModal(true)}
-        >
-          {" "}
-          См. Трейлер{" "}
-        </Button>
-        <LinkButton
-          route={E_ROUTES.reviews}
-          id={movieId}
-          variant="outlined"
-          sx={{
-            letterSpacing: "0.8px",
-            fontFamily: "Montserrat",
-            textTransform: "none",
-            fontSize: "1.02em",
-            color: "purple",
-          }}
-        >
-          {" "}
-          Отзывы {" "}
-        </LinkButton>
-      </MyFlexContainer>
+
       <Box sx={getBoxStyles({ mr: "0.5rem" })}>
         <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
           Сюжет:
@@ -348,13 +306,56 @@ export const SingleMoviePage = () => {
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
           Факты и подробности производства:
         </MyTitle>
-        <MyFacts facts={facts} />
+        {/* <MyFacts facts={facts} /> */}
       </Box>
+      <MyFlexContainer justify="flex-start">
+        <LinkButton
+          route={E_ROUTES.images}
+          id={movieId}
+          variant="outlined"
+          sx={{
+            letterSpacing: "0.8px",
+            fontFamily: "Montserrat",
+            textTransform: "none",
+            fontSize: "1.02em",            
+          }}
+        >
+          {" "}
+          Изображения{" "}
+        </LinkButton>
+        <Button
+          variant="outlined"
+          sx={{
+            letterSpacing: "0.8px",
+            fontFamily: "Montserrat",
+            textTransform: "none",
+            fontSize: "1.02em",            
+          }}
+          onClick={() => setIsTrailerModal(true)}
+        >
+          {" "}
+          См. Трейлер{" "}
+        </Button>
+        <LinkButton
+          route={E_ROUTES.reviews}
+          id={movieId}
+          variant="outlined"
+          sx={{
+            letterSpacing: "0.8px",
+            fontFamily: "Montserrat",
+            textTransform: "none",
+            fontSize: "1.02em",            
+          }}
+        >
+          {" "}
+          Отзывы{" "}
+        </LinkButton>
+      </MyFlexContainer>
       {isTrailerModal && (
         <MyTrailer
           url={videos?.url}
           name={videos?.name}
-          sx={{ background: "rgba(0,0,0, .85)" }}
+          sx={{ background: "rgba(0,0,0, .85)", m: "0px" }}
           onClick={() => setIsTrailerModal((p) => !p)}
         />
       )}

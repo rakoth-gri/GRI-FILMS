@@ -1,24 +1,14 @@
 import { Routes, Route } from "react-router-dom";
+// REDUX
+import { changeThemeParam } from "./store/themeSlice";
+// components
 import { Template } from "./components/Template";
 import { ThemeProvider } from "@mui/material";
 import { myTheme } from "./theme/theme";
 // consts
 import { ROUTES } from "./routes/routes";
-const authorId = 102193502;
 
-function App() {
-  // ! review -------------
-
-  // useEffect(() => {
-  //   dispatch(
-  //     reviewByAuthorIdThunk({
-  //       url: END_POINTS.review,
-  //       authorId,
-  //       method: "reviewByAuthorId",
-  //     })
-  //   );
-  // }, [sortField, limit, sortType, page]);
-
+function App() {  
   return (
     <ThemeProvider theme={myTheme}>
       <Template>
@@ -31,5 +21,6 @@ function App() {
     </ThemeProvider>
   );
 }
+
 
 export default App;

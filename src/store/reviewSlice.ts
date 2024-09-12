@@ -18,8 +18,7 @@ const initialState = {
   error: "",
   total: 0,
   pages: 0,
-  reviewsByMovieId: [],
-  reviewsByAuthorId: [],
+  reviews: [],  
 } satisfies I_REVIEW_STATE as I_REVIEW_STATE;
 
 const reviewSlice = createSlice({
@@ -30,8 +29,13 @@ const reviewSlice = createSlice({
       state,
       { payload: { name, value } }: PayloadAction<T_ACTION_QUERY_PAYLOAD>
     ) {
+      // @ts-ignore
       state[name as keyof I_REVIEW_STATE] = value;
     },
+    cleanUpReviewInfo : (state) => {
+      state.reviews = []
+      state.page = 1
+    }
   },
   extraReducers: (builder) => {
     // ! reviewByMovieIdThunk ---------------------------------------------
@@ -44,7 +48,7 @@ const reviewSlice = createSlice({
         (state, { payload }: PayloadAction<I_API_OBJECT<I_REVIEW[]>>) => {
           state.pages = payload.pages;
           state.total = payload.total;
-          state.reviewsByMovieId = payload.data;
+          state.reviews = payload.data;
           state.error = "";
           state.loading = false;
         }
@@ -65,7 +69,7 @@ const reviewSlice = createSlice({
         (state, { payload }: PayloadAction<I_API_OBJECT<I_REVIEW[]>>) => {
           state.pages = payload.pages;
           state.total = payload.total;
-          state.reviewsByAuthorId = payload.data;
+          state.reviews = payload.data;
           state.error = "";
           state.loading = false;
         }

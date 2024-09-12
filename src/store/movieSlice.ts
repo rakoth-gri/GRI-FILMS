@@ -14,11 +14,10 @@ import {
   I_MOVIE,
   T_MOVIE_SEARCH,
   I_IMAGE,
-  T_QUERY_KEYS,
 } from "../types/types";
 
 const initialState = {
-  sortField: "",  
+  sortField: "",
   sortType: -1,
   query: "",
   page: 1,
@@ -67,22 +66,24 @@ const movieSlice = createSlice({
       if (name !== "page") state.page = 1;
     },
     changeMovieStateSelectFields(state, { payload }: PayloadAction<string>) {
-      if (state.selectFields.includes(payload)) {         
-        state.selectFields = state.selectFields.filter((field) => field !== payload);
-        return
+      if (state.selectFields.includes(payload)) {
+        state.selectFields = state.selectFields.filter(
+          (field) => field !== payload
+        );
+        return;
       }
-        state.selectFields.push(payload);
+      state.selectFields.push(payload);
     },
     movieImagesPageCleanUp: (state) => {
       // state.page = 1;
       // state.sortField = 'rating.kp'
       // state.sortType = -1
       // state.limit = 5
-      state.images = []
+      state.images = [];
     },
-    cleanUpSingleMovieInfo : (state) => {
-      state.movie = {}
-    }
+    cleanUpSingleMovieInfo: (state) => {
+      state.movie = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -170,6 +171,10 @@ const movieSlice = createSlice({
   },
 });
 
-export const { changeMovieStateQueryParams, changeMovieStateSelectFields, movieImagesPageCleanUp, cleanUpSingleMovieInfo } =
-  movieSlice.actions;
+export const {
+  changeMovieStateQueryParams,
+  changeMovieStateSelectFields,
+  movieImagesPageCleanUp,
+  cleanUpSingleMovieInfo,
+} = movieSlice.actions;
 export default movieSlice.reducer;

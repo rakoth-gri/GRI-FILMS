@@ -21,6 +21,7 @@ const myPaginationStyles = {
   textAlign: "center",
   display: "flex",
   justifyContent: "center",
+  color: 'var(--app-default-color)'
 };
 
 export const MyPagination = ({
@@ -53,6 +54,7 @@ export const MyPagination = ({
               next: KeyboardDoubleArrowRight,
             }}
             {...item}
+            sx={{color: 'var(--app-default-color)'}}
           />
         )}
         {...props}

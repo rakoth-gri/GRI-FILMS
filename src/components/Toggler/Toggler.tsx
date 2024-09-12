@@ -6,9 +6,10 @@ import {
   FormLabel,
   FormControl,
   FormControlLabel,
-  FormHelperText,
   Switch,
 } from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import LightModeIcon from "@mui/icons-material/LightMode";
 // types:
 import {
   I_MOVIE_STATE,
@@ -20,16 +21,20 @@ import { RootState } from "../../store/store";
 
 interface I_Toggler {
   title: string;
-  name: keyof I_MOVIE_STATE | keyof I_PERSON_STATE | keyof I_REVIEW_STATE;
+  name:
+    | keyof I_MOVIE_STATE
+    | keyof I_PERSON_STATE
+    | keyof I_REVIEW_STATE
+    | keyof { theme: "light" | "dark" };
   reducer: keyof RootState;
-  action: ActionCreatorWithPayload<keyof I_PERSON_STATE>;  
+  action: ActionCreatorWithPayload<keyof I_PERSON_STATE>;
 }
 
 export const Toggler = ({
   title,
   name,
   reducer,
-  action,  
+  action,
   ...props
 }: I_Toggler) => {
   const dispatch = useAppDispatch();
@@ -42,29 +47,30 @@ export const Toggler = ({
   };
 
   return (
-    <FormControl
-      component="fieldset"
-      variant="filled"
-      sx={{ color: "inherit" }}
-    >
-      <FormLabel component="legend" sx={{ color: "inherit" }}>
+    <FormControl component="fieldset" variant="filled">
+      <FormLabel component="legend" sx={{ color: "white" }}>
         {title}
-      </FormLabel>      
+      </FormLabel>
       <FormControlLabel
         control={
           <Switch
             onChange={handleChange}
             name={name}
             {...props}
+            color="default"
             value={value}
-            // checked={value === labels[1] ? true : false}
+            checkedIcon={name === "theme" ? <Brightness4Icon /> : null}
+            icon={name === "theme" ? <LightModeIcon /> : null}
           />
         }
         label={value}
+        sx={{
+          textTransform: "uppercase",
+          letterSpacing: "0.7px",
+          color: "var(--app-default-color)",
+          fontWeight: "bold",
+        }}
       />
-      <FormHelperText sx={(theme) => ({ color: theme.palette.error.main })}>
-        Обязательное поле{" "}
-      </FormHelperText>
     </FormControl>
   );
 };

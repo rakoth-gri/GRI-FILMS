@@ -50,7 +50,7 @@ export const MySearch = ({
   }, [])
 
   return (
-    <MySearchBox component="section">
+    <MySearchBox component="search" sx={{color: 'var(--app-default-color)'}}>
       <TextField
         name="query"
         id="query"
@@ -58,9 +58,9 @@ export const MySearch = ({
         type="search"
         fullWidth={true}
         variant="outlined"
-        {...props}
-        color={color}
+        {...props}        
         value={query}
+        sx={{color: 'inherit'}}
         onChange={changeHandler}
       />
     </MySearchBox>

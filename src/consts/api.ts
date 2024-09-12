@@ -816,13 +816,15 @@ const PERSON_SELECTFIELDS_LIST = [
   "birthday",
   "death",
   "age",
-  "birthPlace",
-  "deathPlace",
-  "profession",
-  "countAwards",
-  "facts",
+  // "birthPlace",
+  // "deathPlace",
+  // "profession",
+  // "countAwards",
+  // "facts",
   // "movies",
 ];
+
+
 
 const REVIEW_SELECTFIELDS_LIST = [
   "id",
@@ -947,13 +949,14 @@ const PERSON_NOT_NULL_FIELDS_LIST = [
   "enName",
   "photo",
   "sex",
-  "growth",
-  "birthday",
+  // "growth",
+  // "birthPlace.value",
   // "death",
   "age",
   "birthday",
   // 'deathPlace',
   "profession.value",
+  // 'facts.value'
   // 'countAwards',
   // 'facts',
   // 'movies'
@@ -961,11 +964,7 @@ const PERSON_NOT_NULL_FIELDS_LIST = [
 
 // ! MENU -- HEADER: ------------------------
 
-const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [
-  {
-    to: E_ROUTES.home,
-    text: "на главную",
-  },
+const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [  
   {
     to: E_ROUTES.movies,
     text: "кинокартины",
@@ -980,7 +979,10 @@ const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [
   },
 ];
 
+const ROOT = document.documentElement
+
 export {
+  ROOT,
   END_POINTS,
   GENRES_SELECT_LIST,
   MOVIE_SELECTFIELDS_LIST,

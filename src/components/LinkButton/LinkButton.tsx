@@ -1,13 +1,13 @@
-import { AnchorHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 // types
 import { SxProps, Theme } from "@mui/material";
 import "./LinkButton.sass";
 
-interface I_LinkButton extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface I_LinkButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
-  id?: string;
+  id?: string | number;
   route: string;
   sx?: SxProps<Theme> | undefined;
   variant?: "contained" | "outlined" | "text" | string;

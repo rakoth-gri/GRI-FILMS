@@ -1,5 +1,5 @@
 import { useEffect, useState, MouseEventHandler } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // REDUX:
 import { personByIdThunk, personAwardsThunk } from "../../store/personThunks";
 import { changePersonStateQueryParams } from "../../store/personSlice";
@@ -30,13 +30,11 @@ import {
 // types
 import { RootState } from "../../store/store";
 import { I_PERSON_AWARDS, I_PERSON_FULL, E_ROUTES } from "../../types/types";
-// hooks
-import { useFetching } from "../../hooks/useFetching";
 // utils
 import {
   getBoxStyles,
   birthDetailsFormat,
-  getBestMovies,
+  composed,
 } from "../../services/utils";
 
 const cardMediaStyles = {
@@ -48,11 +46,9 @@ const cardMediaStyles = {
 
 export const SinglePersonPage = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-
   const dispatch = useAppDispatch();
-
+  const location = useNavigate();
   const { personId } = useParams();
-
   const { person, personAwards, page, loading, error } = useAppSelector(
     (s: RootState) => s.personSliceReducer
   );
@@ -116,16 +112,19 @@ export const SinglePersonPage = () => {
     movies,
   } = person as I_PERSON_FULL;
 
-  console.log(movies);
-
   return (
     <>
       <MyFlexContainer direction="row" justify="space-between" spacing={2}>
-        <Back to={E_ROUTES.persons}> Назад </Back>
+        <Back onClick={() => location(-1)}> Назад </Back>
         <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       </MyFlexContainer>
       <MyLoader loading={loading} />
-      <MyFlexContainer align="center" id={`${id}`} spacing={1}>
+      <MyFlexContainer
+        align="center"
+        id={`${id}`}
+        spacing={1}
+        sx={{ m: "1rem" }}
+      >
         <Box sx={getBoxStyles({ width: "23%", height: "400px", pd: "0px" })}>
           <CardMedia
             component={"img"}
@@ -190,35 +189,37 @@ export const SinglePersonPage = () => {
               <span className="desc"> {growth} см. </span>
               <span className="desc"> {birthDetailsFormat(birthday)} </span>
               <span className="desc"> {birthPlace} </span>
-              <span className="desc"> {movies.length}</span>
+              {/* <span className="desc"> {movies.length}</span> */}
               <span className="desc"> {age} </span>
               <span className="desc"> {sex} </span>
               <span className="desc"> {countAwards} </span>
               <span className="desc">
                 {" "}
                 {death &&
-                  new Date(death as string).toLocaleDateString()} г.,{" "}
-                {death && deathPlace}{" "}
+                  `${new Date(death).toLocaleDateString()} г., ${deathPlace}`}
               </span>
             </Box>
           </Box>
         </Box>
         <Box
-          sx={getBoxStyles({
-            fw: 400,
-            pd: "0.25rem",
-            display: "flex",
-            align: "center",
-            fs: "0.95em",
-            justify: "center",
-            width: "22%",
-          })}
+          sx={{
+            ...getBoxStyles({
+              fw: 300,
+              pd: "0.1rem",
+              display: "flex",
+              align: "start",
+              fs: "0.95em",
+              justify: "center",
+              width: "22%",
+            }),
+            opacity: "0.8",
+          }}
         >
           <MyTitle variant="subtitle" component="h4" color="inherit">
             Лучшие фильмы:
           </MyTitle>
           <>
-            {getBestMovies(movies).map((m, i) => (
+            {composed(movies).map((m, i) => (
               <Link to={`${E_ROUTES.movies}/${m.id}`} key={m.id}>
                 <span className="actors"> {m.name} </span>
               </Link>
@@ -255,7 +256,7 @@ export const SinglePersonPage = () => {
           {" "}
           обновить награды{" "}
         </Button>
-      </MyFilterWrapper>      
+      </MyFilterWrapper>
       <Divider />
       {!!personAwards.length && !error ? (
         <SingleMoviePropsList

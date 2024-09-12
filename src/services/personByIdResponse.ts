@@ -12,14 +12,14 @@ export const personByIdResponse = (person: any) => {
     sex: person?.sex || "Нет данных",
     growth: person?.growth || 0,
     birthday: person?.birthday || "Нет данных",
-    death: person?.death || "Нет данных",
+    death: person?.death,
     age: person?.age || 0,
     birthPlace: person?.birthPlace?.length
       ? person?.birthPlace[0]?.value
       : "Нет данных",
     deathPlace: person?.deathPlace?.length
       ? person?.deathPlace[0]?.value
-      : "Нет данных",
+      : "",
     profession: person?.profession?.length
       ? person?.profession?.map(({value}: {value: string}) => value)?.join(", ")
       : "Нет данных",

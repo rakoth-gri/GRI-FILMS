@@ -9,17 +9,16 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-
 const REGEX = /(<([^>]+)>)/gi;
 
-const factsBoxstyles = {
+const MyFactsStyles = {
   height: "auto",
   letterSpacing: "0.75px",
   color: 'inherit',
   backgroundColor: 'inherit'
 };
 
-const factsAccordionStyles = {
+const MyFactsAccordionDetailStyles = {
   letterSpacing: "0.7px",
   lineHeight: "1.45em",
   fontWeight: 500,
@@ -33,7 +32,7 @@ interface I_MyFacts {
 
 export function MyFacts({ facts, sx }: I_MyFacts) {
   return (
-    <Box sx={{ ...factsBoxstyles, ...sx }}>      
+    <Box sx={{ ...MyFactsStyles, ...sx }}>      
       {facts.map((fact, i) => (
         <Fragment key={i}>
           <Accordion>
@@ -44,13 +43,13 @@ export function MyFacts({ facts, sx }: I_MyFacts) {
               sx={{
                 fontWeight: 500,
                 "&:hover": {
-                  border: `1px solid ${colors.teal[50]}`,
+                  border: `1px solid`,
                 },
               }}
             >
               Факт {i + 1}:
             </AccordionSummary>
-            <AccordionDetails sx={factsAccordionStyles}>
+            <AccordionDetails sx={MyFactsAccordionDetailStyles}>
               {fact.replace(REGEX, '')}
             </AccordionDetails>
           </Accordion>

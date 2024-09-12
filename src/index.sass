@@ -1,5 +1,10 @@
-:root 
- 
+:root
+	--app-dark-bg: #455a64 
+	--app-light-bg: #fafafa
+	--app-dark-color: #fafafa  
+	--app-light-color: #212121
+	--app-default-color: var(--app-light-color)
+	--app-default-bg: var(--app-light-bg)
 
 *, *::before, *::after 
 	box-sizing: border-box
@@ -17,12 +22,30 @@ a
 
 
 body
-	font-family: 'Roboto' 
+	font-family: 'Roboto'
+	color: var(--app-default-color)
+	background: var(--app-default-bg) 
 	
 h1, h2, h3 
 	text-align: center
 	margin: 0.5rem 0
 	letter-spacing: 0.55px
 
+// Классы для span-элементов страниц SinglePersonPage, SingleMoviePage
 
+.title, .desc
+	padding: 0.5rem
 
+.actors
+	display: inline-block
+	width: 100%
+	text-align: left
+	padding: 0.2rem    
+	
+.ageRating
+	border: 1px solid
+	padding: 0.25rem    
+
+.rating, .votes, .actors 
+	color: #2196f3
+	

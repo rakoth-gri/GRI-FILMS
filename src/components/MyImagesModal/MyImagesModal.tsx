@@ -37,7 +37,7 @@ export const MyImagesModal = ({
   };
 
   return (
-    <MyModalWrapper {...props} sx={{color: 'white', fontSize: '1.12em'}}>
+    <MyModalWrapper {...props} sx={{fontSize: '1.12em'}}>
       <Box sx={imagesModalBoxStyles}>
         <CardMedia
           src={images[count]?.url}

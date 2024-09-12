@@ -101,7 +101,7 @@ export interface I_MOVIE {
   feesWorld: string;
   feesRussia: string;
   top250: number;
-  facts: string[]
+  facts: string[];
 }
 
 export type T_MOVIE_SEARCH = Omit<
@@ -161,7 +161,7 @@ export interface I_PERSON_SEARCH {
   sex: string;
   growth: number;
   birthday: string;
-  death: string | null;
+  death: string | undefined;
   age: number;
 }
 
@@ -327,11 +327,11 @@ export interface I_PERSON_STATE {
   pages: number;
   person: object | I_PERSON_FULL;
   sex: "Мужской" | "Женский";
-  growth: number[];
+  growth?: number[];
   age: number[];
-  countAwards: number[];
+  countAwards?: number[];
   profession: T_PERSON_PROFESSIONS;
-  // moviesRating: number[];
+  moviesRating?: number[];
   persons: I_PERSON_SEARCH[];
   selectFields: string[];
 }
@@ -345,10 +345,9 @@ export interface I_REVIEW_STATE {
   limit: number;
   loading: boolean;
   error: string;
-  reviewsByMovieId: I_REVIEW[];
+  reviews: I_REVIEW[];
   total: number;
   pages: number;
-  reviewsByAuthorId: I_REVIEW[];
 }
 
 // ! -----------------  ROUTE TYPED ------------------------------
@@ -362,6 +361,8 @@ export enum E_ROUTES {
   person = "/persons/:personId",
   reviews = "/reviews",
   review = "/reviews/:movieId",
+  // reviewsByAuthor = "/reviews/byAuthor",
+  // reviewByAuthor = "/reviews/byAuthor/:id",
   images = "/movies/images",
   image = "/movies/images/:movieId",
   top250 = "/movies/top250",
