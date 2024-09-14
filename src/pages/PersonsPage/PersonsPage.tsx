@@ -1,7 +1,16 @@
-import { Fragment, useEffect, useRef, useState, MouseEventHandler } from "react";
+import {
+  Fragment,
+  useEffect,
+  useMemo,
+  useState,
+  MouseEventHandler,
+} from "react";
 // REDUX
 import { personSearchThunk, personThunk } from "../../store/personThunks";
-import { changePersonStateQueryParams, changePersonSex } from "../../store/personSlice";
+import {
+  changePersonStateQueryParams,
+  changePersonSex,
+} from "../../store/personSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // components
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
@@ -37,8 +46,10 @@ export const PersonsPage = () => {
     (s) => s.personSliceReducer
   );
 
-  const ref = useRef<IntersectionObserver | null>(null);
-  ref.current = new IntersectionObserver(observerCB, options);
+  const MyObserver = useMemo(
+    () => new IntersectionObserver(observerCB, options),
+    []
+  );
 
   useEffect(() => {
     if (query)
@@ -48,19 +59,16 @@ export const PersonsPage = () => {
           method: "personSearch",
         })
       );
+    else dispatch(personThunk({ url: END_POINTS.person, method: "person" }));
   }, [query, page]);
 
-  useEffect(() => {
-    if (!query)
-      dispatch(personThunk({ url: END_POINTS.person, method: "person" }));
-  }, [page, query]);
+  
 
   useEffect(() => {
-    let personImages = document.querySelectorAll(".personImage");
     if (persons.length)
-      personImages.forEach((personImage) =>
-        (ref.current as IntersectionObserver).observe(personImage)
-      );
+      document
+        .querySelectorAll(".personImage")
+        .forEach((img) => MyObserver.observe(img));
   }, [persons]);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -74,7 +82,12 @@ export const PersonsPage = () => {
 
   return (
     <Fragment>
-      <MyTitle align="center" sx={{color: 'var(--app-default-color)'}} component="h1" variant="h4">
+      <MyTitle
+        align="center"
+        sx={{ color: "var(--app-default-color)" }}
+        component="h1"
+        variant="h4"
+      >
         {" "}
         Поиск по людям:{" "}
       </MyTitle>
@@ -89,6 +102,7 @@ export const PersonsPage = () => {
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
+        sx={{m: '0px', p: '1rem'}}
       >
         <MySelect
           list={PERSON_SORTFIELD_SELECT_LIST}
@@ -158,7 +172,7 @@ export const PersonsPage = () => {
           action={changePersonSex}
           reducer={"personSliceReducer"}
           title={"Выберите пол"}
-          name={"sex"}          
+          name={"sex"}
           onClick={(e: any) => e.stopPropagation()}
         />
         <Button

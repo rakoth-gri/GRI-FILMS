@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // createAsyncThunks
 import { movieByIdThunk } from "../../store/movieThunks";
@@ -49,6 +49,13 @@ const cardMediaStyles = {
   "&:hover": { filter: "none" },
 };
 
+const prepareToRender = <T extends object>(
+  l: T[],
+  title: string,
+  cb: (item: T) => ReactNode
+) =>
+  l.length ? <SingleMoviePropsList list={l} title={title} cb={cb} /> : null;
+
 export const SingleMoviePage = () => {
   const dispatch = useAppDispatch();
   const [isTrailerModal, setIsTrailerModal] = useState(false);
@@ -69,7 +76,7 @@ export const SingleMoviePage = () => {
           method: "movieById",
         })
       );
-  }, []);
+  }, [movieId]);
 
   useEffect(() => {
     return () => {
@@ -112,7 +119,12 @@ export const SingleMoviePage = () => {
   return (
     <>
       <Back onClick={() => location(-1)}> Назад </Back>
-      <MyFlexContainer align="start" id={`${id}`} spacing={1} sx={{m: '1rem'}}>
+      <MyFlexContainer
+        align="start"
+        id={`${id}`}
+        spacing={1}
+        sx={{ m: "1rem" }}
+      >
         <Box sx={getBoxStyles({ width: "24%", height: "400px" })}>
           <CardMedia
             component={"img"}
@@ -160,110 +172,94 @@ export const SingleMoviePage = () => {
             sx={getBoxStyles({
               display: "flex",
               direction: "row",
-              justify: "flex-start",
+              justify: "space-between",
+              mr: "0px",
             })}
           >
-            <Box
-              sx={{
-                ...getBoxStyles({
-                  display: "flex",
-                  width: "30%",
-                  fs: "0.85em",
-                  ta: "left",
-                }),
-                opacity: 0.84,
-              }}
-            >
-              <span className="title">Год производства</span>
-              <span className="title"> Страна</span>
-              <span className="title"> Жанр </span>
-              <span className="title"> Слоган</span>
-              <span className="title">Сборы в России</span>
-              <span className="title">Сборы в Мире</span>
-              <span className="title">Премьера в России</span>
-              <span className="title">Премьера в Мире</span>
-              <span className="title">Продолжительность </span>
-              <span className="title">Возраст </span>
-              <span className="title">Рейтинг IMDB </span>
-              <span className="title">Бюджет </span>
-              <span className="title">Тип картины </span>
-            </Box>
-            <Box
-              sx={getBoxStyles({
-                display: "flex",
-                width: "62%",
-                fs: "0.85em",
-                ta: "left",
-                fw: 500,
-              })}
-            >
-              <span className="desc">{year}</span>
-              {/* <span className="desc"> {countries.join(", ")}</span>
-              <span className="desc"> {genres.join(", ")}</span> */}
-              <span className="desc">
+            <span className="title">Год производства</span>
+            <span className="desc">{year}</span>
+            <span className="title"> Страна</span>
+            <span className="desc"> {countries.join(", ")}</span>
+            <span className="title"> Жанр </span>
+            <span className="desc"> {genres.join(", ")}</span>
+            <span className="title">Слоган</span>
+            <span className="desc">
+              {" "}
+              <strong>
                 {" "}
                 <q>{slogan}</q>{" "}
-              </span>
-              <span className="desc"> {feesRussia} </span>
-              <span className="desc"> {feesWorld}</span>
-              <span className="desc">
-                {premiereRussia
-                  ? new Date(premiereRussia).toLocaleDateString() + " г."
-                  : "-"}
-              </span>
-              <span className="desc">
-                {premiereWorld
-                  ? new Date(premiereWorld).toLocaleDateString() + " г."
-                  : "-"}
-              </span>
-              <span className="desc"> {movieLengthFormat(movieLength)}</span>
-              <span className="ageRating"> {ageRating}+ </span>
-              <span className="title"> {ratingImdb} </span>
-              <span className="title"> {budget} </span>
-              <span className="title"> {type} </span>
-            </Box>
+              </strong>
+            </span>
+            <span className="title">Сборы в России</span>
+            <span className="desc"> {feesRussia} </span>
+            <span className="title">Сборы в Мире</span>
+            <span className="desc"> {feesWorld}</span>
+            <span className="title">Премьера в России</span>
+            <span className="desc">
+              {premiereRussia
+                ? new Date(premiereRussia).toLocaleDateString() + " г."
+                : "-"}
+            </span>
+            <span className="title">Премьера в Мире</span>
+            <span className="desc">
+              {premiereWorld
+                ? new Date(premiereWorld).toLocaleDateString() + " г."
+                : "-"}
+            </span>
+            <span className="title">Продолжительность </span>
+            <span className="desc"> {movieLengthFormat(movieLength)}</span>
+            <span className="title">Возраст </span>
+            <span className="desc"> {ageRating}+ </span>
+            <span className="title">Рейтинг IMDB </span>
+            <span className="desc"> {ratingImdb} </span>
+            <span className="title">Бюджет </span>
+            <span className="desc"> {budget} </span>
+            <span className="title">Тип картины </span>
+            <span className="desc"> {type} </span>
           </Box>
         </Box>
         <Box
           sx={{
             ...getBoxStyles({
               width: "24%",
-              fs: "0.95em",
+              fs: "0.92em",
               fw: 700,
               pd: "0.5rem",
               display: "flex",
-              align: "start",
+              align: "center",
             }),
             opacity: "0.84",
           }}
         >
-          <span className="title rating"> {ratingKp} </span>
-          <span className="title votes"> KP: {votesKp} оценок </span>
-          <span className="title votes"> IMDB: {votesImdb} оценок </span>
-          <Box
-            sx={getBoxStyles({
-              fw: 400,
-              pd: "0rem",
-              display: "flex",
-              align: "center",
-              fs: "0.95em",
-            })}
+          <MyTitle
+            variant="subtitle"
+            component="h4"
+            color="inherit"
+            sx={{ m: "0.3rem" }}
           >
-            <MyTitle variant="subtitle" component="h4" color="inherit" sx={{m: '0px'}}>
-              В главных ролях:
-            </MyTitle>
-            <>
-              {persons.slice(0, 8).map((p, i) => (
-                <Link to={`${E_ROUTES.persons}/${p.id}`} key={p.id}>
-                  <span className="actors"> {p.name} </span>
-                </Link>
-              ))}
-            </>
-          </Box>
+            Рейтинг и оценки:
+          </MyTitle>
+          <span className="rating"> {ratingKp.toFixed(1)} </span>
+          <span className="votes"> KP: {votesKp} оценок </span>
+          <span className="votes"> IMDB: {votesImdb} оценок </span>          
+          <MyTitle
+            variant="subtitle"
+            component="h4"
+            color="inherit"
+            sx={{ m: "0.3rem" }}
+          >
+            В главных ролях:
+          </MyTitle>
+          <>
+            {persons.slice(0, 8).map((p, i) => (
+              <Link to={`${E_ROUTES.persons}/${p.id}`} key={p.id}>
+                <span className="actors"> {p.name} </span>
+              </Link>
+            ))}
+          </>          
         </Box>
       </MyFlexContainer>
-
-      <Box sx={getBoxStyles({ mr: "0.5rem" })}>
+      <Box sx={getBoxStyles({ mr: "0.25rem" })}>
         <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
           Сюжет:
         </MyTitle>
@@ -280,33 +276,35 @@ export const SingleMoviePage = () => {
         </Typography>
       </Box>
       <Divider />
-      <SingleMoviePropsList
-        list={similarMovies}
-        title={"Вам также могут понравяться:"}
-        cb={(movie: I_SIMILAR_MOVIES_PROP) => (
+      {prepareToRender(
+        similarMovies,
+        "Вам также могут понравяться:",
+        (movie: I_SIMILAR_MOVIES_PROP) => (
           <SimilarMoviesCard key={movie.id} {...movie} />
-        )}
-      />
+        )
+      )}
       <Divider />
-      <SingleMoviePropsList
-        list={sequelsAndPrequels}
-        title={"Сиквелы и Приквелы:"}
-        cb={(movie: I_SIMILAR_MOVIES_PROP) => (
+      {prepareToRender(
+        sequelsAndPrequels,
+        "Сиквелы и Приквелы:",
+        (movie: I_SIMILAR_MOVIES_PROP) => (
           <SimilarMoviesCard key={movie.id} {...movie} />
-        )}
-      />
+        )
+      )}
       <Divider />
-      <SingleMoviePropsList
-        list={persons}
-        title={"Актеры и Создатели:"}
-        cb={(item: any, i?: number) => <MoviePersonsCard key={i} {...item} />}
-      />
+      {prepareToRender(
+        persons,
+        "Актеры и Создатели:",
+        (item: any, i?: number) => (
+          <MoviePersonsCard key={i} {...item} />
+        )
+      )}
       <Divider />
       <Box sx={getBoxStyles({ mr: "0.5rem" })}>
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
           Факты и подробности производства:
         </MyTitle>
-        {/* <MyFacts facts={facts} /> */}
+        <MyFacts facts={facts} />
       </Box>
       <MyFlexContainer justify="flex-start">
         <LinkButton
@@ -317,7 +315,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: "1.02em",            
+            fontSize: "1.02em",
           }}
         >
           {" "}
@@ -329,7 +327,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: "1.02em",            
+            fontSize: "1.02em",
           }}
           onClick={() => setIsTrailerModal(true)}
         >
@@ -344,8 +342,9 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: "1.02em",            
+            fontSize: "1.02em",
           }}
+          linkProps={name}
         >
           {" "}
           Отзывы{" "}
@@ -362,3 +361,4 @@ export const SingleMoviePage = () => {
     </>
   );
 };
+

@@ -25,7 +25,7 @@ const MyCard = styled(Card)(() => ({
   flexDirection: "column",
   position: "relative",
   background: "inherit",
-  color: "'inherit'",
+  color: "inherit",
 }));
 
 const MyCardMedia = styled(CardMedia)(() => ({
@@ -78,8 +78,7 @@ export const MyPersonCard = ({
           color="inherit"
         >
           {name}
-        </MyTitle>
-        {/* <Divider/> */}
+        </MyTitle>        
         <Box component="ul" sx={personCardBoxStyles}>
           <li className="myPersonCard">
             {" "}

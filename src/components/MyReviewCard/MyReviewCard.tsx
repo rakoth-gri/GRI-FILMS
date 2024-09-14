@@ -36,8 +36,7 @@ const REGEX = /(<([^>]+)>)/gi;
 export const MyReviewCard = ({
   id,
   review,
-  authorId,
-  movieId,
+  authorId, 
   author,
   title,
   date,

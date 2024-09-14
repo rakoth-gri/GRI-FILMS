@@ -146,7 +146,7 @@ export const queryConstructor = {
     movieId,
     page,
     limit,
-    sortField: sortField || 'updatedAt',
+    sortField: sortField || 'createdAt',
     sortType,
   }),
   reviewByAuthorId: ({
@@ -165,7 +165,7 @@ export const queryConstructor = {
     authorId,
     page,
     limit,
-    sortField,
+    sortField: sortField || 'createdAt',
     sortType,
   }),
   top250: ({

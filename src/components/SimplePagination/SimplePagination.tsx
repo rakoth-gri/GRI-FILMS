@@ -11,20 +11,20 @@ interface I_SimplePagination {
     clickHandler: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-
 export const SimplePagination = ({page, pages, clickHandler}: I_SimplePagination) => {
   return (
-    <MyFlexContainer w="100%">
+    <MyFlexContainer>
       <IconButton
         aria-label="prev"
         onClick={clickHandler}
         size="large"
         disabled={page === 1}
         id="prev"
+        sx={{color: 'inherit'}}
       >
         <NavigateBeforeIcon />
       </IconButton>
-      <IconButton onClick={clickHandler} size="large">
+      <IconButton onClick={clickHandler} size="large" sx={{color: 'inherit'}}>
         {page}
       </IconButton>
       <IconButton
@@ -33,6 +33,7 @@ export const SimplePagination = ({page, pages, clickHandler}: I_SimplePagination
         onClick={clickHandler}
         size="large"
         disabled={page === pages}
+        sx={{color: 'inherit'}}
       >
         <NavigateNextIcon />
       </IconButton>

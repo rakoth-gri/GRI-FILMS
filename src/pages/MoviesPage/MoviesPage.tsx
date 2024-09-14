@@ -2,7 +2,7 @@ import {
   Fragment,
   MouseEventHandler,
   useEffect,
-  useRef,
+  useMemo,
   useState,
 } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -49,28 +49,25 @@ export const MoviesPage = () => {
     (s: RootState) => s.movieSliceReducer
   );
 
-  const ref = useRef<IntersectionObserver | null>(null);
-
-  ref.current = new IntersectionObserver(observerCB, options);
-
-  useEffect(() => {
-    if (!query)
-      dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
-  }, [page, query]);
+  const MyObserver = useMemo(
+    () => new IntersectionObserver(observerCB, options),
+    []
+  );
 
   useEffect(() => {
     if (query)
       dispatch(
         movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
       );
+    else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
   }, [page, query]);
 
+  
   useEffect(() => {
-    let cardImages = document.querySelectorAll(".cardImage");
-    if (cardImages.length)
-      cardImages.forEach((cardImage) =>
-        (ref.current as IntersectionObserver).observe(cardImage)
-      );
+    if (movies.length)
+      document
+        .querySelectorAll(".cardImage")
+        .forEach((image) => MyObserver.observe(image));
   }, [movies]);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -80,10 +77,10 @@ export const MoviesPage = () => {
   return (
     <Fragment>
       <MyTitle
-        align="center"        
+        align="center"
         component="h1"
         variant="h4"
-        sx={{ textTransform: "capitalize", color: 'var(--app-default-color)' }}
+        sx={{ textTransform: "capitalize", color: "var(--app-default-color)" }}
       >
         {" "}
         Кинокартины:{" "}
@@ -99,6 +96,7 @@ export const MoviesPage = () => {
       <MyFilterWrapper
         onClick={() => setIsOpenFilter((prev) => !prev)}
         isOpenFilter={isOpenFilter}
+        sx={{m: '0px', p: '1rem'}}
       >
         <MySelect
           list={MOVIE_SORTFIELD_SELECT_LIST}

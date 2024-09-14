@@ -1,3 +1,5 @@
+@import "./fonts.sass"
+	
 :root
 	--app-dark-bg: #455a64 
 	--app-light-bg: #fafafa
@@ -31,21 +33,40 @@ h1, h2, h3
 	margin: 0.5rem 0
 	letter-spacing: 0.55px
 
+span
+	display: inline-block	
+
 // Классы для span-элементов страниц SinglePersonPage, SingleMoviePage
 
-.title, .desc
-	padding: 0.5rem
+.title, .desc, .rating, .votes, .actors
+	padding: 0.5rem	
 
-.actors
+.title
+	width: 43%
+
+.desc
+	width: 55%
+	
+.rating, .votes, .actors	 
+	color: #2196f3
+	padding: 0.25rem	
+	width: 100%
+	
+.search
 	display: inline-block
 	width: 100%
-	text-align: left
-	padding: 0.2rem    
-	
-.ageRating
-	border: 1px solid
-	padding: 0.25rem    
+	padding: 0.75rem
+	font-size: inherit
+	color: inherit
+	background: transparent
+	border: none
+	letter-spacing: 0.85px
+	outline-color: #1976d2	
+	border: 2px solid #1976d2
+	border-radius: 0.25rem
 
-.rating, .votes, .actors 
-	color: #2196f3
-	
+	&:focus, &:active		
+		border: 0px solid
+
+
+

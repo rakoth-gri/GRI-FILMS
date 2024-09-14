@@ -1,6 +1,14 @@
-import React, { Fragment } from "react";
+import { useState, useCallback, useMemo, useRef} from "react";
 import { MyTitle } from "../../components/MyTitle";
 import { Box } from "@mui/material";
+// FAKE COMPONENT
+import { Wax } from "../../components/Wax/Wax";
+
+interface I_POST {
+  id: number;
+  date: string;
+  title: string;
+}
 
 const pStyles = {
   p: "0.5rem",
@@ -13,11 +21,41 @@ const pStyles = {
 };
 
 export const HomePage = () => {
+  const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // let ref = useRef()
+  const [posts, setPosts] = useState<Array<I_POST>>([])
+
+  // ref.current = posts
+
+  const handleClick = () => {
+    setCount(count + 1);
+    setIsLoading(!isLoading);
+    // Выводит текущий стэйт, не изменившийся, т.к. setCount - асинхронен...
+    console.log(count);
+  };
+
+  console.log(count, isLoading, posts);
+
+  const handlePosts = useCallback(() => {
+    const title = prompt('Введите строку...') as string
+    // setPosts([...posts, {id: Date.now(), date: new Date().toJSON(), title}])
+    // setPosts([...ref.current, {id: Date.now(), date: new Date().toJSON(), title}])
+    setPosts(p => ([...p, {id: Date.now(), date: new Date().toJSON(), title}]))
+  }, [])
+
+  const text = useCallback(() => {
+    console.log("Test Callback Function");
+  }, []);
+
   return (
-    <Fragment>
-      <MyTitle variant="h4">ГЛАВНАЯ</MyTitle>
+    <>
+      <MyTitle variant="h4" onClick={handleClick}>
+        ГЛАВНАЯ
+      </MyTitle>
       <Box component={"section"} sx={{ p: "1rem" }}>
-        <Box component="p" sx={pStyles}>
+        <Box component="p" sx={pStyles} onClick={handlePosts} style={{cursor: 'pointer'}}>
           Добро пожаловать на наш уникальный сайт, посвященный миру кино и
           блестящим актерам! Здесь, среди ярких постеров и захватывающих
           трейлеров, вы найдете всё, что нужно для истинного ценителя искусства
@@ -39,7 +77,8 @@ export const HomePage = () => {
           кино! Откройте для себя бесконечные возможности на нашем сайте — вашем
           личном путеводителе в интернете.
         </Box>
+        <Wax cb={text}/>
       </Box>
-    </Fragment>
+    </>
   );
 };

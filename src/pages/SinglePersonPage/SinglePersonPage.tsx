@@ -39,6 +39,7 @@ import {
 
 const cardMediaStyles = {
   width: "100%",
+  height: '95%',
   objectFit: "cover",
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
@@ -92,7 +93,7 @@ export const SinglePersonPage = () => {
       );
   };
 
-  if (!Object.keys(person).length) return <MyLoader loading={loading} />;
+  if (!Object.keys(person).length) return <MyLoader loading={true} />;
 
   const {
     id,
@@ -123,7 +124,7 @@ export const SinglePersonPage = () => {
         align="center"
         id={`${id}`}
         spacing={1}
-        sx={{ m: "1rem" }}
+        sx={{ m: "1rem", height: '520px' }}
       >
         <Box sx={getBoxStyles({ width: "23%", height: "400px", pd: "0px" })}>
           <CardMedia
@@ -138,13 +139,13 @@ export const SinglePersonPage = () => {
             width: "49%",
             display: "flex",
             justify: "flex-start",
-            align: "start",
+            align: "center",
           })}
         >
           <MyTitle align="left" color="inherit" component="h1" variant="h4">
             {name}
           </MyTitle>
-          <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
+          <MyTitle variant="h5" component={"h3"} align="left" color="inherit" sx={{width: '100%'}}>
             {" "}
             О персоне:{" "}
           </MyTitle>
@@ -152,53 +153,32 @@ export const SinglePersonPage = () => {
             sx={getBoxStyles({
               display: "flex",
               direction: "row",
-              justify: "flex-start",
+              justify: "space-between",
+              mr: "0px",
             })}
           >
-            <Box
-              sx={{
-                ...getBoxStyles({
-                  display: "flex",
-                  width: "41%",
-                  fs: "0.85em",
-                  ta: "left",
-                }),
-                opacity: 0.84,
-              }}
-            >
-              <span className="title">Карьера</span>
-              <span className="title"> Рост </span>
-              <span className="title"> Дата рождения </span>
-              <span className="title"> Место рождения </span>
-              <span className="title"> Всего фильмов </span>
-              <span className="title"> Возраст </span>
-              <span className="title"> Пол </span>
-              <span className="title"> Количество наград и номинаций </span>
-              <span className="title"> Дата смерти </span>
-            </Box>
-            <Box
-              sx={getBoxStyles({
-                display: "flex",
-                width: "52%",
-                fs: "0.85em",
-                ta: "left",
-                fw: 500,
-              })}
-            >
-              <span className="desc">{profession}</span>
-              <span className="desc"> {growth} см. </span>
-              <span className="desc"> {birthDetailsFormat(birthday)} </span>
-              <span className="desc"> {birthPlace} </span>
-              {/* <span className="desc"> {movies.length}</span> */}
-              <span className="desc"> {age} </span>
-              <span className="desc"> {sex} </span>
-              <span className="desc"> {countAwards} </span>
-              <span className="desc">
-                {" "}
-                {death &&
-                  `${new Date(death).toLocaleDateString()} г., ${deathPlace}`}
-              </span>
-            </Box>
+            <span className="title">Карьера</span>
+            <span className="desc">{profession}</span>
+            <span className="title"> Рост </span>
+            <span className="desc"> {growth} см. </span>
+            <span className="title"> Дата рождения </span>
+            <span className="desc"> {birthDetailsFormat(birthday)} </span>
+            <span className="title"> Место рождения </span>
+            <span className="desc"> {birthPlace} </span>
+            <span className="title"> Всего фильмов </span>
+            <span className="desc"> {movies.length}</span>
+            <span className="title"> Возраст </span>
+            <span className="desc"> {age} </span>
+            <span className="title"> Пол </span>
+            <span className="desc"> {sex} </span>
+            <span className="title"> Количество наград и номинаций </span>
+            <span className="desc"> {countAwards} </span>
+            <span className="title"> Дата смерти </span>
+            <span className="desc">
+              {" "}
+              {death &&
+                `${new Date(death).toLocaleDateString()} г., ${deathPlace}`}
+            </span>
           </Box>
         </Box>
         <Box
@@ -231,6 +211,7 @@ export const SinglePersonPage = () => {
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
+        sx={{ m: "0px", p: "1rem" }}
       >
         {" "}
         <MySelect
@@ -258,17 +239,22 @@ export const SinglePersonPage = () => {
         </Button>
       </MyFilterWrapper>
       <Divider />
-      {!!personAwards.length && !error ? (
+      {personAwards.length ? (
         <SingleMoviePropsList
           list={personAwards}
+          type="awards"
           title={"Награды"}
           cb={(personAwards: I_PERSON_AWARDS, i?: number) => (
             <PersonAwardCard key={i} {...personAwards} />
           )}
         />
       ) : (
-        <MyError> {error}</MyError>
+        <MyError> По Вашему запросу ничего не найдено... </MyError>
       )}
+      <MyPagination
+        action={changePersonStateQueryParams}
+        reducer="personSliceReducer"
+      />
       <Divider />
       <Box sx={getBoxStyles({ mr: "0.5rem" })}>
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
@@ -276,10 +262,6 @@ export const SinglePersonPage = () => {
         </MyTitle>
         <MyFacts facts={facts} />
       </Box>
-      <MyPagination
-        action={changePersonStateQueryParams}
-        reducer="personSliceReducer"
-      />
     </>
   );
 };

@@ -28,6 +28,8 @@ const reviewByMovieIdThunk = createAsyncThunk<
   async ({ url, movieId, method }, { rejectWithValue, getState }) => {
     const { limit, sortField, sortType, page } = getState().reviewSliceReducer;
 
+    
+
     const res = await Server[method](
       url,
       {

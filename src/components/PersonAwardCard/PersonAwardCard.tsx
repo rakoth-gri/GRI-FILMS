@@ -9,8 +9,8 @@ import { MyTitle } from "../MyTitle";
 import { I_PERSON_AWARDS } from "../../types/types";
 import "./PersonAwardCard.sass";
 
-const awardCardStyles = {
-  width: '165px',
+const PersonAwardCardStyles = {
+  width: '180px',
   padding: "0.35rem",
   height: '215px',
   display: "flex",
@@ -18,18 +18,19 @@ const awardCardStyles = {
   flexDirection: "column",
   position: "relative",
   alignItems: "center",
-  background: colors.indigo[50],
-  color: "inherit",
+  background: colors.amber[200],
+  color: colors.grey[800],
   fontSize: '0.85em'
 };
 
-const awardTitleStyles = {
+const PersonAwardCardTitleStyles = {
   fontSize: '0.95em',
   m: '0.25em', 
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  color: 'inherit'
 }
 
 // ! Карточка для  отображения: similarMovies, sequelsAndPrequels
@@ -41,11 +42,11 @@ export const PersonAwardCard = ({
   nomination,
 }: I_PERSON_AWARDS) => {
   return (
-    <Card sx={awardCardStyles} id={id}>
+    <Card sx={PersonAwardCardStyles} id={id}>
       <MyTitle       
         variant={"subtitle1"}
         component="h5"
-        sx={awardTitleStyles}
+        sx={PersonAwardCardTitleStyles}
       >
         {nomination}
       </MyTitle>
@@ -53,7 +54,7 @@ export const PersonAwardCard = ({
       <MyTitle        
         variant={"subtitle2"}
         component="h6"
-        sx={awardTitleStyles}
+        sx={PersonAwardCardTitleStyles}
       > <EmojiEventsIcon sx={{mr: '0.25rem', color: colors.amber[900]}}/>
         {filmAward}
       </MyTitle>

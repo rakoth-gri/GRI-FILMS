@@ -18,7 +18,7 @@ const initialState = {
   error: "",
   total: 0,
   pages: 0,
-  reviews: [],  
+  reviews: [],
 } satisfies I_REVIEW_STATE as I_REVIEW_STATE;
 
 const reviewSlice = createSlice({
@@ -32,10 +32,10 @@ const reviewSlice = createSlice({
       // @ts-ignore
       state[name as keyof I_REVIEW_STATE] = value;
     },
-    cleanUpReviewInfo : (state) => {
-      state.reviews = []
-      state.page = 1
-    }
+    cleanUpReviewInfo: (state) => {
+      state.reviews = [];
+      state.page = 1;
+    },
   },
   extraReducers: (builder) => {
     // ! reviewByMovieIdThunk ---------------------------------------------
@@ -80,10 +80,10 @@ const reviewSlice = createSlice({
           state.error = payload;
           state.loading = false;
         }
-      )
+      );
   },
 });
 
-export const {changeReviewStateQueryParams} = reviewSlice.actions;
+export const { changeReviewStateQueryParams, cleanUpReviewInfo } =
+  reviewSlice.actions;
 export default reviewSlice.reducer;
-

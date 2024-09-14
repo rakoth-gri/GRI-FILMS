@@ -33,12 +33,13 @@ const MyCardMedia = styled(CardMedia)(() => ({
   "&:hover": { filter: "none" },
 }));
 
+const MyMoviesCardChipStyles = { border: "none", color: 'var(--app-default-color)' }
+
 export const MyMovieCard = ({
   id,
   name,
   enName,
-  year,
-  description,
+  year,  
   shortDescription,
   ageRating,
   poster,
@@ -72,6 +73,9 @@ export const MyMovieCard = ({
           top: "10%",
           left: "2%",
           backgroundColor: "rgba(0,0,0, .12)",
+          fontFamily: 'SofadiOne',
+          transform: 'rotateZ(-6deg)',
+          fontWeight: 400
         }}
       >
         {" "}
@@ -80,7 +84,7 @@ export const MyMovieCard = ({
       <MyCardMedia
         // image={poster}
         data-src={poster}
-        title={name}
+        title={enName}
         component={"img"}
         loading="lazy"
         className='cardImage'
@@ -111,13 +115,13 @@ export const MyMovieCard = ({
           label={`IMDB ${ratingImdb}`}
           icon={<GradeIcon color="warning" />}
           variant="outlined"
-          sx={{ border: "none" }}
+          sx={MyMoviesCardChipStyles}
         />
         <Chip
           label={`KP ${ratingKp}`}
           icon={<GradeIcon color="warning" />}
           variant="outlined"
-          sx={{ border: "none" }}
+          sx={MyMoviesCardChipStyles}
         />
       </CardActions>
     </MyCard>

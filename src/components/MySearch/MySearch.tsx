@@ -13,6 +13,8 @@ const MySearchBox = styled(Box)(() => ({
   padding: "0.5rem",
   borderRadius: 1,
   margin: "0.5rem",
+  color: "var(--app-default-color)",
+  fontSize: "1.3em",
 }));
 
 interface I_MySearch extends InputHTMLAttributes<HTMLInputElement> {
@@ -31,7 +33,7 @@ export const MySearch = ({
 }: I_MySearch) => {
   const dispatch = useAppDispatch();
 
-  const reduxQuery = useAppSelector(s => s[reducer].query)
+  const reduxQuery = useAppSelector((s) => s[reducer].query);
 
   const [query, setQuery] = useState("");
   const debouncedAction = useCallback(
@@ -46,22 +48,31 @@ export const MySearch = ({
   };
 
   useEffect(() => {
-    setQuery(reduxQuery)
-  }, [])
+    setQuery(reduxQuery);
+  }, []);
 
   return (
-    <MySearchBox component="search" sx={{color: 'var(--app-default-color)'}}>
-      <TextField
+    <MySearchBox component="search">
+      {/* <TextField
         name="query"
         id="query"
         autoFocus={autoFocus}
         type="search"
         fullWidth={true}
-        variant="outlined"
+        variant="outlined"        
         {...props}        
         value={query}
-        sx={{color: 'inherit'}}
+        sx={{color: 'inherit', fontSize: 'inherit'}}
         onChange={changeHandler}
+      /> */}
+      <input
+        type="search"
+        name="query"
+        id="query"
+        onChange={changeHandler}
+        value={query}
+        className="search"
+        autoFocus
       />
     </MySearchBox>
   );

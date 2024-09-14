@@ -2,12 +2,11 @@ import { useEffect, MouseEventHandler, useState } from "react";
 // REDUX
 import { reviewByMovieIdThunk } from "../../store/reviewThunks";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { changeReviewStateQueryParams } from "../../store/reviewSlice";
+import { changeReviewStateQueryParams, cleanUpReviewInfo } from "../../store/reviewSlice";
 import { RootState } from "../../store/store";
 // REACT_ROUTER_DOM
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 // components
-import { Divider } from "@mui/material";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
 import { Render } from "../../components/Render";
 import { MyReviewCard } from "../../components/MyReviewCard";
@@ -34,10 +33,12 @@ export const ReviewsPage = () => {
   const dispatch = useAppDispatch();
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
-  const { sortField, limit, sortType, page, error, loading, reviews } = useAppSelector(
+  const { page, error, loading, reviews } = useAppSelector(
     (s: RootState) => s.reviewSliceReducer
   );
   const { movieId } = useParams();
+
+  let { state } = useLocation();
 
   useEffect(() => {
     movieId &&
@@ -49,6 +50,12 @@ export const ReviewsPage = () => {
         })
       );
   }, [page]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanUpReviewInfo())
+    }
+  }, [])
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     movieId &&
@@ -67,11 +74,12 @@ export const ReviewsPage = () => {
         <Back to={`${E_ROUTES.movies}/${movieId}`}> Назад </Back>
         <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       </MyFlexContainer>
-      <MyTitle variant="h4">Отзывы к Фильму c ID: {movieId}</MyTitle>
+      <MyTitle variant="h4"> {state}</MyTitle>
       <MyLoader loading={loading} />
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
+        sx={{m: '0px', p: '1rem'}}
       >
         <MySelect
           list={REVIEW_SORTFIELD_SELECT_LIST}
@@ -111,8 +119,7 @@ export const ReviewsPage = () => {
           error={error}
           cb={(item: any) => <MyReviewCard key={item.id} {...item} />}
         />
-      </MyFlexContainer>
-      <Divider />
+      </MyFlexContainer>    
       <MyPagination
         action={changeReviewStateQueryParams}
         reducer="reviewSliceReducer"

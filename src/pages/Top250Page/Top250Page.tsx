@@ -35,7 +35,7 @@ export const Top250Page = () => {
   );
 
   useEffect(() => {
-    if (movies) {
+    if (movies && !state.pages) {
       setState((p) => ({ ...p, pages: movies.pages }));
     }
   }, [movies]);
@@ -58,10 +58,10 @@ export const Top250Page = () => {
   return (
     <Fragment>
       <MyTitle
-        align="center"        
+        align="center"
         component="h1"
         variant="h4"
-        sx={{ textTransform: "capitalize", color: 'var(--app-default-color)' }}
+        sx={{ textTransform: "capitalize", color: "var(--app-default-color)" }}
       >
         {" "}
         Топ 250 по версии Кинопоиска:{" "}
