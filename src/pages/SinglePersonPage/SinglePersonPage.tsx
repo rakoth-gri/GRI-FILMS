@@ -8,6 +8,7 @@ import { cleanUpSinglePersonInfo } from "../../store/personSlice";
 // components
 import { Link } from "react-router-dom";
 import { Button, Box, CardMedia, Divider } from "@mui/material";
+import { Span } from "../../components/Span/Span";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
 import { Back } from "../../components/Back";
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
@@ -39,7 +40,7 @@ import {
 
 const cardMediaStyles = {
   width: "100%",
-  height: '95%',
+  height: "95%",
   objectFit: "cover",
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
@@ -124,7 +125,7 @@ export const SinglePersonPage = () => {
         align="center"
         id={`${id}`}
         spacing={1}
-        sx={{ m: "1rem", height: '520px' }}
+        sx={{ m: "1rem", height: "520px" }}
       >
         <Box sx={getBoxStyles({ width: "23%", height: "400px", pd: "0px" })}>
           <CardMedia
@@ -145,7 +146,13 @@ export const SinglePersonPage = () => {
           <MyTitle align="left" color="inherit" component="h1" variant="h4">
             {name}
           </MyTitle>
-          <MyTitle variant="h5" component={"h3"} align="left" color="inherit" sx={{width: '100%'}}>
+          <MyTitle
+            variant="h5"
+            component={"h3"}
+            align="left"
+            color="inherit"
+            sx={{ width: "100%" }}
+          >
             {" "}
             О персоне:{" "}
           </MyTitle>
@@ -157,28 +164,28 @@ export const SinglePersonPage = () => {
               mr: "0px",
             })}
           >
-            <span className="title">Карьера</span>
-            <span className="desc">{profession}</span>
-            <span className="title"> Рост </span>
-            <span className="desc"> {growth} см. </span>
-            <span className="title"> Дата рождения </span>
-            <span className="desc"> {birthDetailsFormat(birthday)} </span>
-            <span className="title"> Место рождения </span>
-            <span className="desc"> {birthPlace} </span>
-            <span className="title"> Всего фильмов </span>
-            <span className="desc"> {movies.length}</span>
-            <span className="title"> Возраст </span>
-            <span className="desc"> {age} </span>
-            <span className="title"> Пол </span>
-            <span className="desc"> {sex} </span>
-            <span className="title"> Количество наград и номинаций </span>
-            <span className="desc"> {countAwards} </span>
-            <span className="title"> Дата смерти </span>
-            <span className="desc">
+            <Span cls="title">Карьера</Span>
+            <Span cls="desc">{profession}</Span>
+            <Span cls="title"> Рост </Span>
+            <Span cls="desc"> {growth} см. </Span>
+            <Span cls="title"> Дата рождения </Span>
+            <Span cls="desc"> {birthDetailsFormat(birthday)} </Span>
+            <Span cls="title"> Место рождения </Span>
+            <Span cls="desc"> {birthPlace} </Span>
+            <Span cls="title"> Всего фильмов </Span>
+            <Span cls="desc"> {movies.length}</Span>
+            <Span cls="title"> Возраст </Span>
+            <Span cls="desc"> {age} </Span>
+            <Span cls="title"> Пол </Span>
+            <Span cls="desc"> {sex} </Span>
+            <Span cls="title"> Количество наград и номинаций </Span>
+            <Span cls="desc"> {countAwards} </Span>
+            <Span cls="title"> Дата смерти </Span>
+            <Span cls="desc">
               {" "}
               {death &&
                 `${new Date(death).toLocaleDateString()} г., ${deathPlace}`}
-            </span>
+            </Span>
           </Box>
         </Box>
         <Box
@@ -201,7 +208,7 @@ export const SinglePersonPage = () => {
           <>
             {composed(movies).map((m, i) => (
               <Link to={`${E_ROUTES.movies}/${m.id}`} key={m.id}>
-                <span className="actors"> {m.name} </span>
+                <Span cls="actors"> {m.name} </Span>
               </Link>
             ))}
           </>

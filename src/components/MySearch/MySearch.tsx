@@ -8,6 +8,7 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { T_ACTION_QUERY_PAYLOAD } from "../../types/types";
 // utils:
 import { debounce } from "../../services/utils";
+import "./MySearch.sass";
 
 const MySearchBox = styled(Box)(() => ({
   padding: "0.5rem",
@@ -71,7 +72,7 @@ export const MySearch = ({
         id="query"
         onChange={changeHandler}
         value={query}
-        className="search"
+        className="mySearch"
         autoFocus
       />
     </MySearchBox>

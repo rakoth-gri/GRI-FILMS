@@ -62,7 +62,6 @@ export const MoviesPage = () => {
     else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
   }, [page, query]);
 
-  
   useEffect(() => {
     if (movies.length)
       document
@@ -96,7 +95,7 @@ export const MoviesPage = () => {
       <MyFilterWrapper
         onClick={() => setIsOpenFilter((prev) => !prev)}
         isOpenFilter={isOpenFilter}
-        sx={{m: '0px', p: '1rem'}}
+        sx={{ m: "0px", p: "1rem" }}
       >
         <MySelect
           list={MOVIE_SORTFIELD_SELECT_LIST}

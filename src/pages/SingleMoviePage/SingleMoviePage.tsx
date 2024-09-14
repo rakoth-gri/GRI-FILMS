@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import { Link } from "react-router-dom";
+import { Span } from "../../components/Span/Span";
 import { MyTitle } from "../../components/MyTitle";
 import { MyLoader } from "../../components/MyLoader";
 import { MyTrailer } from "../../components/MyTrailer";
@@ -176,46 +177,46 @@ export const SingleMoviePage = () => {
               mr: "0px",
             })}
           >
-            <span className="title">Год производства</span>
-            <span className="desc">{year}</span>
-            <span className="title"> Страна</span>
-            <span className="desc"> {countries.join(", ")}</span>
-            <span className="title"> Жанр </span>
-            <span className="desc"> {genres.join(", ")}</span>
-            <span className="title">Слоган</span>
-            <span className="desc">
+            <Span cls="title">Год производства</Span>
+            <Span cls="desc">{year}</Span>
+            <Span cls="title"> Страна</Span>
+            <Span cls="desc"> {countries.join(", ")}</Span>
+            <Span cls="title"> Жанр </Span>
+            <Span cls="desc"> {genres.join(", ")}</Span>
+            <Span cls="title">Слоган</Span>
+            <Span cls="desc">
               {" "}
               <strong>
                 {" "}
                 <q>{slogan}</q>{" "}
               </strong>
-            </span>
-            <span className="title">Сборы в России</span>
-            <span className="desc"> {feesRussia} </span>
-            <span className="title">Сборы в Мире</span>
-            <span className="desc"> {feesWorld}</span>
-            <span className="title">Премьера в России</span>
-            <span className="desc">
+            </Span>
+            <Span cls="title">Сборы в России</Span>
+            <Span cls="desc"> {feesRussia} </Span>
+            <Span cls="title">Сборы в Мире</Span>
+            <Span cls="desc"> {feesWorld}</Span>
+            <Span cls="title">Премьера в России</Span>
+            <Span cls="desc">
               {premiereRussia
                 ? new Date(premiereRussia).toLocaleDateString() + " г."
                 : "-"}
-            </span>
-            <span className="title">Премьера в Мире</span>
-            <span className="desc">
+            </Span>
+            <Span cls="title">Премьера в Мире</Span>
+            <Span cls="desc">
               {premiereWorld
                 ? new Date(premiereWorld).toLocaleDateString() + " г."
                 : "-"}
-            </span>
-            <span className="title">Продолжительность </span>
-            <span className="desc"> {movieLengthFormat(movieLength)}</span>
-            <span className="title">Возраст </span>
-            <span className="desc"> {ageRating}+ </span>
-            <span className="title">Рейтинг IMDB </span>
-            <span className="desc"> {ratingImdb} </span>
-            <span className="title">Бюджет </span>
-            <span className="desc"> {budget} </span>
-            <span className="title">Тип картины </span>
-            <span className="desc"> {type} </span>
+            </Span>
+            <Span cls="title">Продолжительность </Span>
+            <Span cls="desc"> {movieLengthFormat(movieLength)}</Span>
+            <Span cls="title">Возраст </Span>
+            <Span cls="desc"> {ageRating}+ </Span>
+            <Span cls="title">Рейтинг IMDB </Span>
+            <Span cls="desc"> {ratingImdb} </Span>
+            <Span cls="title">Бюджет </Span>
+            <Span cls="desc"> {budget} </Span>
+            <Span cls="title">Тип картины </Span>
+            <Span cls="desc"> {type} </Span>
           </Box>
         </Box>
         <Box
@@ -239,9 +240,9 @@ export const SingleMoviePage = () => {
           >
             Рейтинг и оценки:
           </MyTitle>
-          <span className="rating"> {ratingKp.toFixed(1)} </span>
-          <span className="votes"> KP: {votesKp} оценок </span>
-          <span className="votes"> IMDB: {votesImdb} оценок </span>          
+          <Span cls="rating"> {ratingKp.toFixed(1)} </Span>
+          <Span cls="votes"> KP: {votesKp} оценок </Span>
+          <Span cls="votes"> IMDB: {votesImdb} оценок </Span>          
           <MyTitle
             variant="subtitle"
             component="h4"
@@ -253,7 +254,7 @@ export const SingleMoviePage = () => {
           <>
             {persons.slice(0, 8).map((p, i) => (
               <Link to={`${E_ROUTES.persons}/${p.id}`} key={p.id}>
-                <span className="actors"> {p.name} </span>
+                <Span className="actors"> {p.name} </Span>
               </Link>
             ))}
           </>          
