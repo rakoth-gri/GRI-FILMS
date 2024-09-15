@@ -55,8 +55,8 @@ export const movieByIdResponse = (
           })
         )
       : [],
-    premiereWorld: movie?.premiere?.world || "Нет данных",
-    premiereRussia: movie?.premiere?.russia || "Нет данных",
+    premiereWorld: movie?.premiere?.world || "",
+    premiereRussia: movie?.premiere?.russia || "",
     budget: movie?.budget?.value
       ? movie.budget.value.toLocaleString() + " " + movie.budget.currency
       : "Нет данных",

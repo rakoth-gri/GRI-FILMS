@@ -8,10 +8,22 @@
 	--app-default-color: var(--app-light-color)
 	--app-default-bg: var(--app-light-bg)
 
-*, *::before, *::after 
+*, *::before, *::after
 	box-sizing: border-box
 	padding: 0px
 	margin: 0px
+
+*::-webkit-scrollbar 
+	width: 7px
+	height: 7px	
+
+*::-webkit-scrollbar-track 
+	background: var(--app-default-bg)
+
+*::-webkit-scrollbar-thumb 
+	background-color: #1976d2    
+	border-radius: 0.25rem      
+	border: 1px solid transparent
 
 a 
 	font-weight: 500
@@ -21,7 +33,6 @@ a
 
 	&:hover 
 		transform: scale(1.02)
-
 
 body
 	font-family: 'Roboto'

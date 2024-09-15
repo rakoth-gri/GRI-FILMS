@@ -117,6 +117,9 @@ export const SingleMoviePage = () => {
     facts,
   } = movie as I_MOVIE;
 
+  console.log(premiereRussia, premiereWorld);
+  
+
   return (
     <>
       <Back onClick={() => location(-1)}> Назад </Back>
@@ -156,7 +159,7 @@ export const SingleMoviePage = () => {
             }}
           >
             {" "}
-            Рейтинг: {ratingKp}{" "}
+            Рейтинг: {ratingKp.toFixed(1)}{" "}
           </Box>
           <MyTrailerTrigger
             startIcon={<PlayCircleFilledIcon />}
@@ -240,7 +243,7 @@ export const SingleMoviePage = () => {
           >
             Рейтинг и оценки:
           </MyTitle>
-          <Span cls="rating"> {ratingKp.toFixed(1)} </Span>
+          <Span cls="rating"> KP:  {ratingKp.toFixed(1)} </Span>
           <Span cls="votes"> KP: {votesKp} оценок </Span>
           <Span cls="votes"> IMDB: {votesImdb} оценок </Span>          
           <MyTitle
@@ -254,7 +257,7 @@ export const SingleMoviePage = () => {
           <>
             {persons.slice(0, 8).map((p, i) => (
               <Link to={`${E_ROUTES.persons}/${p.id}`} key={p.id}>
-                <Span className="actors"> {p.name} </Span>
+                <Span cls="actors"> {p.name} </Span>
               </Link>
             ))}
           </>          

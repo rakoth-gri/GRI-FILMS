@@ -11,17 +11,17 @@ export const personByIdResponse = (person: any) => {
     photo: person?.photo || FAKE,
     sex: person?.sex || "Нет данных",
     growth: person?.growth || 0,
-    birthday: person?.birthday || "Нет данных",
+    birthday: person?.birthday || "",
     death: person?.death,
     age: person?.age || 0,
     birthPlace: person?.birthPlace?.length
       ? person?.birthPlace[0]?.value
       : "Нет данных",
-    deathPlace: person?.deathPlace?.length
-      ? person?.deathPlace[0]?.value
-      : "",
+    deathPlace: person?.deathPlace?.length ? person?.deathPlace[0]?.value : "",
     profession: person?.profession?.length
-      ? person?.profession?.map(({value}: {value: string}) => value)?.join(", ")
+      ? person?.profession
+          ?.map(({ value }: { value: string }) => value)
+          ?.join(", ")
       : "Нет данных",
     countAwards: person?.countAwards || 0,
     facts: person?.facts?.length
