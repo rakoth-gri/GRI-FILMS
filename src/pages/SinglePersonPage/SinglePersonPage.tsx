@@ -167,7 +167,7 @@ export const SinglePersonPage = () => {
             <Span cls="title">Карьера</Span>
             <Span cls="desc">{profession}</Span>
             <Span cls="title"> Рост </Span>
-            <Span cls="desc"> {growth} см. </Span>
+            <Span cls="desc"> {growth ? `${growth} см.` : '-'} </Span>
             <Span cls="title"> Дата рождения </Span>
             <Span cls="desc"> {birthday ? birthDetailsFormat(birthday) : '-'} </Span>
             <Span cls="title"> Место рождения </Span>

@@ -9,7 +9,7 @@ import { I_IMAGE } from "../../types/types";
 
 const imagesModalBoxStyles = {
   width: "70%",
-  height: "80%",  
+  height: "80%",
 };
 
 const imagesModalCardMediaStyles = {
@@ -37,7 +37,7 @@ export const MyImagesModal = ({
   };
 
   return (
-    <MyModalWrapper {...props} sx={{fontSize: '1.12em'}}>
+    <MyModalWrapper {...props} sx={{ fontSize: "1.12em" }}>
       <Box sx={imagesModalBoxStyles}>
         <CardMedia
           src={images[count]?.url}
@@ -50,7 +50,7 @@ export const MyImagesModal = ({
         spacing={2}
         direction={"row"}
         component={"section"}
-        alignItems={'center'}
+        alignItems={"center"}
         sx={{ p: "1rem" }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -65,9 +65,9 @@ export const MyImagesModal = ({
           <NavigateBeforeIcon color="primary" />
         </IconButton>
         <Chip
-          label={count + 1}          
+          label={count + 1}
           variant="outlined"
-          sx={{ border: "none", color: 'inherit', fontSize: 'inherit'}}
+          sx={{ border: "none", color: "inherit", fontSize: "inherit" }}
         />
         <IconButton
           aria-label="next"

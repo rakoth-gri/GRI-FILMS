@@ -61,9 +61,7 @@ export const PersonsPage = () => {
       );
     else dispatch(personThunk({ url: END_POINTS.person, method: "person" }));
   }, [query, page]);
-
   
-
   useEffect(() => {
     if (persons.length)
       document
@@ -102,7 +100,7 @@ export const PersonsPage = () => {
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
-        sx={{m: '0px', p: '1rem'}}
+        sx={{m: '0px', p: '1rem'}}        
       >
         <MySelect
           list={PERSON_SORTFIELD_SELECT_LIST}
@@ -170,8 +168,7 @@ export const PersonsPage = () => {
         /> */}
         <Toggler
           action={changePersonSex}
-          reducer={"personSliceReducer"}
-          title={"Выберите пол"}
+          reducer={"personSliceReducer"}          
           name={"sex"}
           onClick={(e: any) => e.stopPropagation()}
         />

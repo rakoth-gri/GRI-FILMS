@@ -33,7 +33,8 @@ interface I_MyFlexContainer extends HTMLAttributes<HTMLDivElement> {
   sx?: SxProps<Theme>
   component?: string
   pd?: string;
-  mr?: string; 
+  mr?: string;
+  isVisible?: boolean 
 }
 
 export const MyFlexContainer = ({

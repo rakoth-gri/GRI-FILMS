@@ -1,3 +1,4 @@
+import { useState } from "react";
 // REDUX:
 import { changeThemeParam } from "../../store/themeSlice";
 import {
@@ -8,6 +9,7 @@ import {
   Tooltip,
   ListItem,
   styled,
+  Theme,
 } from "@mui/material";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import TheatersIcon from "@mui/icons-material/Theaters";
@@ -20,7 +22,6 @@ import { E_ROUTES } from "../../types/types";
 // css
 import "./Header.sass";
 
-
 const toolBarStyles = {
   flexDirection: "row",
   width: "100%",
@@ -30,14 +31,16 @@ const toolBarStyles = {
 
 // @media ----
 
-const down_lg = {
-  backgroundColor: "primary.main",
+const down_lg = (theme: Theme, isVisible: boolean) => ({
+  backgroundColor: theme.palette.primary.main,
   position: "absolute",
+  margin: "0px",
   top: "0%",
   right: "0%",
   flexDirection: "column",
-  display: "none",
-};
+  display: isVisible ? "flex" : "none",
+  zIndex: 5,
+});
 
 const up_lg = {
   backgroundColor: "inherit",
@@ -46,15 +49,17 @@ const up_lg = {
   display: "flex",
 };
 
-const MyNavContainer = styled(MyFlexContainer)(({theme}) => ({
+const MyNavContainer = styled(MyFlexContainer)(({ theme, isVisible }) => ({
   letterSpacing: "0.7px",
   textTransform: "uppercase",
-  [theme.breakpoints.down("lg")]: down_lg,
+  [theme.breakpoints.down("lg")]: down_lg(theme, isVisible),
   [theme.breakpoints.up("lg")]: up_lg,
 }));
 
 export function Header() {
   const { pathname } = useLocation();
+
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     <AppBar position="static">
@@ -75,12 +80,18 @@ export function Header() {
             </IconButton>
           </Link>
         </Tooltip>
-        <Toggler action={changeThemeParam} reducer={'themeSliceReducer'} name={'theme'} title='Выберите тему'/>
+        <Toggler
+          action={changeThemeParam}
+          reducer={"themeSliceReducer"}
+          name={"theme"}
+        />
         <MyNavContainer
           component="nav"
           w="auto"
           spacing={2}
-          wrap="nowrap"          
+          wrap="nowrap"
+          isVisible={isVisible}
+          onClick={() => setIsVisible((p) => !p)}
         >
           {MAIN_MENU_LIST.map(({ to, text }, i) => (
             <ListItem
@@ -94,12 +105,13 @@ export function Header() {
             </ListItem>
           ))}
         </MyNavContainer>
-        <Box sx={{ display: { xs: "flex", lg: "none" }}}>
+        <Box sx={{ display: { xs: "flex", lg: "none" } }}>
           <MenuIcon
             fontSize="large"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             color="inherit"
+            onClick={() => setIsVisible((p) => !p)}
           />
         </Box>
       </Toolbar>

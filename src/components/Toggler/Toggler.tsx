@@ -20,7 +20,6 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 
 interface I_Toggler {
-  title: string;
   name:
     | keyof I_MOVIE_STATE
     | keyof I_PERSON_STATE
@@ -28,16 +27,13 @@ interface I_Toggler {
     | keyof { theme: "light" | "dark" };
   reducer: keyof RootState;
   action: ActionCreatorWithPayload<keyof I_PERSON_STATE>;
+  onClick?: (e: any) => void;
 }
 
-export const Toggler = ({
-  title,
-  name,
-  reducer,
-  action,
-  ...props
-}: I_Toggler) => {
+export const Toggler = ({ name, reducer, action, onClick }: I_Toggler) => {
   const dispatch = useAppDispatch();
+
+  const label = { inputProps: { "aria-label": "Color switch demo" } };
 
   const value = useAppSelector((s) => s[reducer][name]);
 
@@ -48,26 +44,36 @@ export const Toggler = ({
 
   return (
     <FormControl component="fieldset" variant="filled">
-      <FormLabel component="legend" sx={{ color: "white" }}>
-        {title}
-      </FormLabel>
       <FormControlLabel
         control={
-          <Switch
-            onChange={handleChange}
-            name={name}
-            {...props}
-            color="default"
-            value={value}
-            checkedIcon={name === "theme" ? <Brightness4Icon /> : null}
-            icon={name === "theme" ? <LightModeIcon /> : null}
-          />
+          name === "theme" ? (
+            <Switch
+              onClick={onClick}
+              onChange={handleChange}
+              name={name}
+              color="default"
+              {...label}
+              value={value}
+              checkedIcon={<Brightness4Icon />}
+              icon={<LightModeIcon />}
+              edge='start'
+            />
+          ) : (
+            <Switch
+              {...label}
+              defaultChecked
+              color="default"
+              onClick={onClick}
+              onChange={handleChange}
+              name={name}
+              value={value}
+            />
+          )
         }
         label={value}
         sx={{
           textTransform: "uppercase",
           letterSpacing: "0.7px",
-          color: "var(--app-default-color)",
           fontWeight: "bold",
         }}
       />
