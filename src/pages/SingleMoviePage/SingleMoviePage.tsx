@@ -118,18 +118,28 @@ export const SingleMoviePage = () => {
   } = movie as I_MOVIE;
 
   console.log(premiereRussia, premiereWorld);
-  
 
   return (
     <>
       <Back onClick={() => location(-1)}> Назад </Back>
       <MyFlexContainer
-        align="start"
         id={`${id}`}
         spacing={1}
-        sx={{ m: "1rem" }}
+        sx={{
+          height: { xs: "auto", md: "500px" },
+        }}
+        align={{ xs: "start", md: "center" }}
+        wrap={{ xs: "wrap", sm: "nowrap" }}
+        mr="1rem"
+        justify="space-between"
       >
-        <Box sx={getBoxStyles({ width: "24%", height: "400px" })}>
+        <Box
+          sx={getBoxStyles({
+            width: { xs: "40%", lg: "23%" },
+            height: "400px",
+            pd: "0px",
+          })}
+        >
           <CardMedia
             component={"img"}
             src={poster}
@@ -143,13 +153,19 @@ export const SingleMoviePage = () => {
         </Box>
         <Box
           sx={getBoxStyles({
-            width: "47%",
-            display: "flex",
+            width: { xs: "52%", sm: "55%", md: "48%" },
             justify: "flex-start",
-            align: "start",
+            align: "center",
+            pd: "0px",
           })}
         >
-          <MyTitle align="left" color="inherit" component="h1" variant="h4">
+          <MyTitle
+            align="left"
+            color="inherit"
+            component="h1"
+            variant="h4"
+            sx={{ fontWeight: "bold", fontSize: { xs: "1.35em", lg: "2em" } }}
+          >
             {name} ({year})
           </MyTitle>
           <Box
@@ -168,7 +184,13 @@ export const SingleMoviePage = () => {
           >
             См. Трейлер
           </MyTrailerTrigger>
-          <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
+          <MyTitle
+            variant="h5"
+            component={"h3"}
+            align="left"
+            color="inherit"
+            sx={{ width: "100%", fontSize: { xs: "1rem", md: "1.5rem" } }}
+          >
             {" "}
             О Фильме:{" "}
           </MyTitle>
@@ -178,6 +200,8 @@ export const SingleMoviePage = () => {
               direction: "row",
               justify: "space-between",
               mr: "0px",
+              align: "stretch",
+              fs: { xs: "13px", lg: "1em" },
             })}
           >
             <Span cls="title">Год производства</Span>
@@ -225,12 +249,13 @@ export const SingleMoviePage = () => {
         <Box
           sx={{
             ...getBoxStyles({
-              width: "24%",
-              fs: "0.92em",
-              fw: 700,
-              pd: "0.5rem",
+              fw: 300,
+              pd: "0.1rem",
               display: "flex",
-              align: "center",
+              align: "start",
+              fs: "0.85em",
+              justify: "center",
+              width: { xs: "50%", md: "22%" },
             }),
             opacity: "0.84",
           }}
@@ -243,9 +268,9 @@ export const SingleMoviePage = () => {
           >
             Рейтинг и оценки:
           </MyTitle>
-          <Span cls="rating"> KP:  {ratingKp.toFixed(1)} </Span>
+          <Span cls="rating"> KP: {ratingKp.toFixed(1)} </Span>
           <Span cls="votes"> KP: {votesKp} оценок </Span>
-          <Span cls="votes"> IMDB: {votesImdb} оценок </Span>          
+          <Span cls="votes"> IMDB: {votesImdb} оценок </Span>
           <MyTitle
             variant="subtitle"
             component="h4"
@@ -260,7 +285,7 @@ export const SingleMoviePage = () => {
                 <Span cls="actors"> {p.name} </Span>
               </Link>
             ))}
-          </>          
+          </>
         </Box>
       </MyFlexContainer>
       <Box sx={getBoxStyles({ mr: "0.25rem" })}>
@@ -308,7 +333,7 @@ export const SingleMoviePage = () => {
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
           Факты и подробности производства:
         </MyTitle>
-        <MyFacts facts={facts} />
+        <MyFacts facts={facts} sx={{ fontSize: { xs: "13px", md: "16px" } }} />
       </Box>
       <MyFlexContainer justify="flex-start">
         <LinkButton
@@ -365,4 +390,3 @@ export const SingleMoviePage = () => {
     </>
   );
 };
-

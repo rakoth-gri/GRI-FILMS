@@ -10,12 +10,19 @@ import { T_ACTION_QUERY_PAYLOAD } from "../../types/types";
 import { debounce } from "../../services/utils";
 import "./MySearch.sass";
 
-const MySearchBox = styled(Box)(() => ({
+const MySearchBox = styled(Box)(({ theme }) => ({
   padding: "0.5rem",
   borderRadius: 1,
   margin: "0.5rem",
   color: "var(--app-default-color)",
   fontSize: "1.3em",
+  [theme.breakpoints.down("md")]: {
+    fontSize: "1em",
+    margin: '0'
+  },
+  [theme.breakpoints.down("xs")]: {
+    fontSize: "14px",
+  },
 }));
 
 interface I_MySearch extends InputHTMLAttributes<HTMLInputElement> {

@@ -1,18 +1,24 @@
 import { ChangeEvent, SelectHTMLAttributes } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // components
-import { Select, MenuItem} from "@mui/material";
+import { Select, MenuItem } from "@mui/material";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 // types:
-import { ActionCreatorWithPayload} from "@reduxjs/toolkit";
-import { T_SELECT, T_ACTION_QUERY_PAYLOAD, I_MOVIE_STATE, I_PERSON_STATE, I_REVIEW_STATE } from "../../types/types";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import {
+  T_SELECT,
+  T_ACTION_QUERY_PAYLOAD,
+  I_MOVIE_STATE,
+  I_PERSON_STATE,
+  I_REVIEW_STATE,
+} from "../../types/types";
 import { RootState } from "../../store/store";
 
 interface I_MySelect extends SelectHTMLAttributes<HTMLSelectElement> {
   list: T_SELECT[];
   action: ActionCreatorWithPayload<T_ACTION_QUERY_PAYLOAD>;
   reducer: keyof RootState;
-  name: keyof I_MOVIE_STATE |  keyof I_PERSON_STATE |  keyof I_REVIEW_STATE;
+  name: keyof I_MOVIE_STATE | keyof I_PERSON_STATE | keyof I_REVIEW_STATE;
 }
 
 export const MySelect = ({
@@ -33,7 +39,11 @@ export const MySelect = ({
 
   return (
     <Select
-      sx={{ width: "90%", color: 'inherit'}}
+      sx={{
+        color: "inherit",
+        fontSize: "inherit",
+        width: { xs: "100%", sm: "90%" },
+      }}
       label="select"
       name={name}
       onChange={changeHandler}

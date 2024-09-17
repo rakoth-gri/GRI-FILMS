@@ -5,9 +5,9 @@ import { colors } from "@mui/material";
 const MyErrorStyles = {
   color: colors.red[600],
   textTransform: "uppercase",
-  fontSize: "1.15em",
-  textAlign: 'center',
-  m: '1rem 0'
+  fontSize: { xs: "1em", md: "1.25em" },
+  textAlign: "center",
+  m: "1rem 0",
 };
 
 interface I_MyError extends HTMLAttributes<HTMLDivElement> {

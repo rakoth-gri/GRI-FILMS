@@ -57,6 +57,7 @@ export const Toggler = ({ name, reducer, action, onClick }: I_Toggler) => {
               checkedIcon={<Brightness4Icon />}
               icon={<LightModeIcon />}
               edge='start'
+              sx={{fontSize: 'inherit'}}
             />
           ) : (
             <Switch
@@ -67,6 +68,7 @@ export const Toggler = ({ name, reducer, action, onClick }: I_Toggler) => {
               onChange={handleChange}
               name={name}
               value={value}
+              sx={{fontSize: 'inherit'}}              
             />
           )
         }
@@ -75,6 +77,7 @@ export const Toggler = ({ name, reducer, action, onClick }: I_Toggler) => {
           textTransform: "uppercase",
           letterSpacing: "0.7px",
           fontWeight: "bold",
+          fontSize: {xs: '13px', md: '1rem'}
         }}
       />
     </FormControl>

@@ -8,8 +8,7 @@ interface I_POST {
   title: string;
 }
 
-
-const MyHomePageParags = styled(Box)(({theme}) => ({
+const MyHomePageParags = styled(Box)(({ theme }) => ({
   p: "0.5rem",
   textIndent: "0.5rem",
   letterSpacing: "0.5px",
@@ -17,20 +16,21 @@ const MyHomePageParags = styled(Box)(({theme}) => ({
   lineHeight: "1.5em",
   "&::first-letter": { fontSize: "1.3em", color: "#c62828" },
   "&:last-child": { fontVariant: "small-caps", fontSize: "1.18em" },
-  [theme.breakpoints.down("lg")]: down_lg
-})) 
+  [theme.breakpoints.down("lg")]: down_lg,
+}));
 
 // Media query objects:
 
 const down_lg = {
-  padding: '0.25rem'
-}
+  padding: "0.25rem",
+  fontSize: "14px",
+};
 
 export const HomePage = () => {
   return (
     <>
       <MyTitle variant="h4">ГЛАВНАЯ</MyTitle>
-      <Box component={"section"} sx={{ p: {xs: "0.25rem", md: '0.5rem'} }}>
+      <Box component={"section"} sx={{ p: { xs: "0.25rem", md: "0.5rem" } }}>
         <MyHomePageParags component="p">
           Добро пожаловать на наш уникальный сайт, посвященный миру кино и
           блестящим актерам! Здесь, среди ярких постеров и захватывающих

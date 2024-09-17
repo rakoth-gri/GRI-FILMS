@@ -78,8 +78,8 @@ export const MoviesPage = () => {
       <MyTitle
         align="center"
         component="h1"
-        variant="h4"
-        sx={{ textTransform: "capitalize", color: "var(--app-default-color)" }}
+        variant="h4"        
+        sx={{ textTransform: "capitalize", color: "var(--app-default-color)", fontSize: {xs: '1.3rem', md: '2rem'} }}
       >
         {" "}
         Кинокартины:{" "}
@@ -166,14 +166,14 @@ export const MoviesPage = () => {
         <Button
           variant="contained"
           color="primary"
-          sx={{ mt: "0.5rem", width: "90%" }}
+          sx={{ mt: "0.5rem", width: "90%", fontSize: 'inherit'}}
           onClick={clickHandler}
         >
           {" "}
           начать поиск{" "}
         </Button>
       </MyFilterWrapper>
-      <MyFlexContainer spacing={4} sx={{ minHeight: "45vh" }}>
+      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh", margin: {xs : '0px'} }}>
         <Render
           list={movies}
           loading={loading}

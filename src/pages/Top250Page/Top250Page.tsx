@@ -61,7 +61,11 @@ export const Top250Page = () => {
         align="center"
         component="h1"
         variant="h4"
-        sx={{ textTransform: "capitalize", color: "var(--app-default-color)" }}
+        sx={{
+          textTransform: "capitalize",
+          color: "var(--app-default-color)",
+          fontSize: { xs: "1.3rem", md: "2rem" },
+        }}
       >
         {" "}
         Топ 250 по версии Кинопоиска:{" "}
@@ -75,7 +79,7 @@ export const Top250Page = () => {
             ))}
           </>
         ) : (
-          <MyError> {error as string} </MyError>
+          <MyError> {error?.data?.message as string} </MyError>
         )}
       </MyFlexContainer>
       <SimplePagination

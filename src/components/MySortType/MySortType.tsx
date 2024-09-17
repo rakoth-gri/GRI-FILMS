@@ -19,7 +19,7 @@ const mySortTypeStyles = {
   gap: "1rem",
   alignItems: "center",
   width: "auto",
-  justifyContent: "center",
+  justifyContent: "center",  
 };
 
 interface I_MySelect extends HTMLAttributes<HTMLDivElement> {
@@ -58,10 +58,11 @@ export const MySortType = ({
         defaultValue="female"
         name={name}
         value={value}
-        onChange={changeHandler}
+        onChange={changeHandler}        
       >
         {list.map(({ text, value }) => (
           <FormControlLabel
+            sx={{fontSize: '10px', margin: {xs: '0px'}}}
             value={value}
             control={<Radio />}
             label={text}

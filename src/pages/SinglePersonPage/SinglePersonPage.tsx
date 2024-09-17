@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { cleanUpSinglePersonInfo } from "../../store/personSlice";
 // components
 import { Link } from "react-router-dom";
-import { Button, Box, CardMedia, Divider } from "@mui/material";
+import { Button, Box, CardMedia, Divider, styled } from "@mui/material";
 import { Span } from "../../components/Span/Span";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
 import { Back } from "../../components/Back";
@@ -66,16 +66,16 @@ export const SinglePersonPage = () => {
       );
   }, [personId]);
 
-  useEffect(() => {
-    personId &&
-      dispatch(
-        personAwardsThunk({
-          url: END_POINTS.personAwards,
-          personId,
-          method: "personAwards",
-        })
-      );
-  }, [page]);
+  // useEffect(() => {
+  //   personId &&
+  //     dispatch(
+  //       personAwardsThunk({
+  //         url: END_POINTS.personAwards,
+  //         personId,
+  //         method: "personAwards",
+  //       })
+  //     );
+  // }, [page]);
 
   useEffect(() => {
     return () => {
@@ -121,13 +121,24 @@ export const SinglePersonPage = () => {
         <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       </MyFlexContainer>
       <MyLoader loading={loading} />
-      <MyFlexContainer
-        align="center"
+      <MyFlexContainer        
         id={`${id}`}
         spacing={1}
-        sx={{ m: "1rem", height: "520px" }}
+        sx={{         
+          height: { xs: "auto", md: "500px" },          
+        }}
+        align={{ xs: "start", md: "center" }}
+        wrap={{xs: 'wrap', sm: 'nowrap'}}
+        mr="1rem"
+        justify='space-between'
       >
-        <Box sx={getBoxStyles({ width: "23%", height: "400px", pd: "0px" })}>
+        <Box
+          sx={getBoxStyles({
+            width: { xs: "40%", lg: "23%" },
+            height: "400px",
+            pd: "0px",
+          })}
+        >
           <CardMedia
             component={"img"}
             src={photo}
@@ -137,13 +148,13 @@ export const SinglePersonPage = () => {
         </Box>
         <Box
           sx={getBoxStyles({
-            width: "49%",
-            display: "flex",
+            width: { xs: "52%", sm: "55%", md: "48%" },
             justify: "flex-start",
             align: "center",
+            pd: "0px",
           })}
         >
-          <MyTitle align="left" color="inherit" component="h1" variant="h4">
+          <MyTitle align="left" color="inherit" component="h1" variant="h4" sx={{fontWeight: 'bold', fontSize: {xs: '1.35em', lg: '2em'}}}>
             {name}
           </MyTitle>
           <MyTitle
@@ -151,25 +162,30 @@ export const SinglePersonPage = () => {
             component={"h3"}
             align="left"
             color="inherit"
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", fontSize: {xs: '1rem', md: '1.5rem'} }}
           >
             {" "}
             О персоне:{" "}
           </MyTitle>
           <Box
             sx={getBoxStyles({
-              display: "flex",
+              display: 'flex',
               direction: "row",
               justify: "space-between",
               mr: "0px",
+              align: "stretch",
+              fs: { xs: "13px", lg: "1em" },
             })}
           >
             <Span cls="title">Карьера</Span>
             <Span cls="desc">{profession}</Span>
             <Span cls="title"> Рост </Span>
-            <Span cls="desc"> {growth ? `${growth} см.` : '-'} </Span>
+            <Span cls="desc"> {growth ? `${growth} см.` : "-"} </Span>
             <Span cls="title"> Дата рождения </Span>
-            <Span cls="desc"> {birthday ? birthDetailsFormat(birthday) : '-'} </Span>
+            <Span cls="desc">
+              {" "}
+              {birthday ? birthDetailsFormat(birthday) : "-"}{" "}
+            </Span>
             <Span cls="title"> Место рождения </Span>
             <Span cls="desc"> {birthPlace} </Span>
             <Span cls="title"> Всего фильмов </Span>
@@ -195,14 +211,14 @@ export const SinglePersonPage = () => {
               pd: "0.1rem",
               display: "flex",
               align: "start",
-              fs: "0.95em",
+              fs: "0.85em",
               justify: "center",
-              width: "22%",
+              width: { xs: "50%", md: "22%" },
             }),
             opacity: "0.8",
           }}
         >
-          <MyTitle variant="subtitle" component="h4" color="inherit">
+          <MyTitle variant="subtitle2" component="h4" color="inherit">
             Лучшие фильмы:
           </MyTitle>
           <>
@@ -267,7 +283,7 @@ export const SinglePersonPage = () => {
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
           А Вы знали, что ...
         </MyTitle>
-        <MyFacts facts={facts} />
+        <MyFacts facts={facts} sx={{fontSize: {xs: '13px', md: '16px'}}}/>
       </Box>
     </>
   );

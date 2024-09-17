@@ -8,8 +8,6 @@ import {
   IconButton,
   Tooltip,
   ListItem,
-  styled,
-  Theme,
 } from "@mui/material";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import TheatersIcon from "@mui/icons-material/Theaters";
@@ -29,37 +27,28 @@ const toolBarStyles = {
   p: "1rem",
 };
 
-// @media ----
+// MyFlexContainerStyles:
 
-const down_lg = (theme: Theme, isVisible: boolean) => ({
-  backgroundColor: theme.palette.primary.main,
-  position: "absolute",
+const getMyFlexContainerStyles = (isvisible: boolean) => ({
+  letterSpacing: "0.7px",
+  textTransform: "uppercase",
+  transform: { xs: !isvisible ? "translateY(-100%)" : "translateY(0%)", lg: !isvisible && "translateY(0%)" },
+  transition: "0.3s all ease",
+  padding: "0.75rem",
+  backgroundColor: { xs: "primary.main", lg: "inherit" },
+  position: { xs: "absolute", lg: "static" },
+  flexDirection: { xs: "column", lg: "row" },
   margin: "0px",
   top: "0%",
   right: "0%",
-  flexDirection: "column",
-  display: isVisible ? "flex" : "none",
   zIndex: 5,
 });
 
-const up_lg = {
-  backgroundColor: "inherit",
-  position: "static",
-  flexDirection: "row",
-  display: "flex",
-};
-
-const MyNavContainer = styled(MyFlexContainer)(({ theme, isVisible }) => ({
-  letterSpacing: "0.7px",
-  textTransform: "uppercase",
-  [theme.breakpoints.down("lg")]: down_lg(theme, isVisible),
-  [theme.breakpoints.up("lg")]: up_lg,
-}));
 
 export function Header() {
   const { pathname } = useLocation();
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [isvisible, setIsVisible] = useState(false);
 
   return (
     <AppBar position="static">
@@ -85,12 +74,14 @@ export function Header() {
           reducer={"themeSliceReducer"}
           name={"theme"}
         />
-        <MyNavContainer
+        <MyFlexContainer
+          sx={{
+            ...getMyFlexContainerStyles(isvisible),
+          }}
           component="nav"
           w="auto"
           spacing={2}
           wrap="nowrap"
-          isVisible={isVisible}
           onClick={() => setIsVisible((p) => !p)}
         >
           {MAIN_MENU_LIST.map(({ to, text }, i) => (
@@ -99,12 +90,12 @@ export function Header() {
               component={"li"}
               sx={{ width: "auto", padding: "0.25rem" }}
             >
-              <NavLink to={to} className={pathname === to ? "active" : ""}>
+              <NavLink to={to} className={({isActive}) => isActive && pathname === to ? "active" : ""}>
                 {text}
               </NavLink>
             </ListItem>
           ))}
-        </MyNavContainer>
+        </MyFlexContainer>
         <Box sx={{ display: { xs: "flex", lg: "none" } }}>
           <MenuIcon
             fontSize="large"

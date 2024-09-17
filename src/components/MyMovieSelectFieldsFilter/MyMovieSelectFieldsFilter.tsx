@@ -3,10 +3,19 @@ import { changeMovieStateSelectFields } from "../../store/movieSlice";
 import { useAppDispatch } from "../../store/store";
 // components
 import { MyFlexContainer } from "../MyFlexContainer";
-import { Checkbox } from "@mui/material";
+import { Checkbox, Box } from "@mui/material";
 // consts:
 import { MOVIE_SELECTFIELDS_FILTER } from "../../consts/api";
-import "./MyMovieSelectFieldsFilter.sass"
+
+const MyMovieSelectFieldsFilterStyles = {
+  padding: "0.5rem",
+  backgroundColor: "inherit",
+  fontFamily: "Montserrat",
+  color: "inherit",
+  border: "1px solid",
+  width: { xs: "100%", md: "90%" },
+  fontSize: { xs: "0.8em", sm: "0.9em", md: "1rem" },
+};
 
 export const MyMovieSelectFieldsFilter = ({ ...props }) => {
   const dispatch = useAppDispatch();
@@ -15,16 +24,17 @@ export const MyMovieSelectFieldsFilter = ({ ...props }) => {
     dispatch(changeMovieStateSelectFields(e.target.value));
 
   return (
-    <fieldset className="myMovieSelectFieldsFilter">
+    <Box component={"fieldset"} sx={MyMovieSelectFieldsFilterStyles}>
       <legend> Выберите поля информации: </legend>
-      <MyFlexContainer {...props} style={{ userSelect: "none" }} spacing={1}>
+      <MyFlexContainer
+        {...props}
+        sx={{ userSelect: "none", m: "0px" }}
+        spacing={1}
+      >
         {MOVIE_SELECTFIELDS_FILTER.map(({ value, text }) => (
-          <label
-            key={value}
-            style={{ letterSpacing: "0.5px" }}
-          >
+          <label key={value} style={{ letterSpacing: "0.5px" }}>
             <Checkbox
-              name={'selectFields'}
+              name={"selectFields"}
               value={value}
               color={"success"}
               onChange={changeHandler}
@@ -33,6 +43,6 @@ export const MyMovieSelectFieldsFilter = ({ ...props }) => {
           </label>
         ))}
       </MyFlexContainer>
-    </fieldset>
+    </Box>
   );
 };

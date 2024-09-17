@@ -1,28 +1,19 @@
-import { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import { Container } from "@mui/material";
 
-const getMyContainerProps = (
-  mr: string,
-  pd: string,
-  w: string,
-  color: string,
-  bg: string,
-  ff: string,
-  fs: string,
-  h: string,
-): CSSProperties => ({
-  fontSize: fs,
-  color,
-  fontFamily: ff,
-  padding: pd,
-  margin: mr,
-  width: w,
-  background: bg,
-  minHeight: h,
-  position: 'relative'
+const appContainerStyles = (props: Record<string, unknown>) => ({
+  fontSize: props.fs || "inherit",
+  color: props.color || "inherit",
+  fontFamily: props.ff || "inherit",
+  padding: { xs: "0.5rem", md: props.pd || "1rem" },
+  margin: props.mr,
+  width: { xs: "100%", sm: "95%", md: props.w || "90%" },
+  background: props.bg || "inherit",
+  minHeight: props.h || "auto",
+  position: "relative",
 });
 
-interface I_MyContainer extends HTMLAttributes<HTMLDivElement> {
+interface I_MyAppContainer extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   fs?: string;
   ff?: string;
@@ -34,24 +25,13 @@ interface I_MyContainer extends HTMLAttributes<HTMLDivElement> {
   bg?: string;
 }
 
-export const AppContainer = ({
-  children,
-  mr = "1rem auto",
-  pd = "1rem",
-  w = "90%",
-  color = "inherit",
-  bg = "inherit",
-  ff = "inherit",
-  fs = "inherit",
-  h = 'auto',
-  ...props
-}: I_MyContainer) => {
+export const AppContainer = ({ children, ...props }: I_MyAppContainer) => {
   return (
     <Container
+      sx={appContainerStyles(props)}
       component={"main"}
       maxWidth={false}
       {...props}
-      sx={getMyContainerProps(mr, pd, w, color, bg, ff, fs, h)}
     >
       {children}
     </Container>

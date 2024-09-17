@@ -56,18 +56,18 @@ const birthDetailsFormat = (s: string): string => {
 // ! Функция для формирования sx Prop компоненты 'Box' MUI
 
 interface I_GetBoxStyles {
-  width?: string;
-  height?: string;
-  display?: string;
-  justify?: string;
-  align?: string;
-  direction?: string;
-  pd?: string;
-  mr?: string;
-  wrap?: string;
-  fw?: number;
-  fs?: string;
-  ta?: string;
+  width?: string | Record<string, unknown>;
+  height?: string | Record<string, unknown>;
+  display?: string | Record<string, unknown>;
+  justify?: string | Record<string, unknown>;
+  align?: string | Record<string, unknown>;
+  direction?: string | Record<string, unknown>;
+  pd?: string | Record<string, unknown>;
+  mr?: string | Record<string, unknown>;
+  wrap?: string | Record<string, unknown>;
+  fw?: number | Record<string, unknown>;
+  fs?: string | Record<string, unknown>;
+  ta?: string | Record<string, unknown>;
 }
 
 const getBoxStyles = ({

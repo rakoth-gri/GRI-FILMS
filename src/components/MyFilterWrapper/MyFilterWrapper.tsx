@@ -1,13 +1,13 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { MyFlexContainer } from "../MyFlexContainer";
-import { Box, SxProps, Theme } from "@mui/material";
+import { SxProps, Theme, styled } from "@mui/material";
 
-const MyFilterWrapperStyles = (isOpenFilter: boolean) => ({
+const getMyFilterWrapperStyles = (isOpenFilter: boolean) => ({
   willChange: "transform",
   position: "fixed",
   top: "0%",
-  left: "0%",  
-  bgcolor: "#4a148c",
+  left: "0%",
+  backgroundColor: "#4a148c",
   height: "100vh",
   zIndex: 4,
   color: "white",
@@ -16,12 +16,14 @@ const MyFilterWrapperStyles = (isOpenFilter: boolean) => ({
   transform: isOpenFilter
     ? "translate3d(0%, 0px, 0px)"
     : "translate3d(-100%, 0px, 0px)",
+  fontSize: { xs: "14px", sx: "inherit" },
+  width: { xs: "60%", md: "40%", lg: '35%' },
 });
 
 interface I_MyFilterWrapper extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   isOpenFilter: boolean;
-  sx?: SxProps<Theme>
+  sx?: SxProps<Theme>;
 }
 
 export const MyFilterWrapper = ({
@@ -31,10 +33,9 @@ export const MyFilterWrapper = ({
   ...props
 }: I_MyFilterWrapper) => {
   return (
-    <MyFlexContainer
-      sx={{ ...MyFilterWrapperStyles(isOpenFilter), ...sx }}
-      w="30%"
+    <MyFlexContainer      
       component="aside"
+      sx={{ ...getMyFilterWrapperStyles(isOpenFilter), ...sx }}
       {...props}
     >
       {children}

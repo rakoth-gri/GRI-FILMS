@@ -19,7 +19,18 @@ const MyFactsAccordionDetailStyles = {
   lineHeight: "1.45em",
   fontWeight: 500,
   textAlign: "justify",
+  fontSize: 'inherit',
 };
+
+const MyFactsAccordionSummaryStyles = {
+  m: '0.5rem 0px',
+  borderBottomColor: 'transparent',
+  fontWeight: 500,
+  fontSize: 'inherit',
+  "&:hover": {
+    border: `1px solid`,
+  },
+}
 
 interface I_MyFacts {
   facts: string[];
@@ -35,14 +46,7 @@ export function MyFacts({ facts, sx }: I_MyFacts) {
             expandIcon={<ExpandMoreIcon color={`primary`} component="svg" />}
             aria-controls="panel1-content"
             id="panel1-header"
-            sx={{
-              m: '0.5rem 0px',
-              borderBottomColor: 'transparent',
-              fontWeight: 500,
-              "&:hover": {
-                border: `1px solid`,
-              },
-            }}
+            sx={MyFactsAccordionSummaryStyles}
           >
             Факт {i + 1}:
           </AccordionSummary>

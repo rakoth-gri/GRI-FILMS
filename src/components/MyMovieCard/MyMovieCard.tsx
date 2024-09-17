@@ -15,7 +15,7 @@ import { colors } from "@mui/material";
 // types:
 import { T_MY_MOVIE_CARD, E_ROUTES } from "../../types/types";
 
-const MyCard = styled(Card)(() => ({
+const MyCard = styled(Card)(({ theme }) => ({
   width: "27%",
   height: 470,
   display: "flex",
@@ -24,6 +24,20 @@ const MyCard = styled(Card)(() => ({
   position: "relative",
   background: "inherit",
   color: "inherit",
+  [theme.breakpoints.down("lg")]: {
+    width: "45%",
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "14px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "12px",
+    height: 425,
+  },
+  [theme.breakpoints.down("xs")]: {
+    width: "85%",
+    fontSize: "14px",
+  },
 }));
 
 const MyCardMedia = styled(CardMedia)(() => ({
@@ -33,13 +47,17 @@ const MyCardMedia = styled(CardMedia)(() => ({
   "&:hover": { filter: "none" },
 }));
 
-const MyMoviesCardChipStyles = { border: "none", color: 'var(--app-default-color)' }
+const MyMoviesCardChipStyles = {
+  border: "none",
+  color: "var(--app-default-color)",
+  fontSize: "inherit",
+};
 
 export const MyMovieCard = ({
   id,
   name,
   enName,
-  year,  
+  year,
   shortDescription,
   ageRating,
   poster,
@@ -73,9 +91,9 @@ export const MyMovieCard = ({
           top: "10%",
           left: "2%",
           backgroundColor: "rgba(0,0,0, .12)",
-          fontFamily: 'SofadiOne',
-          transform: 'rotateZ(-6deg)',
-          fontWeight: 400
+          fontFamily: "SofadiOne",
+          transform: "rotateZ(-6deg)",
+          fontWeight: 400,
         }}
       >
         {" "}
@@ -87,7 +105,7 @@ export const MyMovieCard = ({
         title={enName}
         component={"img"}
         loading="lazy"
-        className='cardImage'
+        className="cardImage"
       />
       <CardContent sx={{ padding: "0.5rem" }}>
         <Typography gutterBottom variant="subtitle2" component="h3">
@@ -96,7 +114,7 @@ export const MyMovieCard = ({
         {/* <Divider/> */}
         <Typography
           variant="body2"
-          sx={{ color: "secondary", textAlign: "justify" }}
+          sx={{ color: "secondary", textAlign: "justify", fontSize: "inherit" }}
           component="p"
         >
           {shortDescription} ( <strong> {year} г. </strong>)
@@ -112,13 +130,13 @@ export const MyMovieCard = ({
           подробнее{" "}
         </LinkButton>
         <Chip
-          label={`IMDB ${ratingImdb}`}
+          label={`IMDB ${ratingImdb.toFixed(1)}`}
           icon={<GradeIcon color="warning" />}
           variant="outlined"
           sx={MyMoviesCardChipStyles}
         />
         <Chip
-          label={`KP ${ratingKp}`}
+          label={`KP ${ratingKp.toFixed(1)}`}
           icon={<GradeIcon color="warning" />}
           variant="outlined"
           sx={MyMoviesCardChipStyles}

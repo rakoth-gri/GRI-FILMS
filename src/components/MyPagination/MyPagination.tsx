@@ -1,6 +1,6 @@
 import { ChangeEvent, HTMLAttributes } from "react";
 // components
-import { Pagination, Stack, PaginationItem } from "@mui/material";
+import { Pagination, Stack, PaginationItem, styled } from "@mui/material";
 import {
   KeyboardDoubleArrowLeft,
   KeyboardDoubleArrowRight,
@@ -9,6 +9,7 @@ import {
 import { RootState, useAppSelector, useAppDispatch } from "../../store/store";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { T_ACTION_QUERY_PAYLOAD } from "../../types/types";
+import './MyPaginationComp.sass'
 
 interface I_MyPagination extends HTMLAttributes<HTMLElement> {
   reducer: keyof RootState;
@@ -17,12 +18,13 @@ interface I_MyPagination extends HTMLAttributes<HTMLElement> {
   color?: "primary" | "secondary" | "standard";
 }
 
-const myPaginationStyles = {
-  textAlign: "center",
+const MyPaginationStyles = {
+  width: '100%',   
   display: "flex",
   justifyContent: "center",
-  color: 'var(--app-default-color)'
-};
+  color: 'var(--app-default-color)',
+  alignItems: 'center'  
+} 
 
 export const MyPagination = ({
   action,
@@ -39,10 +41,11 @@ export const MyPagination = ({
   };
 
   return (
-    <Stack sx={{ m: "1.5rem" }}>
+    <Stack sx={{ m: "1.2rem 0" }} spacing={0}>
       <Pagination
-        count={pages ? pages : 1}
-        sx={myPaginationStyles}
+        sx={MyPaginationStyles}
+        className="myPaginationComp"
+        count={pages ? pages : 1}        
         size={props.size || 'large'}
         variant="outlined"
         color={color}
@@ -54,7 +57,7 @@ export const MyPagination = ({
               next: KeyboardDoubleArrowRight,
             }}
             {...item}
-            sx={{color: 'var(--app-default-color)'}}
+            sx={{color: 'var(--app-default-color)', fontSize: '0.9rem'}}
           />
         )}
         {...props}

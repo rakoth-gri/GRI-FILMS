@@ -61,7 +61,7 @@ export const PersonsPage = () => {
       );
     else dispatch(personThunk({ url: END_POINTS.person, method: "person" }));
   }, [query, page]);
-  
+
   useEffect(() => {
     if (persons.length)
       document
@@ -82,7 +82,7 @@ export const PersonsPage = () => {
     <Fragment>
       <MyTitle
         align="center"
-        sx={{ color: "var(--app-default-color)" }}
+        sx={{ color: "var(--app-default-color)", fontSize: {xs: '1.3rem', md: '2rem'} }}
         component="h1"
         variant="h4"
       >
@@ -100,7 +100,7 @@ export const PersonsPage = () => {
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
-        sx={{m: '0px', p: '1rem'}}        
+        sx={{ m: "0px", p: "1rem" }}
       >
         <MySelect
           list={PERSON_SORTFIELD_SELECT_LIST}
@@ -168,21 +168,21 @@ export const PersonsPage = () => {
         /> */}
         <Toggler
           action={changePersonSex}
-          reducer={"personSliceReducer"}          
+          reducer={"personSliceReducer"}
           name={"sex"}
           onClick={(e: any) => e.stopPropagation()}
         />
         <Button
           variant="contained"
           color="primary"
-          sx={{ mt: "0.5rem", width: "90%" }}
+          sx={{ mt: "0.5rem", width: "90%", fontSize: "0.9em" }}
           onClick={clickHandler}
         >
           {" "}
           начать поиск{" "}
         </Button>
       </MyFilterWrapper>
-      <MyFlexContainer spacing={4} sx={{ minHeight: "45vh" }}>
+      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }}>
         <Render
           list={persons}
           loading={loading}

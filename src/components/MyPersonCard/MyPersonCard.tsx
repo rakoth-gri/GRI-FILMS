@@ -17,15 +17,25 @@ import { I_PERSON_SEARCH } from "../../types/types";
 import { E_ROUTES } from "../../types/types";
 import "./MyPersonCard.sass";
 
-const MyCard = styled(Card)(() => ({
+const MyCard = styled(Card)(({ theme }) => ({
   width: "27%",
-  height: "400px",
+  height: "415px",
   display: "flex",
   justifyContent: "space-between",
   flexDirection: "column",
   position: "relative",
   background: "inherit",
   color: "inherit",
+  [theme.breakpoints.down("lg")]: {
+    width: "45%",
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "14px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    height: 425,
+  },
+  [theme.breakpoints.down("xs")]: { width: "85%" },
 }));
 
 const MyCardMedia = styled(CardMedia)(() => ({
@@ -41,7 +51,7 @@ const personCardBoxStyles = {
   fontWeight: 400,
   pl: "0.6rem",
   listStyleType: "none",
-  fontSize: "0.9em",
+  fontSize: "inherit",
 };
 
 export const MyPersonCard = ({
@@ -78,7 +88,7 @@ export const MyPersonCard = ({
           color="inherit"
         >
           {name}
-        </MyTitle>        
+        </MyTitle>
         <Box component="ul" sx={personCardBoxStyles}>
           <li className="myPersonCard">
             {" "}
