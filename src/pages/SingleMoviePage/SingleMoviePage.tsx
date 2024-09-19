@@ -46,6 +46,7 @@ const MyTrailerTrigger = styled(Button)(({ theme }) => ({
 const cardMediaStyles = {
   width: "100%",
   objectFit: "cover",
+  height: '100%',
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
 };
@@ -117,25 +118,23 @@ export const SingleMoviePage = () => {
     facts,
   } = movie as I_MOVIE;
 
-  console.log(premiereRussia, premiereWorld);
-
   return (
     <>
       <Back onClick={() => location(-1)}> Назад </Back>
       <MyFlexContainer
         id={`${id}`}
         spacing={1}
-        sx={{
-          height: { xs: "auto", md: "500px" },
+        sx={{         
+          height: { xs: "auto"},          
         }}
-        align={{ xs: "start", md: "center" }}
-        wrap={{ xs: "wrap", sm: "nowrap" }}
-        mr="1rem"
+        align={{ xs: "start"}}
+        wrap={{xs: 'wrap', lg: 'nowrap'}}
+        mr={{xs: "0.2rem", md: '1rem'}}
         justify="space-between"
       >
         <Box
           sx={getBoxStyles({
-            width: { xs: "40%", lg: "23%" },
+            width: { xs: "95%", sm: '42%', lg: "23%" },
             height: "400px",
             pd: "0px",
           })}
@@ -153,7 +152,8 @@ export const SingleMoviePage = () => {
         </Box>
         <Box
           sx={getBoxStyles({
-            width: { xs: "52%", sm: "55%", md: "48%" },
+            height: 'auto',
+            width: { xs: "95%", sm: '50%', md: "48%" },
             justify: "flex-start",
             align: "center",
             pd: "0px",
@@ -189,14 +189,14 @@ export const SingleMoviePage = () => {
             component={"h3"}
             align="left"
             color="inherit"
-            sx={{ width: "100%", fontSize: { xs: "1rem", md: "1.5rem" } }}
+            sx={{ width: "100%", fontSize: { xs: "1rem", md: "1.5rem" }, m: '1rem 0px 0px 1rem' }}
           >
             {" "}
             О Фильме:{" "}
           </MyTitle>
           <Box
             sx={getBoxStyles({
-              display: "flex",
+              display: 'flex',
               direction: "row",
               justify: "space-between",
               mr: "0px",
@@ -253,7 +253,7 @@ export const SingleMoviePage = () => {
               pd: "0.1rem",
               display: "flex",
               align: "start",
-              fs: "0.85em",
+              fs: { xs: "13px", lg: "1em" },
               justify: "center",
               width: { xs: "50%", md: "22%" },
             }),
@@ -288,7 +288,7 @@ export const SingleMoviePage = () => {
           </>
         </Box>
       </MyFlexContainer>
-      <Box sx={getBoxStyles({ mr: "0.25rem" })}>
+      <Box sx={getBoxStyles({ mr: "0px" })}>
         <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
           Сюжет:
         </MyTitle>
@@ -299,6 +299,8 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.7px",
             textAlign: "justify",
             lineHeight: "1.45em",
+            m: '0.5rem',            
+            fontSize: { xs: "13px", lg: "1em" },
           }}
         >
           {description}
@@ -329,7 +331,7 @@ export const SingleMoviePage = () => {
         )
       )}
       <Divider />
-      <Box sx={getBoxStyles({ mr: "0.5rem" })}>
+      <Box sx={getBoxStyles({ mr: {xs: '0px', md: "0.5rem"}  })}>
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
           Факты и подробности производства:
         </MyTitle>
@@ -344,7 +346,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: "1.02em",
+            fontSize: {xs: "14px", md: "1em"},
           }}
         >
           {" "}
@@ -356,7 +358,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: "1.02em",
+            fontSize: {xs: "14px", md: "1em"},
           }}
           onClick={() => setIsTrailerModal(true)}
         >
@@ -371,7 +373,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: "1.02em",
+            fontSize: {xs: "14px", md: "1em"},
           }}
           linkProps={name}
         >

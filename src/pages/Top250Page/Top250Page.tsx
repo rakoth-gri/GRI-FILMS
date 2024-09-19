@@ -71,7 +71,7 @@ export const Top250Page = () => {
         Топ 250 по версии Кинопоиска:{" "}
       </MyTitle>
       <MyLoader color="info" variant="query" loading={isLoading} />
-      <MyFlexContainer spacing={4} sx={{ minHeight: "45vh" }}>
+      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }}>
         {movies && !error ? (
           <>
             {(movies as I_API_OBJECT<I_MOVIE[]>).data.map((movie) => (

@@ -21,12 +21,13 @@ export const SingleMoviePropsList = ({
       <MyTitle align="center" component="h3" variant="h6" color={"inherit"}>
         {title}
       </MyTitle>
-      <MyFlexContainer
+      <MyFlexContainer        
+        spacing={1}
         id="moviePropListComp"
         align="start"
         justify={type === "awards" ? "center" : "flex-start"}
-        sx={{ margin: "0.8rem 0" }}
-        wrap="nowrap"
+        sx={{ margin: "0.8rem 0"}}
+        wrap={'nowrap'}
       >
         {list.map(cb)}
       </MyFlexContainer>

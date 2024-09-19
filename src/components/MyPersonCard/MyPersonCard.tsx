@@ -27,15 +27,16 @@ const MyCard = styled(Card)(({ theme }) => ({
   background: "inherit",
   color: "inherit",
   [theme.breakpoints.down("lg")]: {
-    width: "45%",
+    width: "46.5%",
   },
   [theme.breakpoints.down("md")]: {
     fontSize: "14px",
   },
   [theme.breakpoints.down("sm")]: {
-    height: 425,
+    width: "85%", 
+    height: 435,
   },
-  [theme.breakpoints.down("xs")]: { width: "85%" },
+  
 }));
 
 const MyCardMedia = styled(CardMedia)(() => ({
@@ -68,7 +69,7 @@ export const MyPersonCard = ({
   return (
     <MyCard component={"article"}>
       <MyLabel
-        style={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)" }}
+        style={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)", backdropFilter: 'blur(1.6px)' }}
       >
         {" "}
         {age ? age + " лет" : null}

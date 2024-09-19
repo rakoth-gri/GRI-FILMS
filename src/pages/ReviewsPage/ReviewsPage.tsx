@@ -40,16 +40,16 @@ export const ReviewsPage = () => {
 
   let { state } = useLocation();
 
-  useEffect(() => {
-    movieId &&
-      dispatch(
-        reviewByMovieIdThunk({
-          url: `${END_POINTS.review}`,
-          movieId,
-          method: "reviewByMovieId",
-        })
-      );
-  }, [page]);
+  // useEffect(() => {
+  //   movieId &&
+  //     dispatch(
+  //       reviewByMovieIdThunk({
+  //         url: `${END_POINTS.review}`,
+  //         movieId,
+  //         method: "reviewByMovieId",
+  //       })
+  //     );
+  // }, [page]);
 
   useEffect(() => {
     return () => {
@@ -112,7 +112,7 @@ export const ReviewsPage = () => {
           обновить отзывы{" "}
         </Button>
       </MyFilterWrapper>
-      <MyFlexContainer spacing={4} sx={{ minHeight: "45vh" }}>
+      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }} mr={{xs: '0px', md: '0.5rem'}}>
         <Render
           list={reviews}
           loading={loading}

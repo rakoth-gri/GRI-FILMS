@@ -14,6 +14,7 @@ const MyReviewCardReviewStyles = {
   letterSpacing: "0.7px",
   textIndent: "0.25rem",
   textTransform: "none",
+  fontSize: {xs: '13px', md: "1em"}
 };
 
 const MyReviewCardHeaderStyles = {
@@ -24,7 +25,7 @@ const MyReviewCardHeaderStyles = {
     pd: "0px",
     width: "100%",
     mr: "0.25rem 0px",
-    fs: "1.07em",
+    fs: {xs: '13.6px', md: "1.07em"},
     fw: 700
   }),  
   letterSpacing: "0.5px",
@@ -48,12 +49,13 @@ export const MyReviewCard = ({
         direction="column"
         align={"start"}
         component={"article"}
+        mr={{xs: '0px'}}
       >
         <Box sx={MyReviewCardHeaderStyles}>
           {author}
           <time> {date ? new Date(date).toLocaleString() : null} </time>
         </Box>
-        <MyTitle component={"h4"} variant="subtitle" sx={{ m: "0.5em 0px" }}>
+        <MyTitle component={"h4"} variant="subtitle" sx={{ m: "0.5em 0px", fontSize: {xs: '15px', md: '1em', textAlign: 'left'}}}>
           <blockquote cite={author}>
             {" "}
             <em>

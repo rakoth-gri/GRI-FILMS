@@ -82,7 +82,7 @@ export const MovieImagesPage: FC = () => {
           }
         />
       )}
-      <MyTitle align="center" color="primary" component="h1" variant="h4">
+      <MyTitle align="center" color="inherit" component="h1" variant="h4" sx={{ fontWeight: "bold", fontSize: { xs: "1.35em", lg: "2em" }, m: {xs: '1rem 0.5rem', md: '0.5rem'} }}>
         Постеры и изображения:
       </MyTitle>
       <SimplePagination

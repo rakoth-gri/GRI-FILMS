@@ -7,7 +7,7 @@ import { I_MOVIE_PERSONS_PROP, E_ROUTES } from "../../types/types";
 import "./MoviePersonsCard.sass";
 
 const moviePersonsCardStyles = {
-  width: "170px",
+  width: {xs: '170px', md: "185px"},
   height: "230px",
   display: "flex",
   justifyContent: "space-between",
@@ -16,6 +16,7 @@ const moviePersonsCardStyles = {
   alignItems: "center",
   background: "inherit",
   color: "inherit",
+  fontSize: { xs: "13px", lg: "14.4px" }
 };
 
 const moviePersonsCardMediaStyles = {
@@ -28,15 +29,15 @@ const moviePersonsCardMediaStyles = {
 
 const moviePersonsCardULStyles = {
   textAlign: "center",
-  letterSpacing: "0.9px",
+  letterSpacing: "0.7px",
   fontWeight: 400,
   padding: "0.25rem",
-  fontSize: "0.85em",
+  fontSize: "inherit",
   width: "100%",
 };
 
 const p = {
-  fontSize: "0.9em",
+  fontSize: "inherit",
   textAlign: "center",
   width: "100%",
   fontWeight: 500,

@@ -9,7 +9,7 @@ import {
 import { RootState, useAppSelector, useAppDispatch } from "../../store/store";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { T_ACTION_QUERY_PAYLOAD } from "../../types/types";
-import './MyPaginationComp.sass'
+import "./MyPaginationComp.sass";
 
 interface I_MyPagination extends HTMLAttributes<HTMLElement> {
   reducer: keyof RootState;
@@ -19,12 +19,12 @@ interface I_MyPagination extends HTMLAttributes<HTMLElement> {
 }
 
 const MyPaginationStyles = {
-  width: '100%',   
+  width: "100%",
   display: "flex",
   justifyContent: "center",
-  color: 'var(--app-default-color)',
-  alignItems: 'center'  
-} 
+  color: "var(--app-default-color)",
+  alignItems: "center",
+};
 
 export const MyPagination = ({
   action,
@@ -34,7 +34,7 @@ export const MyPagination = ({
 }: I_MyPagination) => {
   const dispatch = useAppDispatch();
 
-  const {pages, page} = useAppSelector((s) => s[reducer]);
+  const { pages, page } = useAppSelector((s) => s[reducer]);
 
   const changeHandler = (e: ChangeEvent<unknown>, page: number) => {
     dispatch(action({ name: "page", value: page }));
@@ -45,8 +45,8 @@ export const MyPagination = ({
       <Pagination
         sx={MyPaginationStyles}
         className="myPaginationComp"
-        count={pages ? pages : 1}        
-        size={props.size || 'large'}
+        count={pages ? pages : 1}
+        size={props.size || "large"}
         variant="outlined"
         color={color}
         page={page}
@@ -57,7 +57,7 @@ export const MyPagination = ({
               next: KeyboardDoubleArrowRight,
             }}
             {...item}
-            sx={{color: 'var(--app-default-color)', fontSize: '0.9rem'}}
+            sx={{ color: "var(--app-default-color)", fontSize: "0.9rem" }}
           />
         )}
         {...props}

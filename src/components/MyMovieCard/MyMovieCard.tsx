@@ -28,15 +28,13 @@ const MyCard = styled(Card)(({ theme }) => ({
     width: "45%",
   },
   [theme.breakpoints.down("md")]: {
-    fontSize: "14px",
+    height: 455,
+    width: "48.4%",
+    fontSize: "11.9px",
   },
   [theme.breakpoints.down("sm")]: {
-    fontSize: "12px",
-    height: 425,
-  },
-  [theme.breakpoints.down("xs")]: {
-    width: "85%",
-    fontSize: "14px",
+    height: 410,
+    width: "85%",    
   },
 }));
 
@@ -51,6 +49,8 @@ const MyMoviesCardChipStyles = {
   border: "none",
   color: "var(--app-default-color)",
   fontSize: "inherit",
+  m: {xs: '0px'},
+  marginLeft: '0px'
 };
 
 export const MyMovieCard = ({
@@ -81,7 +81,7 @@ export const MyMovieCard = ({
         {ageRating}+{" "}
       </MyLabel>
       <MyLabel
-        sx={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)" }}
+        sx={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)", backdropFilter: 'blur(1.6px)' }}
       >
         {" "}
         {movieLength} мин.
