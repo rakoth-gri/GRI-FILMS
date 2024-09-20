@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { MyFlexContainer } from "../MyFlexContainer";
-import { SxProps, Theme, styled } from "@mui/material";
+import { SxProps, Theme} from "@mui/material";
 
 const getMyFilterWrapperStyles = (isOpenFilter: boolean) => ({
   willChange: "transform",
@@ -16,8 +16,8 @@ const getMyFilterWrapperStyles = (isOpenFilter: boolean) => ({
   transform: isOpenFilter
     ? "translate3d(0%, 0px, 0px)"
     : "translate3d(-100%, 0px, 0px)",
-  fontSize: { xs: "14px", sx: "inherit" },
-  width: { xs: "60%", md: "40%", lg: '35%' },
+  fontSize: { xs: "13px", sm: "14.4px" },
+  width: { xs: "65%", sm: "55%", md: "45%", lg: "35%" },
 });
 
 interface I_MyFilterWrapper extends HTMLAttributes<HTMLDivElement> {

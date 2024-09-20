@@ -72,7 +72,7 @@ export const MovieImagesPage: FC = () => {
 
   return (
     <>
-      <Back to={`${E_ROUTES.movies}/${movieId}`}> Назад </Back>
+      <Back to={`${E_ROUTES.movies}/${movieId}`}>  {null} </Back>
       {state.isModalShown && images && (
         <MyImagesModal
           startIndex={state.startIndex}

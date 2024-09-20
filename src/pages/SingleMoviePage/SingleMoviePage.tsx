@@ -120,7 +120,7 @@ export const SingleMoviePage = () => {
 
   return (
     <>
-      <Back onClick={() => location(-1)}> Назад </Back>
+      <Back onClick={() => location(-1)}> {null} </Back>
       <MyFlexContainer
         id={`${id}`}
         spacing={1}
@@ -129,7 +129,7 @@ export const SingleMoviePage = () => {
         }}
         align={{ xs: "start"}}
         wrap={{xs: 'wrap', lg: 'nowrap'}}
-        mr={{xs: "0.2rem", md: '1rem'}}
+        mr={{xs: "0px", sm: "0.2rem", md: '1rem'}}
         justify="space-between"
       >
         <Box
@@ -189,7 +189,7 @@ export const SingleMoviePage = () => {
             component={"h3"}
             align="left"
             color="inherit"
-            sx={{ width: "100%", fontSize: { xs: "1rem", md: "1.5rem" }, m: '1rem 0px 0px 1rem' }}
+            sx={{ width: "100%", fontSize: { xs: "1.15rem", md: "1.5rem" }, m: '1rem 0px 0px 0px' }}
           >
             {" "}
             О Фильме:{" "}
@@ -288,6 +288,7 @@ export const SingleMoviePage = () => {
           </>
         </Box>
       </MyFlexContainer>
+      <Divider />
       <Box sx={getBoxStyles({ mr: "0px" })}>
         <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
           Сюжет:
@@ -337,7 +338,7 @@ export const SingleMoviePage = () => {
         </MyTitle>
         <MyFacts facts={facts} sx={{ fontSize: { xs: "13px", md: "16px" } }} />
       </Box>
-      <MyFlexContainer justify="flex-start">
+      <MyFlexContainer justify="center" spacing={{xs: 1, sm: 2}} mr={{sx: '0px', sm: '0.5rem'}}>
         <LinkButton
           route={E_ROUTES.images}
           id={movieId}
@@ -346,7 +347,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: {xs: "14px", md: "1em"},
+            fontSize: {xs: "11px", sm: '14px', md: "1em"},
           }}
         >
           {" "}
@@ -358,7 +359,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: {xs: "14px", md: "1em"},
+            fontSize: {xs: "11px", sm: '14px', md: "1em"},
           }}
           onClick={() => setIsTrailerModal(true)}
         >
@@ -373,7 +374,7 @@ export const SingleMoviePage = () => {
             letterSpacing: "0.8px",
             fontFamily: "Montserrat",
             textTransform: "none",
-            fontSize: {xs: "14px", md: "1em"},
+            fontSize: {xs: "11px", sm: '14px', md: "1em"},
           }}
           linkProps={name}
         >
@@ -383,8 +384,7 @@ export const SingleMoviePage = () => {
       </MyFlexContainer>
       {isTrailerModal && (
         <MyTrailer
-          url={videos?.url}
-          name={videos?.name}
+          videos={videos}          
           sx={{ background: "rgba(0,0,0, .85)", m: "0px" }}
           onClick={() => setIsTrailerModal((p) => !p)}
         />

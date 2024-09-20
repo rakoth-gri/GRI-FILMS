@@ -1,13 +1,14 @@
 // components:
 import { Link } from "react-router-dom";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import FAKE from '../../assets/await.jpg'
 // types
 import { I_SIMILAR_MOVIES_PROP, E_ROUTES } from "../../types/types";
 import "./SimilarMoviesCard.sass";
 
 const SimilarMoviesCardStyles = {
-  width: { xs: "150px", md: "165px" },
-  height: "200px",
+  width: { xs: "140px", md: "170px" },
+  height: "220px",
   display: "flex",
   justifyContent: "space-between",
   flexDirection: "column",
@@ -15,15 +16,16 @@ const SimilarMoviesCardStyles = {
   alignItems: "center",
   background: "inherit",
   color: "inherit",
-  fontSize: { xs: "14.4px", lg: "1em" },
+  fontSize: { xs: "12px", sm: "14.4px", lg: "15px" },
 };
 
 const SimilarMoviesCardMediaStyles = {
-  height: "70%",
+  height: "68%",
   objectFit: "cover",
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
 };
+
 
 // ! Карточка для  отображения: similarMovies, sequelsAndPrequels
 export const SimilarMoviesCard = ({
@@ -36,7 +38,7 @@ export const SimilarMoviesCard = ({
     <Link to={`${E_ROUTES.movies}/${id}`}>
       <Card sx={SimilarMoviesCardStyles}>
         <CardMedia
-          image={poster.url}
+          image={poster?.url || FAKE}
           title={enName}
           component={"img"}
           loading="lazy"

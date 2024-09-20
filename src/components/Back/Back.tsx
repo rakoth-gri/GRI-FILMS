@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Button, SxProps } from "@mui/material";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Link } from "react-router-dom";
 import { E_ROUTES } from "../../types/types";
 
@@ -9,10 +10,6 @@ interface I_Back extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "contained" | "outlined" | "text" | string;
   to?: E_ROUTES | string;
 }
-
-const BackButtonStyles = {
-  color: "whitesmoke",
-};
 
 export const Back = ({
   children,
@@ -26,10 +23,11 @@ export const Back = ({
       <Button
         {...props}
         component="button"
-        sx={{ ...BackButtonStyles, ...sx }}
+        sx={{ color: "whitesmoke", pl: '10px', pr: '10px', ...sx }}
         color="success"
         variant={variant}
       >
+        <ArrowBackIosNewIcon fontSize="medium" color='inherit'/>
         {children}
       </Button>
     </Link>

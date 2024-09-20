@@ -2,7 +2,10 @@ import { useEffect, MouseEventHandler, useState } from "react";
 // REDUX
 import { reviewByMovieIdThunk } from "../../store/reviewThunks";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { changeReviewStateQueryParams, cleanUpReviewInfo } from "../../store/reviewSlice";
+import {
+  changeReviewStateQueryParams,
+  cleanUpReviewInfo,
+} from "../../store/reviewSlice";
 import { RootState } from "../../store/store";
 // REACT_ROUTER_DOM
 import { useParams, useLocation } from "react-router-dom";
@@ -40,22 +43,22 @@ export const ReviewsPage = () => {
 
   let { state } = useLocation();
 
-  // useEffect(() => {
-  //   movieId &&
-  //     dispatch(
-  //       reviewByMovieIdThunk({
-  //         url: `${END_POINTS.review}`,
-  //         movieId,
-  //         method: "reviewByMovieId",
-  //       })
-  //     );
-  // }, [page]);
+  useEffect(() => {
+    movieId &&
+      dispatch(
+        reviewByMovieIdThunk({
+          url: `${END_POINTS.review}`,
+          movieId,
+          method: "reviewByMovieId",
+        })
+      );
+  }, [page]);
 
   useEffect(() => {
     return () => {
-      dispatch(cleanUpReviewInfo())
-    }
-  }, [])
+      dispatch(cleanUpReviewInfo());
+    };
+  }, []);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     movieId &&
@@ -71,15 +74,23 @@ export const ReviewsPage = () => {
   return (
     <>
       <MyFlexContainer direction="row" justify="space-between" spacing={2}>
-        <Back to={`${E_ROUTES.movies}/${movieId}`}> Назад </Back>
+        <Back to={`${E_ROUTES.movies}/${movieId}`}> {null} </Back>
         <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       </MyFlexContainer>
-      <MyTitle variant="h4"> {state}</MyTitle>
+      <MyTitle
+        variant="h1"
+        component={"h1"}
+        color="inherit"
+        sx={{ fontWeight: "bold", fontSize: { xs: "1.35em", lg: "2em" } }}
+      >
+        {" "}
+        {state}{" "}
+      </MyTitle>
       <MyLoader loading={loading} />
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
-        sx={{m: '0px', p: '1rem'}}
+        sx={{ m: "0px", p: "1rem" }}
       >
         <MySelect
           list={REVIEW_SORTFIELD_SELECT_LIST}
@@ -112,14 +123,18 @@ export const ReviewsPage = () => {
           обновить отзывы{" "}
         </Button>
       </MyFilterWrapper>
-      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }} mr={{xs: '0px', md: '0.5rem'}}>
+      <MyFlexContainer
+        spacing={2}
+        sx={{ minHeight: "45vh" }}
+        mr={{ xs: "0px", md: "0.5rem" }}
+      >
         <Render
           list={reviews}
           loading={loading}
           error={error}
           cb={(item: any) => <MyReviewCard key={item.id} {...item} />}
         />
-      </MyFlexContainer>    
+      </MyFlexContainer>
       <MyPagination
         action={changeReviewStateQueryParams}
         reducer="reviewSliceReducer"

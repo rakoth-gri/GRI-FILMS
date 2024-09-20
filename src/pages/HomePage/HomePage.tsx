@@ -15,7 +15,7 @@ const MyHomePageParags = styled(Box)(({ theme }) => ({
   textAlign: "justify",
   lineHeight: "1.5em",
   "&::first-letter": { fontSize: "1.3em", color: "#c62828" },
-  "&:last-child": { fontVariant: "small-caps", fontSize: "1.18em" },
+  "&:last-child": { fontVariant: "small-caps", fontSize: "1.1em" },
   [theme.breakpoints.down("lg")]: down_lg,
 }));
 

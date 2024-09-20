@@ -19,7 +19,7 @@ export const movieByIdResponse = (
     year: movie?.year || 0,
     videos: movie?.videos?.trailers?.length
       ? {url: movie?.videos?.trailers[0]?.url, name: movie?.videos?.trailers[0]?.name} 
-      : "Нет данных",
+      : "",
     description: movie?.description || "Нет данных",
     shortDescription: movie?.shortDescription || "Нет данных",
     slogan: movie?.slogan || "Нет данных",

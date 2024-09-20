@@ -35,7 +35,7 @@ interface I_MyFlexContainer extends HTMLAttributes<HTMLDivElement> {
     | "space-around"
     | "space-evenly"
     | Record<string, unknown>;
-  spacing?: number;
+  spacing?: number | Record<string, number>;
   direction?:
     | "row"
     | "column"

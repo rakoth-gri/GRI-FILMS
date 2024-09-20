@@ -54,13 +54,13 @@ export const MoviesPage = () => {
     []
   );
 
-  useEffect(() => {
-    if (query)
-      dispatch(
-        movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
-      );
-    else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
-  }, [page, query]);
+  // useEffect(() => {
+  //   if (query)
+  //     dispatch(
+  //       movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
+  //     );
+  //   else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
+  // }, [page, query]);
 
   useEffect(() => {
     if (movies.length)

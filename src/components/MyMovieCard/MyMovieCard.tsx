@@ -75,13 +75,14 @@ export const MyMovieCard = ({
           background: "green",
           color: "white",
           padding: "0.25rem",
+          fontFamily: "Merienda"
         }}
       >
         {" "}
         {ageRating}+{" "}
       </MyLabel>
       <MyLabel
-        sx={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)", backdropFilter: 'blur(1.6px)' }}
+        sx={{ top: "2%", right: "2%", background: "green", fontFamily: "Merienda", fontWeight: 700, color: "white",}}
       >
         {" "}
         {movieLength} мин.
@@ -91,9 +92,9 @@ export const MyMovieCard = ({
           top: "10%",
           left: "2%",
           backgroundColor: "rgba(0,0,0, .12)",
-          fontFamily: "SofadiOne",
-          transform: "rotateZ(-6deg)",
-          fontWeight: 400,
+          fontFamily: "Merienda",
+          backdropFilter: 'blur(1px)',
+          fontWeight: 700,
         }}
       >
         {" "}

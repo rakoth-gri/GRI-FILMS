@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEventHandler } from "react";
+import { useEffect, useState, MouseEventHandler, ReactNode } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // REDUX:
 import { personByIdThunk, personAwardsThunk } from "../../store/personThunks";
@@ -9,6 +9,7 @@ import { cleanUpSinglePersonInfo } from "../../store/personSlice";
 import { Link } from "react-router-dom";
 import { Button, Box, CardMedia, Divider, styled } from "@mui/material";
 import { Span } from "../../components/Span/Span";
+import { SimilarMoviesCard } from "../../components/SimilarMoviesCard";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
 import { Back } from "../../components/Back";
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
@@ -30,7 +31,13 @@ import {
 } from "../../consts/api";
 // types
 import { RootState } from "../../store/store";
-import { I_PERSON_AWARDS, I_PERSON_FULL, E_ROUTES } from "../../types/types";
+import {
+  I_PERSON_AWARDS,
+  I_PERSON_FULL,
+  E_ROUTES,
+  I_SIMILAR_MOVIES_PROP,
+  I_PERSON_MOVIES,
+} from "../../types/types";
 // utils
 import {
   getBoxStyles,
@@ -45,6 +52,13 @@ const cardMediaStyles = {
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
 };
+
+const prepareToRender = <T extends object>(
+  l: T[],
+  title: string,
+  cb: (item: T) => ReactNode
+) =>
+  l.length ? <SingleMoviePropsList list={l} title={title} cb={cb} /> : null;
 
 export const SinglePersonPage = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
@@ -117,7 +131,7 @@ export const SinglePersonPage = () => {
   return (
     <>
       <MyFlexContainer direction="row" justify="space-between" spacing={2}>
-        <Back onClick={() => location(-1)}> Назад </Back>
+        <Back onClick={() => location(-1)}> {null} </Back>
         <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       </MyFlexContainer>
       <MyLoader loading={loading} />
@@ -129,7 +143,7 @@ export const SinglePersonPage = () => {
         }}
         align={{ xs: "start", md: "center" }}
         wrap={{ xs: "wrap", lg: "nowrap" }}
-        mr={{ xs: "0.2rem", md: "1rem" }}
+        mr={{ xs: "0px", sm: "0.2rem", md: "1rem" }}
         justify="space-between"
       >
         <Box
@@ -168,7 +182,11 @@ export const SinglePersonPage = () => {
             component={"h3"}
             align="left"
             color="inherit"
-            sx={{ width: "100%", fontSize: { xs: "1rem", md: "1.5rem" } }}
+            sx={{
+              width: "100%",
+              fontSize: { xs: "1.15rem", md: "1.5rem" },
+              m: "1rem 0px 0px 0px",
+            }}
           >
             {" "}
             О персоне:{" "}
@@ -230,7 +248,11 @@ export const SinglePersonPage = () => {
             variant="subtitle2"
             component="h4"
             color="inherit"
-            sx={{ width: { xs: "100%", lg: "auto" } }}
+            sx={{
+              width: { xs: "100%", lg: "auto" },
+              fontWeight: "bold",
+              textAlign: "left",
+            }}
           >
             Лучшие фильмы:
           </MyTitle>
@@ -291,6 +313,13 @@ export const SinglePersonPage = () => {
         action={changePersonStateQueryParams}
         reducer="personSliceReducer"
       />
+      {prepareToRender(
+        movies,
+        "Фильмы, ШОУ, кинопремии:",
+        (movie: I_PERSON_MOVIES, i?: number) => (
+          <SimilarMoviesCard key={i} {...movie} />
+        )
+      )}
       <Divider />
       <Box sx={getBoxStyles({ mr: { xs: "0px", md: "0.5rem" } })}>
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
