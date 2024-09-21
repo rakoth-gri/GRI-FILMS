@@ -7,7 +7,7 @@ const getMyFilterWrapperStyles = (isOpenFilter: boolean) => ({
   position: "fixed",
   top: "0%",
   left: "0%",
-  backgroundColor: "#4a148c",
+  background: "var(--app-filterWrapper-bg)",
   height: "100vh",
   zIndex: 4,
   color: "white",

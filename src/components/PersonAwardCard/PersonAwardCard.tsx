@@ -20,7 +20,7 @@ const PersonAwardCardStyles = {
   alignItems: "center",
   background: colors.amber[200],
   color: colors.grey[800],
-  fontSize: {xs: '0.7em', sm: '0.85em', md: '0.95em'}
+  fontSize: {xs: '0.6em', sm: '0.75em', md: '0.85em'}
 };
 
 const PersonAwardCardTitleStyles = {

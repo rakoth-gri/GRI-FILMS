@@ -11,8 +11,7 @@ const MyMovieSelectFieldsFilterStyles = {
   padding: "0.5rem",
   backgroundColor: "inherit",
   fontFamily: "Montserrat",
-  color: "inherit",
-  border: "1px solid",
+  color: "inherit",  
   width: { xs: "100%", md: "90%" },
   fontSize: { xs: "0.8em", sm: "0.9em", md: "1rem" },
 };
@@ -25,7 +24,7 @@ export const MyMovieSelectFieldsFilter = ({ ...props }) => {
 
   return (
     <Box component={"fieldset"} sx={MyMovieSelectFieldsFilterStyles}>
-      <legend> Выберите поля информации: </legend>
+      <legend style={{padding: '0px 0.75rem'}}> Выберите поля информации: </legend>
       <MyFlexContainer
         {...props}
         sx={{ userSelect: "none", m: "0px" }}

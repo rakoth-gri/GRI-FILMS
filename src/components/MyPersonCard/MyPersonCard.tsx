@@ -42,6 +42,7 @@ const MyCard = styled(Card)(({ theme }) => ({
 const MyCardMedia = styled(CardMedia)(() => ({
   height: "55%",
   objectFit: "cover",
+  borderRadius: '0.4rem',
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
 }));
@@ -106,7 +107,7 @@ export const MyPersonCard = ({
         </Box>
       </CardContent>
       <CardActions sx={{ justifyContent: "space-around", p: "0.35rem" }}>
-        <LinkButton id={`${id}`} route={E_ROUTES.persons}>
+        <LinkButton id={`${id}`} route={E_ROUTES.persons} sx={{background: 'var(--app-card-bg)'}}>
           {" "}
           подробнее{" "}
         </LinkButton>

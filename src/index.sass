@@ -1,12 +1,15 @@
 @import "./fonts.sass"
 	
 :root
-	--app-dark-bg: #455a64 
-	--app-light-bg: #fafafa
+	--app-dark-bg: linear-gradient(90deg,#3d4052,#282a36,#09090c) 
+	--app-light-bg: linear-gradient(90deg,#fff0fe,#f0fcff,#fafafa,#fffeeb)
 	--app-dark-color: #fafafa  
 	--app-light-color: #212121
 	--app-default-color: var(--app-light-color)
 	--app-default-bg: var(--app-light-bg)
+	--app-filterButton-bg: linear-gradient(90deg, #372c9c,#b7007b,#e83440)
+	--app-filterWrapper-bg: linear-gradient(90deg, #496b97,#6f4c9a,#6b14c2)
+	--app-card-bg: linear-gradient(90deg, #4cb7b0,#0098c4,#026fc4)
 
 *, *::before, *::after
 	box-sizing: border-box
@@ -31,7 +34,7 @@ a
 	text-decoration: inherit
 	transition: transform 0.2s linear
 	font-family: 'Montserrat'
-	letter-spacing: '0.5px'
+	letter-spacing: 0.75px
 
 	&:hover 
 		transform: scale(1.02)

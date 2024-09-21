@@ -90,7 +90,7 @@ export const queryConstructor = {
   }),
   personAwards: ({
     page = "1",
-    limit = "10",
+    limit = "5",
     sortType = "-1",
     personId = "8816",
     sortField = "winning",

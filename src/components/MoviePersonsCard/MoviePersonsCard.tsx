@@ -21,7 +21,7 @@ const moviePersonsCardStyles = {
 
 const moviePersonsCardMediaStyles = {
   height: "66%",
-  width: {xs: '100%', sm: "80%"},
+  width: '100%',
   objectFit: "cover",
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },

@@ -1,11 +1,11 @@
 import { AllHTMLAttributes, ReactNode } from "react";
-import { Typography, styled, Theme, SxProps } from "@mui/material";
+import { Typography, SxProps } from "@mui/material";
 
-const MyTitleComp = styled(Typography)(({ theme, sx = {}}) => ({
+const MyTitleStyles = {
   margin: "0.5rem",
+  textTransform: "uppercase",
   fontFamily: "Montserrat",
-  ...sx,
-}));
+};
 
 interface I_Title extends AllHTMLAttributes<HTMLTitleElement> {
   component?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -50,14 +50,14 @@ export const MyTitle = ({
   ...props
 }: I_Title) => {
   return (
-    <MyTitleComp
+    <Typography
       {...props}
       component={component}
       align={align}
       color={color}
-      sx={sx}
+      sx={{...MyTitleStyles, ...sx}}
     >
       {children}
-    </MyTitleComp>
+    </Typography>
   );
 };

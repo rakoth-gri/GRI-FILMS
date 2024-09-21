@@ -130,13 +130,13 @@ const personAwardsThunk = createAsyncThunk<
 >(
   "person/personAwardsThunk",
   async ({ url, personId, method }, { rejectWithValue, getState }) => {
-    const { limit, sortType, page } = getState().personSliceReducer;
+    const { /*limit*/sortType, page } = getState().personSliceReducer;
 
     const res = await Server[method](
       url,
       {
         personId,        
-        limit: `${limit}`,
+        // limit: `${limit}`,
         sortType: `${sortType}`,
         page: `${page}`,
       },

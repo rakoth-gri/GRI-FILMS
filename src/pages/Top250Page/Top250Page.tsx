@@ -61,8 +61,7 @@ export const Top250Page = () => {
         align="center"
         component="h1"
         variant="h4"
-        sx={{
-          textTransform: "capitalize",
+        sx={{          
           color: "var(--app-default-color)",
           fontSize: { xs: "1.3rem", md: "2rem" },
         }}

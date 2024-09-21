@@ -54,13 +54,13 @@ export const MoviesPage = () => {
     []
   );
 
-  // useEffect(() => {
-  //   if (query)
-  //     dispatch(
-  //       movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
-  //     );
-  //   else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
-  // }, [page, query]);
+  useEffect(() => {
+    if (query)
+      dispatch(
+        movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
+      );
+    else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
+  }, [page, query]);
 
   useEffect(() => {
     if (movies.length)
@@ -79,10 +79,9 @@ export const MoviesPage = () => {
         align="center"
         component="h1"
         variant="h4"        
-        sx={{ textTransform: "capitalize", color: "var(--app-default-color)", fontSize: {xs: '1.3rem', md: '2rem'} }}
-      >
-        {" "}
-        Кинокартины:{" "}
+        sx={{color: "var(--app-default-color)", fontSize: {xs: '1.3rem', md: '2rem'}}}
+      >       
+        Кинокартины:
       </MyTitle>
       <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       <MyLoader color="info" variant="query" loading={loading} />
@@ -165,8 +164,7 @@ export const MoviesPage = () => {
         />
         <Button
           variant="contained"
-          color="primary"
-          sx={{ mt: "0.5rem", width: "90%", fontSize: 'inherit'}}
+          sx={{ mt: "0.5rem", width: "90%", background: 'var(--app-filterButton-bg)' }}
           onClick={clickHandler}
         >
           {" "}

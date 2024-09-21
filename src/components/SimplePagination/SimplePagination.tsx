@@ -24,7 +24,7 @@ export const SimplePagination = ({page, pages, clickHandler}: I_SimplePagination
       >
         <NavigateBeforeIcon />
       </IconButton>
-      <IconButton onClick={clickHandler} size="large" sx={{color: 'inherit', fontSize: {xs: '1.25em', md: '1.8em'}}}>
+      <IconButton onClick={clickHandler} size="large" sx={{color: 'inherit', fontSize: {xs: '1.25em', md: '1.8em'}, fontFamily: 'Merienda'}}>
         {page}
       </IconButton>
       <IconButton

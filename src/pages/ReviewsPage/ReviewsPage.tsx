@@ -115,8 +115,7 @@ export const ReviewsPage = () => {
         />
         <Button
           variant="contained"
-          color="primary"
-          sx={{ mt: "0.5rem", width: "90%" }}
+          sx={{ mt: "0.5rem", width: "90%", background: 'var(--app-filterButton-bg)' }}
           onClick={clickHandler}
         >
           {" "}

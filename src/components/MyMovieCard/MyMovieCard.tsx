@@ -34,13 +34,14 @@ const MyCard = styled(Card)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     height: 410,
-    width: "85%",    
+    width: "85%",
   },
 }));
 
 const MyCardMedia = styled(CardMedia)(() => ({
   height: "59%",
   objectFit: "cover",
+  borderRadius: '0.4rem',
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
 }));
@@ -49,8 +50,8 @@ const MyMoviesCardChipStyles = {
   border: "none",
   color: "var(--app-default-color)",
   fontSize: "inherit",
-  m: {xs: '0px'},
-  marginLeft: '0px'
+  m: { xs: "0px" },
+  marginLeft: "0px",
 };
 
 export const MyMovieCard = ({
@@ -75,14 +76,21 @@ export const MyMovieCard = ({
           background: "green",
           color: "white",
           padding: "0.25rem",
-          fontFamily: "Merienda"
+          fontFamily: "Merienda",
         }}
       >
         {" "}
         {ageRating}+{" "}
       </MyLabel>
       <MyLabel
-        sx={{ top: "2%", right: "2%", background: "green", fontFamily: "Merienda", fontWeight: 700, color: "white",}}
+        sx={{
+          top: "2%",
+          right: "2%",
+          background: "green",
+          fontFamily: "Merienda",
+          fontWeight: 700,
+          color: "white",
+        }}
       >
         {" "}
         {movieLength} мин.
@@ -93,7 +101,7 @@ export const MyMovieCard = ({
           left: "2%",
           backgroundColor: "rgba(0,0,0, .12)",
           fontFamily: "Merienda",
-          backdropFilter: 'blur(1px)',
+          backdropFilter: "blur(1px)",
           fontWeight: 700,
         }}
       >
@@ -105,14 +113,12 @@ export const MyMovieCard = ({
         data-src={poster}
         title={enName}
         component={"img"}
-        loading="lazy"
         className="cardImage"
       />
       <CardContent sx={{ padding: "0.5rem" }}>
         <Typography gutterBottom variant="subtitle2" component="h3">
           {name}
         </Typography>
-        {/* <Divider/> */}
         <Typography
           variant="body2"
           sx={{ color: "secondary", textAlign: "justify", fontSize: "inherit" }}
@@ -125,7 +131,7 @@ export const MyMovieCard = ({
         <LinkButton
           id={`${id}`}
           route={E_ROUTES.movies}
-          sx={{ border: "none", fontSize: "9px" }}
+          sx={{ border: "none", fontSize: "9px", background: 'var(--app-card-bg)' }}
         >
           {" "}
           подробнее{" "}

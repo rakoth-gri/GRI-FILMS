@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { cleanUpSinglePersonInfo } from "../../store/personSlice";
 // components
 import { Link } from "react-router-dom";
-import { Button, Box, CardMedia, Divider, styled } from "@mui/material";
+import { Button, Box, CardMedia, Divider } from "@mui/material";
 import { Span } from "../../components/Span/Span";
 import { SimilarMoviesCard } from "../../components/SimilarMoviesCard";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
@@ -35,7 +35,6 @@ import {
   I_PERSON_AWARDS,
   I_PERSON_FULL,
   E_ROUTES,
-  I_SIMILAR_MOVIES_PROP,
   I_PERSON_MOVIES,
 } from "../../types/types";
 // utils
@@ -287,9 +286,8 @@ export const SinglePersonPage = () => {
           onClick={(e) => e.stopPropagation()}
         />
         <Button
-          variant="contained"
-          color="primary"
-          sx={{ mt: "0.5rem", width: "90%" }}
+          variant="contained"          
+          sx={{ mt: "0.5rem", width: "90%", background: 'var(--app-filterButton-bg)' }}
           onClick={clickHandler}
         >
           {" "}

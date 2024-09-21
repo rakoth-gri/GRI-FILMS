@@ -82,7 +82,10 @@ export const PersonsPage = () => {
     <Fragment>
       <MyTitle
         align="center"
-        sx={{ color: "var(--app-default-color)", fontSize: {xs: '1.3rem', md: '2rem'} }}
+        sx={{
+          color: "var(--app-default-color)",
+          fontSize: { xs: "1.3rem", md: "2rem" },
+        }}
         component="h1"
         variant="h4"
       >
@@ -167,6 +170,7 @@ export const PersonsPage = () => {
           max={100}
         /> */}
         <Toggler
+          sx={{ fontFamily: "Roboto" }}
           action={changePersonSex}
           reducer={"personSliceReducer"}
           name={"sex"}
@@ -174,8 +178,11 @@ export const PersonsPage = () => {
         />
         <Button
           variant="contained"
-          color="primary"
-          sx={{ mt: "0.5rem", width: "90%", fontSize: "0.9em" }}
+          sx={{
+            mt: "0.5rem",
+            width: "90%",
+            background: "var(--app-filterButton-bg)",
+          }}
           onClick={clickHandler}
         >
           {" "}
