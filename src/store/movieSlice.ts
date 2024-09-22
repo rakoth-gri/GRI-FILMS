@@ -26,7 +26,7 @@ const initialState = {
   genre: "боевик",
   ratingKp: [70, 90],
   ratingIMDB: [70, 90],
-  year: [2005, 2024],
+  year: [1970, 2024],
   countries: "",
   id: null,
   loading: false,

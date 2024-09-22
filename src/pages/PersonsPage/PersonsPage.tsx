@@ -104,6 +104,7 @@ export const PersonsPage = () => {
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
         sx={{ m: "0px", p: "1rem" }}
+        action={clickHandler}
       >
         <MySelect
           list={PERSON_SORTFIELD_SELECT_LIST}
@@ -175,19 +176,7 @@ export const PersonsPage = () => {
           reducer={"personSliceReducer"}
           name={"sex"}
           onClick={(e: any) => e.stopPropagation()}
-        />
-        <Button
-          variant="contained"
-          sx={{
-            mt: "0.5rem",
-            width: "90%",
-            background: "var(--app-filterButton-bg)",
-          }}
-          onClick={clickHandler}
-        >
-          {" "}
-          начать поиск{" "}
-        </Button>
+        />        
       </MyFilterWrapper>
       <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }}>
         <Render

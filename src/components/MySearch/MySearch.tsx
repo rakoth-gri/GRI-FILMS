@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch, RootState, useAppSelector } from "../../store/store";
 // components:
-import { Box, styled, TextField } from "@mui/material";
+import { Box, styled, Input } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 // types:
 import { InputHTMLAttributes, ChangeEventHandler } from "react";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { T_ACTION_QUERY_PAYLOAD } from "../../types/types";
 // utils:
 import { debounce } from "../../services/utils";
-import "./MySearch.sass";
 
 const MySearchBox = styled(Box)(({ theme }) => ({
   padding: "0.5rem",
@@ -18,7 +18,7 @@ const MySearchBox = styled(Box)(({ theme }) => ({
   fontSize: "1.3em",
   [theme.breakpoints.down("md")]: {
     fontSize: "1em",
-    margin: '0'
+    margin: "0",
   },
   [theme.breakpoints.down("xs")]: {
     fontSize: "14px",
@@ -61,27 +61,25 @@ export const MySearch = ({
 
   return (
     <MySearchBox component="search">
-      {/* <TextField
-        name="query"
-        id="query"
-        autoFocus={autoFocus}
-        type="search"
-        fullWidth={true}
-        variant="outlined"        
-        {...props}        
-        value={query}
-        sx={{color: 'inherit', fontSize: 'inherit'}}
-        onChange={changeHandler}
-      /> */}
-      <input
-        type="search"
-        name="query"
-        id="query"
-        onChange={changeHandler}
-        value={query}
-        className="mySearch"
-        autoFocus
-      />
+      <Box sx={{position: 'relative'}}>
+        <SearchIcon sx={{color: 'inherit', position: 'absolute', left: '0%', top: '50%', transform: 'translateY(-50%)', opacity: '0.65'}} fontSize="large"/>
+        <Input
+          type="search"
+          name="query"
+          id="query"
+          onChange={changeHandler}
+          value={query}
+          sx={{
+            fontSize: "inherit",
+            color: "inherit",
+            p: "0.5rem 3rem",
+            letterSpacing: "0.85px",
+          }}
+          autoFocus
+          fullWidth
+          placeholder="Начните поиск:"
+        />
+      </Box>
     </MySearchBox>
   );
 };

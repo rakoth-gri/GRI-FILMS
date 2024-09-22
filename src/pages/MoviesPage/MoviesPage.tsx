@@ -11,7 +11,6 @@ import { movieThunk, movieSearchThunk } from "../../store/movieThunks";
 // action Creators
 import { changeMovieStateQueryParams } from "../../store/movieSlice";
 // components:
-import { Button } from "@mui/material";
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
 import { MySelect } from "../../components/MySelect";
 import { MyRange } from "../../components/MyRange";
@@ -95,6 +94,7 @@ export const MoviesPage = () => {
         onClick={() => setIsOpenFilter((prev) => !prev)}
         isOpenFilter={isOpenFilter}
         sx={{ m: "0px", p: "1rem" }}
+        action={clickHandler}
       >
         <MySelect
           list={MOVIE_SORTFIELD_SELECT_LIST}
@@ -161,15 +161,7 @@ export const MoviesPage = () => {
           direction="column"
           align="start"
           onClick={(e: any) => e.stopPropagation()}
-        />
-        <Button
-          variant="contained"
-          sx={{ mt: "0.5rem", width: "90%", background: 'var(--app-filterButton-bg)' }}
-          onClick={clickHandler}
-        >
-          {" "}
-          начать поиск{" "}
-        </Button>
+        />        
       </MyFilterWrapper>
       <MyFlexContainer spacing={2} sx={{ minHeight: "45vh", margin: {xs : '0px'} }}>
         <Render

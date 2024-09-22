@@ -36,7 +36,7 @@ const moviePersonsCardULStyles = {
   width: "100%",
 };
 
-const p = {
+const moviePersonsCardPStyles = {
   fontSize: "inherit",
   textAlign: "center",
   width: "100%",
@@ -63,7 +63,7 @@ export const MoviePersonsCard = ({
           loading="lazy"
           sx={moviePersonsCardMediaStyles}
         />
-        <Typography gutterBottom sx={p} component="p">
+        <Typography gutterBottom sx={moviePersonsCardPStyles} component="p">
           {name}
         </Typography>
         <Box component="ul" sx={moviePersonsCardULStyles}>

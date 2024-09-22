@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { cleanUpSinglePersonInfo } from "../../store/personSlice";
 // components
 import { Link } from "react-router-dom";
-import { Button, Box, CardMedia, Divider } from "@mui/material";
+import { Box, CardMedia, Divider } from "@mui/material";
 import { Span } from "../../components/Span/Span";
 import { SimilarMoviesCard } from "../../components/SimilarMoviesCard";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
@@ -269,6 +269,8 @@ export const SinglePersonPage = () => {
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
         sx={{ m: "0px", p: "1rem" }}
+        action={clickHandler}
+        actionText="Обновить награды"
       >
         {" "}
         <MySelect
@@ -284,15 +286,7 @@ export const SinglePersonPage = () => {
           reducer="personSliceReducer"
           action={changePersonStateQueryParams}
           onClick={(e) => e.stopPropagation()}
-        />
-        <Button
-          variant="contained"          
-          sx={{ mt: "0.5rem", width: "90%", background: 'var(--app-filterButton-bg)' }}
-          onClick={clickHandler}
-        >
-          {" "}
-          обновить награды{" "}
-        </Button>
+        />        
       </MyFilterWrapper>
       <Divider />
       {personAwards.length ? (

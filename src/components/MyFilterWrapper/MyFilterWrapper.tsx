@@ -1,6 +1,6 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, ReactNode, MouseEventHandler } from "react";
 import { MyFlexContainer } from "../MyFlexContainer";
-import { SxProps, Theme} from "@mui/material";
+import { SxProps, Theme, Button } from "@mui/material";
 
 const getMyFilterWrapperStyles = (isOpenFilter: boolean) => ({
   willChange: "transform",
@@ -23,22 +23,37 @@ const getMyFilterWrapperStyles = (isOpenFilter: boolean) => ({
 interface I_MyFilterWrapper extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   isOpenFilter: boolean;
+  actionText?: string
+  action: MouseEventHandler<HTMLButtonElement>
   sx?: SxProps<Theme>;
 }
 
 export const MyFilterWrapper = ({
   children,
   isOpenFilter,
+  actionText = 'Начать поиск',  
   sx,
+  action,
   ...props
 }: I_MyFilterWrapper) => {
   return (
-    <MyFlexContainer      
+    <MyFlexContainer
       component="aside"
       sx={{ ...getMyFilterWrapperStyles(isOpenFilter), ...sx }}
       {...props}
     >
       {children}
+      <Button
+        variant="contained"
+        sx={{
+          mt: "0.5rem",
+          width: "90%",
+          background: "var(--app-filterButton-bg)",
+        }}
+        onClick={action}
+      >        
+        {actionText}
+      </Button>
     </MyFlexContainer>
   );
 };

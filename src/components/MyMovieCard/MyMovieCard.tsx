@@ -9,6 +9,7 @@ import {
   styled,
 } from "@mui/material";
 import GradeIcon from "@mui/icons-material/Grade";
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import { MyLabel } from "../MyLabel";
 import { LinkButton } from "../LinkButton";
 import { colors } from "@mui/material";
@@ -41,7 +42,7 @@ const MyCard = styled(Card)(({ theme }) => ({
 const MyCardMedia = styled(CardMedia)(() => ({
   height: "59%",
   objectFit: "cover",
-  borderRadius: '0.4rem',
+  borderRadius: "0.4rem",
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
 }));
@@ -89,11 +90,14 @@ export const MyMovieCard = ({
           background: "green",
           fontFamily: "Merienda",
           fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center',
           color: "white",
+          p: '0.25rem'
         }}
       >
-        {" "}
-        {movieLength} мин.
+        <AccessTimeFilledIcon sx={{mr: '0.5rem'}}/>
+        {movieLength}
       </MyLabel>
       <MyLabel
         sx={{
@@ -112,7 +116,7 @@ export const MyMovieCard = ({
         // image={poster}
         data-src={poster}
         title={enName}
-        component={"img"}
+        component="img"
         className="cardImage"
       />
       <CardContent sx={{ padding: "0.5rem" }}>
@@ -131,7 +135,11 @@ export const MyMovieCard = ({
         <LinkButton
           id={`${id}`}
           route={E_ROUTES.movies}
-          sx={{ border: "none", fontSize: "9px", background: 'var(--app-card-bg)' }}
+          sx={{
+            border: "none",
+            fontSize: "9px",
+            background: "var(--app-card-bg)",
+          }}
         >
           {" "}
           подробнее{" "}

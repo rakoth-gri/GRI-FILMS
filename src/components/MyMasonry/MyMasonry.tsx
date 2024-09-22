@@ -5,13 +5,18 @@ import { ImageList, ImageListItem } from "@mui/material";
 import { I_IMAGE } from "../../types/types";
 
 interface I_MyMasonry {
-    error: string;
-    isLoading: boolean;
-    images: I_IMAGE[];
-    ImagesModalHandler: (t: number) => void
+  error: string;
+  isLoading: boolean;
+  images: I_IMAGE[];
+  ImagesModalHandler: (t: number) => void;
 }
 
-export const MyMasonry = ({error, isLoading, images, ImagesModalHandler}: I_MyMasonry) => {
+export const MyMasonry = ({
+  error,
+  isLoading,
+  images,
+  ImagesModalHandler,
+}: I_MyMasonry) => {
   return (
     <ImageList variant="masonry" cols={3} gap={6}>
       <Render
@@ -21,7 +26,8 @@ export const MyMasonry = ({error, isLoading, images, ImagesModalHandler}: I_MyMa
         cb={(image: I_IMAGE, i: number) => (
           <ImageListItem key={image.id}>
             <img
-              data-src={`${image.url}?w=248&fit=crop&auto=format`}
+              // data-src={`${image.url}?w=248&fit=crop&auto=format`}
+              src={`${image.url}?w=248&fit=crop&auto=format`}
               alt={image.id}
               onClick={(e) => ImagesModalHandler(+e.target.id)}
               id={`${i}`}

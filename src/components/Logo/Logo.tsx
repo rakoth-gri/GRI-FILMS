@@ -11,8 +11,8 @@ export const Logo = () => {
       <Link to={E_ROUTES.home}>
         <IconButton
           sx={{
-            p: 0,
-            fontSize: "1em",
+            p: '0.25rem',
+            fontSize: {xs: '0.75em', md: "1em"},
             color: "inherit",
             fontFamily: "Merienda",
             flexDirection: 'column',

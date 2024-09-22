@@ -14,23 +14,23 @@ import { END_POINTS, IMAGE_SELECTFIELDS_LIST } from "../../consts/api";
 // types:
 import { E_ROUTES } from "../../types/types";
 // utils:
-import { observerCB, options } from "../../services/utils";
+// import { observerCB, options } from "../../services/utils";
 
 export const MovieImagesPage: FC = () => {
   const { movieId } = useParams();
 
   const [state, setState] = useState({
-    page: 1,    
+    page: 1,
     pages: 0,
     startIndex: 0,
     isOpenFilter: false,
     isModalShown: false,
   });
 
-  const MyObserver = useMemo(
-    () => new IntersectionObserver(observerCB, options),
-    []
-  );
+  // const MyObserver = useMemo(
+  //   () => new IntersectionObserver(observerCB, options),
+  //   []
+  // );
 
   const {
     data: images,
@@ -44,16 +44,16 @@ export const MovieImagesPage: FC = () => {
     movieId,
   });
 
-  useEffect(() => {
-    if (images?.data?.length)
-      document
-        .querySelectorAll(".movieImage")
-        .forEach((img) => MyObserver.observe(img));
-  }, [images]);
+  // useEffect(() => {
+  //   if (images?.data?.length)
+  //     document
+  //       .querySelectorAll(".movieImage")
+  //       .forEach((img) => MyObserver.observe(img));
+  // }, [images]);
 
   useEffect(() => {
     if (images && !state.pages) {
-      setState((p) => ({ ...p, pages: images.pages}));
+      setState((p) => ({ ...p, pages: images.pages }));
     }
   }, [images]);
 
@@ -72,7 +72,7 @@ export const MovieImagesPage: FC = () => {
 
   return (
     <>
-      <Back to={`${E_ROUTES.movies}/${movieId}`}>  {null} </Back>
+      <Back to={`${E_ROUTES.movies}/${movieId}`}> {null} </Back>
       {state.isModalShown && images && (
         <MyImagesModal
           startIndex={state.startIndex}
@@ -82,7 +82,17 @@ export const MovieImagesPage: FC = () => {
           }
         />
       )}
-      <MyTitle align="center" color="inherit" component="h1" variant="h4" sx={{ fontWeight: "bold", fontSize: { xs: "1.35em", lg: "2em" }, m: {xs: '1rem 0.5rem', md: '0.5rem'} }}>
+      <MyTitle
+        align="center"
+        color="inherit"
+        component="h1"
+        variant="h4"
+        sx={{
+          fontWeight: "bold",
+          fontSize: { xs: "1.35em", lg: "2em" },
+          m: { xs: "1rem 0.5rem", md: "0.5rem" },
+        }}
+      >
         Постеры и изображения:
       </MyTitle>
       <SimplePagination
@@ -98,7 +108,7 @@ export const MovieImagesPage: FC = () => {
           images={images.data}
           ImagesModalHandler={ImagesModalHandler}
         />
-      )}      
+      )}
     </>
   );
 };

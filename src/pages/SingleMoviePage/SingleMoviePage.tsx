@@ -14,6 +14,7 @@ import {
   Divider,
 } from "@mui/material";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
+import StarRateIcon from '@mui/icons-material/StarRate';
 import { Link } from "react-router-dom";
 import { Span } from "../../components/Span/Span";
 import { MyTitle } from "../../components/MyTitle";
@@ -170,12 +171,11 @@ export const SingleMoviePage = () => {
           </MyTitle>
           <Box
             sx={{
-              ...getBoxStyles({ fw: 700, ta: "left" }),
+              ...getBoxStyles({ fw: 700, ta: "left", display: 'flex', align: 'center', direction: 'row', justify: 'flex-start' }),
               opacity: "0.84",
             }}
-          >
-            {" "}
-            Рейтинг: {ratingKp.toFixed(1)}{" "}
+          >            
+            Рейтинг: {new Array(Math.round(ratingKp)).fill("").map(star => <StarRateIcon fontSize="medium" sx={{color: '#fbc02d', ml: '0.25rem'}}/>)}
           </Box>
           <MyTrailerTrigger
             startIcon={<PlayCircleFilledIcon />}

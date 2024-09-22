@@ -21,7 +21,6 @@ import { MyTitle } from "../../components/MyTitle";
 import { MyFilterWrapper } from "../../components/MyFilterWrapper";
 import { MySelect } from "../../components/MySelect";
 import { MySortType } from "../../components/MySortType";
-import { Button } from "@mui/material";
 // consts
 import {
   END_POINTS,
@@ -91,6 +90,8 @@ export const ReviewsPage = () => {
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
         sx={{ m: "0px", p: "1rem" }}
+        action={clickHandler}
+        actionText="Обновить отзывы"
       >
         <MySelect
           list={REVIEW_SORTFIELD_SELECT_LIST}
@@ -112,15 +113,7 @@ export const ReviewsPage = () => {
           reducer="reviewSliceReducer"
           action={changeReviewStateQueryParams}
           onClick={(e) => e.stopPropagation()}
-        />
-        <Button
-          variant="contained"
-          sx={{ mt: "0.5rem", width: "90%", background: 'var(--app-filterButton-bg)' }}
-          onClick={clickHandler}
-        >
-          {" "}
-          обновить отзывы{" "}
-        </Button>
+        />        
       </MyFilterWrapper>
       <MyFlexContainer
         spacing={2}
