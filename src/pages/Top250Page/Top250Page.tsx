@@ -67,7 +67,7 @@ export const Top250Page = () => {
         }}
       >
         {" "}
-        Топ 250 по версии Кинопоиска:{" "}
+        Топ 250 по версии KP{" "}
       </MyTitle>
       <MyLoader color="info" variant="query" loading={isLoading} />
       <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }}>
