@@ -127,6 +127,8 @@ export const SinglePersonPage = () => {
     movies,
   } = person as I_PERSON_FULL;
 
+  // profession --- "Режиссер"
+
   return (
     <>
       <MyFlexContainer direction="row" justify="space-between" spacing={2}>

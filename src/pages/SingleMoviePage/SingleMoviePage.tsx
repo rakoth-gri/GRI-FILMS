@@ -146,9 +146,18 @@ export const SingleMoviePage = () => {
             title={enName}
             sx={cardMediaStyles}
           />
-          <MyLabel sx={{ top: "3%", left: "4%" }}>
+          <MyLabel
+            sx={{
+              top: "5%",
+              left: "2%",
+              backgroundColor: "rgba(0,0,0, .12)",
+              fontFamily: "Merienda",
+              backdropFilter: "blur(1px)",
+              fontWeight: 700,
+            }}
+          >
             {" "}
-            {!!top250 && `ТОП ${top250}`}{" "}
+            {top250 ? `ТОП ${top250}` : null}
           </MyLabel>
         </Box>
         <Box
@@ -237,9 +246,15 @@ export const SingleMoviePage = () => {
               </strong>
             </Span>
             <Span cls="title">Сборы в России</Span>
-            <Span cls="desc"> {feesRussia} </Span>
+            <Span cls="desc">
+              {" "}
+              <strong>{feesRussia}</strong>{" "}
+            </Span>
             <Span cls="title">Сборы в Мире</Span>
-            <Span cls="desc"> {feesWorld}</Span>
+            <Span cls="desc">
+              {" "}
+              <strong>{feesWorld}</strong>
+            </Span>
             <Span cls="title">Премьера в России</Span>
             <Span cls="desc">
               {premiereRussia
@@ -254,12 +269,20 @@ export const SingleMoviePage = () => {
             </Span>
             <Span cls="title">Продолжительность </Span>
             <Span cls="desc"> {movieLengthFormat(movieLength)}</Span>
+            <Span cls="title"> Режиссер </Span>
+            <Span cls="desc director">
+              {" "}
+              {persons.find((p) => p.profession === "режиссеры")?.name}
+            </Span>
             <Span cls="title">Возраст </Span>
             <Span cls="desc"> {ageRating}+ </Span>
             <Span cls="title">Рейтинг IMDB </Span>
             <Span cls="desc"> {ratingImdb} </Span>
             <Span cls="title">Бюджет </Span>
-            <Span cls="desc"> {budget} </Span>
+            <Span cls="desc">
+              {" "}
+              <strong>{budget}</strong>{" "}
+            </Span>
             <Span cls="title">Тип картины </Span>
             <Span cls="desc"> {type} </Span>
           </Box>

@@ -103,24 +103,34 @@ const getBoxStyles = ({
 
 // ! Получение лучших фильмов для страницы SinglePagePerson
 
+// 1
 const unique = <T extends { id: number }>(l: T[]) =>
   l.reduce(
     (acc: T[], m) => (acc.find((o) => o?.id === m.id) ? acc : [...acc, m]),
     []
   );
+// 2
 const filtering = <T extends { rating: number }>(l: T[]) =>
   l.filter((m) => m.rating);
+// 3
 const sorting = <T extends { rating: number }>(l: T[]) =>
   l.slice(0).sort((m1, m2) => m2.rating - m1.rating);
+// 4
 const slicing = <T>(l: T[]) => l.slice(0, 8);
+// 5
 const mapping = <T extends Record<"id" | "name", unknown>>(l: T[]) =>
   l.map(({ id, name }) => ({ id, name }));
 
 const compose = (...argFn: Function[]) => {
-  return (list: any[]) => argFn.reduceRight((acc, fn) => fn(acc), list);
+  return (list: any[]) => argFn.reduce((acc, fn) => fn(acc), list);
 };
 
-const composed = compose(mapping, slicing, sorting, filtering, unique);
+const composed = compose(unique, filtering, sorting, slicing, mapping);
+
+// ! LOCAL STORAGE ------
+
+const setToLS = <T>(d: T, key: string) => localStorage.setItem(key, JSON.stringify(d))
+const getFromLS = <T>(key: string, init: T) => JSON.parse(localStorage.getItem(key) || JSON.stringify(init))
 
 export {
   getSelectFieldsParam,
@@ -133,4 +143,6 @@ export {
   getBoxStyles,
   birthDetailsFormat,
   composed,
+  setToLS,
+  getFromLS 
 };

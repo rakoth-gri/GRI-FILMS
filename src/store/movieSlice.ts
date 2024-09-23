@@ -14,9 +14,13 @@ import {
   I_MOVIE,
   T_MOVIE_SEARCH,
   I_IMAGE,
+  T_MY_MOVIE_CARD,
 } from "../types/types";
+// utils
+import { getFromLS, setToLS } from "../services/utils";
 
 const initialState = {
+  favorites: getFromLS("favorites", []),
   sortField: "",
   sortType: -1,
   query: "",
@@ -76,10 +80,25 @@ const movieSlice = createSlice({
     },
     movieImagesPageCleanUp: (state) => {
       // state.page = 1;
-      // state.sortField = 'rating.kp'
-      // state.sortType = -1
-      // state.limit = 5
+      state.sortField = "rating.kp";
+      state.sortType = -1;
+      state.limit = 10;
       state.images = [];
+    },
+    addToFavorites: (
+      state,
+      {
+        payload,
+      }: PayloadAction<
+        Omit<T_MY_MOVIE_CARD, "description" | "status" | "facts">
+      >
+    ) => {
+      if (state.favorites.find((f) => f.id === payload.id)) {
+        state.favorites = state.favorites.filter((f) => f.id !== payload.id);
+      } else {
+        state.favorites = [...state.favorites, payload];
+      }
+      setToLS(state.favorites, "favorites");
     },
     cleanUpSingleMovieInfo: (state) => {
       state.movie = {};
@@ -176,5 +195,6 @@ export const {
   changeMovieStateSelectFields,
   movieImagesPageCleanUp,
   cleanUpSingleMovieInfo,
+  addToFavorites,
 } = movieSlice.actions;
 export default movieSlice.reducer;

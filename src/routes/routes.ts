@@ -8,6 +8,7 @@ import { MovieImagesPage } from "../pages/MovieImagesPage";
 import { HomePage } from "../pages/HomePage";
 import { ReviewsPage } from "../pages/ReviewsPage";
 import { Top250Page } from "../pages/Top250Page";
+import { FavoriteMoviesPage } from "../pages/FavoriteMoviesPage";
 // types
 import { T_ROUTES, E_ROUTES } from "../types/types";
 
@@ -19,6 +20,14 @@ export const ROUTES: T_ROUTES[] = [
   {
     path: E_ROUTES.movies,
     Element: MoviesPage,
+  },
+  {
+    path: E_ROUTES.top250,
+    Element: Top250Page,
+  },
+  {
+    path: E_ROUTES.favoriteMovies,
+    Element: FavoriteMoviesPage,
   },
   {
     path: E_ROUTES.movie,
@@ -35,11 +44,7 @@ export const ROUTES: T_ROUTES[] = [
   {
     path: E_ROUTES.image,
     Element: MovieImagesPage,
-  },
-  {
-    path: E_ROUTES.top250,
-    Element: Top250Page,
-  },
+  }, 
   {
     path: E_ROUTES.review,
     Element: ReviewsPage,

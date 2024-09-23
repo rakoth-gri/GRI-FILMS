@@ -44,7 +44,7 @@ export interface I_MOVIE_PERSONS_PROP {
   name: string;
   enName: string;
   description: string;
-  profession: string;
+  profession: T_MOVIE_PERSONS_PROFESSIONS;
 }
 
 export interface I_SIMILAR_MOVIES_PROP {
@@ -150,6 +150,8 @@ export type T_MY_MOVIE_CARD = Omit<
   T_MOVIE_SEARCH,
   "type" | "votesKp" | "votesImdb" | "genres" | "countries" | "persons"
 >;
+
+export type T_MOVIE_PERSONS_PROFESSIONS = 'режиссеры' | "операторы" | "продюсеры" | "актеры дубляжа" | "сценаристы" | "актеры" | "композиторы" | "художники" | "монтажеры" 
 
 //! PERSON сущности  '/person' --------------------
 
@@ -291,6 +293,7 @@ export type T_REVIEW_SORTFIELD =
 // ! -----------------  <<><<><><>> ------------------------------
 
 export interface I_MOVIE_STATE {
+  favorites: T_MY_MOVIE_CARD[];
   sortField: T_MOVIE_SORTFIELD | "";
   sortType: number;
   page: number;
@@ -356,6 +359,7 @@ export interface I_REVIEW_STATE {
 export enum E_ROUTES {
   home = "/",
   movies = "/movies",
+  favoriteMovies = 'movies/favoriteMovies',
   movie = "/movies/:movieId",
   persons = "/persons",
   person = "/persons/:personId",

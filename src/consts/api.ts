@@ -977,6 +977,10 @@ const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [
     to: E_ROUTES.top250,
     text: "ТОП 250",
   },
+  {
+    to: E_ROUTES.favoriteMovies,
+    text: "Избранное",
+  },
 ];
 
 const ROOT = document.documentElement

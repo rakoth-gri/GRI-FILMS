@@ -1,10 +1,4 @@
-import {
-  Fragment,
-  MouseEventHandler,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { MouseEventHandler, useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // createAsyncThunks
 import { movieThunk, movieSearchThunk } from "../../store/movieThunks";
@@ -73,13 +67,16 @@ export const MoviesPage = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <MyTitle
         align="center"
         component="h1"
-        variant="h4"        
-        sx={{color: "var(--app-default-color)", fontSize: {xs: '1.3rem', md: '2rem'}}}
-      >       
+        variant="h4"
+        sx={{
+          color: "var(--app-default-color)",
+          fontSize: { xs: "1.3rem", md: "2rem" },
+        }}
+      >
         Кинокартины:
       </MyTitle>
       <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
@@ -154,6 +151,13 @@ export const MoviesPage = () => {
           min={1908}
           max={2034}
         />
+        <MySortType
+          list={SORTTYPE_SELECT_LIST}
+          name={"sortType"}
+          reducer="movieSliceReducer"
+          action={changeMovieStateQueryParams}
+          onClick={(e) => e.stopPropagation()}
+        />
         <MyMovieSelectFieldsFilter
           color={"success"}
           spacing={2}
@@ -161,9 +165,12 @@ export const MoviesPage = () => {
           direction="column"
           align="start"
           onClick={(e: any) => e.stopPropagation()}
-        />        
+        />
       </MyFilterWrapper>
-      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh", margin: {xs : '0px'} }}>
+      <MyFlexContainer
+        spacing={2}
+        sx={{ minHeight: "45vh", margin: { xs: "0px" } }}
+      >
         <Render
           list={movies}
           loading={loading}
@@ -175,6 +182,6 @@ export const MoviesPage = () => {
         action={changeMovieStateQueryParams}
         reducer="movieSliceReducer"
       />
-    </Fragment>
+    </>
   );
 };

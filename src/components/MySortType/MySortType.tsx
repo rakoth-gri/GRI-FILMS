@@ -12,6 +12,8 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { T_ACTION_QUERY_PAYLOAD, T_SORTFIELD_SELECT } from "../../types/types";
 import { RootState } from "../../store/store";
 import { ChangeEventHandler, HTMLAttributes } from "react";
+// sass styling:
+import "./MySortType.sass"
 
 const mySortTypeStyles = {
   p: "0.5rem",
@@ -62,7 +64,8 @@ export const MySortType = ({
       >
         {list.map(({ text, value }) => (
           <FormControlLabel
-            sx={{fontSize: '10px', margin: {xs: '0px'}}}
+            className="sortFormControlLabel"
+            sx={{margin: {xs: '0px'}}}
             value={value}
             control={<Radio />}
             label={text}

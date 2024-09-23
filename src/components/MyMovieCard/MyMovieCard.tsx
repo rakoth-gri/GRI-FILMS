@@ -1,5 +1,9 @@
+// REDUX
+import { addToFavorites } from "../../store/movieSlice";
+import { useAppSelector, useAppDispatch } from "../../store/store";
 // components:
 import {
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -10,6 +14,8 @@ import {
 } from "@mui/material";
 import GradeIcon from "@mui/icons-material/Grade";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { MyLabel } from "../MyLabel";
 import { LinkButton } from "../LinkButton";
 import { colors } from "@mui/material";
@@ -40,7 +46,7 @@ const MyCard = styled(Card)(({ theme }) => ({
 }));
 
 const MyCardMedia = styled(CardMedia)(() => ({
-  height: "59%",
+  height: "100%",
   objectFit: "cover",
   borderRadius: "0.4rem",
   filter: "grayscale(50%)",
@@ -53,6 +59,17 @@ const MyMoviesCardChipStyles = {
   fontSize: "inherit",
   m: { xs: "0px" },
   marginLeft: "0px",
+};
+
+const MyMoviesCardFavoriteIconStyles = {
+  position: "absolute",
+  bottom: "2%",
+  right: "3%",
+  color: colors.red[500],
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.05)",
+  },
 };
 
 export const MyMovieCard = ({
@@ -68,6 +85,30 @@ export const MyMovieCard = ({
   ratingImdb,
   top250,
 }: T_MY_MOVIE_CARD) => {
+  const dispatch = useAppDispatch();
+
+  const isFavoriteMovie = useAppSelector(
+    (s) => s.movieSliceReducer.favorites
+  ).find((f) => f.id === id);
+
+  const favorClickHandler = () => {
+    dispatch(
+      addToFavorites({
+        id,
+        name,
+        enName,
+        year,
+        shortDescription,
+        ageRating,
+        poster,
+        movieLength,
+        ratingKp,
+        ratingImdb,
+        top250,
+      })
+    );
+  };
+
   return (
     <MyCard component={"article"}>
       <MyLabel
@@ -90,13 +131,13 @@ export const MyMovieCard = ({
           background: "green",
           fontFamily: "Merienda",
           fontWeight: 700,
-          display: 'flex',
-          alignItems: 'center',
+          display: "flex",
+          alignItems: "center",
           color: "white",
-          p: '0.25rem'
+          p: "0.25rem",
         }}
       >
-        <AccessTimeFilledIcon sx={{mr: '0.5rem'}}/>
+        <AccessTimeFilledIcon sx={{ mr: "0.5rem" }} />
         {movieLength}
       </MyLabel>
       <MyLabel
@@ -112,13 +153,33 @@ export const MyMovieCard = ({
         {" "}
         {top250 ? `ТОП ${top250}` : null}
       </MyLabel>
-      <MyCardMedia
-        // image={poster}
-        data-src={poster}
-        title={enName}
-        component="img"
-        className="cardImage"
-      />
+      <Box sx={{ position: "relative", height: "59%" }}>
+        <MyCardMedia
+          // image={poster}
+          data-src={poster}
+          title={enName}
+          component="img"
+          className="cardImage"
+        />
+        {isFavoriteMovie ? (
+          <FavoriteIcon
+            fontSize="large"
+            sx={MyMoviesCardFavoriteIconStyles}
+            onClick={favorClickHandler}
+          />
+        ) : (
+          <FavoriteBorderIcon
+            fontSize="large"
+            sx={MyMoviesCardFavoriteIconStyles}
+            onClick={favorClickHandler}
+          />
+        )}
+        <FavoriteBorderIcon
+          fontSize="large"
+          sx={MyMoviesCardFavoriteIconStyles}
+          onClick={favorClickHandler}
+        />
+      </Box>
       <CardContent sx={{ padding: "0.5rem" }}>
         <Typography gutterBottom variant="subtitle2" component="h3">
           {name}
