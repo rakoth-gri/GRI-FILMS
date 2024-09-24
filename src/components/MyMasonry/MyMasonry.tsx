@@ -1,6 +1,6 @@
 import React from "react";
 // components:
-import { Render } from "../Render";
+import Render from "../Render";
 import { ImageList, ImageListItem } from "@mui/material";
 import { I_IMAGE } from "../../types/types";
 

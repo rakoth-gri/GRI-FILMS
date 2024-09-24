@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEventHandler, memo } from "react";
 // REDUX:
 import { useAppSelector, useAppDispatch } from "../../store/store";
 // components:
@@ -31,10 +31,10 @@ interface I_Toggler {
     | keyof { theme: "light" | "dark" };
   reducer: keyof RootState;
   action: ActionCreatorWithPayload<keyof I_PERSON_STATE>;
-  onClick?: (e: any) => void;
+  onClick?: MouseEventHandler<HTMLElement>;
 }
 
-export const Toggler = ({ name, reducer, action, onClick, sx }: I_Toggler) => {
+export const Toggler = memo(({ name, reducer, action, onClick, sx }: I_Toggler) => {
   const dispatch = useAppDispatch();
 
   const label = { inputProps: { "aria-label": "Color switch demo" } };
@@ -88,4 +88,4 @@ export const Toggler = ({ name, reducer, action, onClick, sx }: I_Toggler) => {
       />
     </FormControl>
   );
-};
+});

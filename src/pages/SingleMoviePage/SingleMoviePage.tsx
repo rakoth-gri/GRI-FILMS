@@ -65,9 +65,8 @@ export const SingleMoviePage = () => {
 
   const location = useNavigate();
 
-  const { movie, loading } = useAppSelector(
-    (s: RootState) => s.movieSliceReducer
-  );
+  const movie = useAppSelector((s: RootState) => s.movieSliceReducer.movie);
+  const loading = useAppSelector((s: RootState) => s.movieSliceReducer.loading);
   const { movieId } = useParams();
 
   useEffect(() => {

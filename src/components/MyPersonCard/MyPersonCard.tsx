@@ -1,3 +1,4 @@
+import { memo } from "react";
 // components:
 import {
   Card,
@@ -57,7 +58,7 @@ const myPersonCardULStyles = {
   opacity: 0.85
 };
 
-export const MyPersonCard = ({
+export const MyPersonCard = memo(({
   id,
   name,
   enName,
@@ -115,4 +116,4 @@ export const MyPersonCard = ({
       </CardActions>
     </MyCard>
   );
-};
+});

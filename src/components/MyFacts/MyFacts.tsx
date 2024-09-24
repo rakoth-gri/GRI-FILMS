@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { SxProps } from "@mui/material";
 // components:
 import {
@@ -12,36 +13,36 @@ const REGEX = /(<([^>]+)>)/gi;
 
 const MyFactsStyles = {
   height: "auto",
-  letterSpacing: "0.75px",  
+  letterSpacing: "0.75px",
 };
 
-const MyFactsAccordionDetailStyles = { 
+const MyFactsAccordionDetailStyles = {
   lineHeight: "1.45em",
   fontWeight: 500,
   textAlign: "justify",
-  fontSize: 'inherit',
+  fontSize: "inherit",
 };
 
 const MyFactsAccordionSummaryStyles = {
-  m: '0.5rem 0px',
-  borderBottomColor: 'transparent',
+  m: "0.5rem 0px",
+  borderBottomColor: "transparent",
   fontWeight: 500,
-  fontSize: 'inherit',
+  fontSize: "inherit",
   "&:hover": {
     border: `1px solid`,
   },
-}
+};
 
 interface I_MyFacts {
   facts: string[];
   sx?: SxProps;
 }
 
-export function MyFacts({ facts, sx }: I_MyFacts) {
+export const MyFacts = memo(({ facts, sx }: I_MyFacts) => {
   return (
     <Box sx={{ ...MyFactsStyles, ...sx }}>
       {facts.map((fact, i) => (
-        <Accordion key={i} sx={{bgcolor: 'transparent', color: 'inherit'}}>
+        <Accordion key={i} sx={{ bgcolor: "transparent", color: "inherit" }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon color={`primary`} component="svg" />}
             aria-controls="panel1-content"
@@ -57,4 +58,4 @@ export function MyFacts({ facts, sx }: I_MyFacts) {
       ))}
     </Box>
   );
-}
+});

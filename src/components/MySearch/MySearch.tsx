@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, memo } from "react";
 import { useAppDispatch, RootState, useAppSelector } from "../../store/store";
 // components:
 import { Box, styled, Input } from "@mui/material";
@@ -32,11 +32,10 @@ interface I_MySearch extends InputHTMLAttributes<HTMLInputElement> {
   autoFocus?: boolean;
 }
 
-export const MySearch = ({
+export const MySearch = memo(({
   reducer,
   action,
   color = "primary",
-  autoFocus = false,
   ...props
 }: I_MySearch) => {
   const dispatch = useAppDispatch();
@@ -74,12 +73,11 @@ export const MySearch = ({
             color: "inherit",
             p: "0.5rem 3rem",
             letterSpacing: "0.85px",
-          }}
-          autoFocus
+          }}          
           fullWidth
           placeholder="Начните поиск:"
         />
       </Box>
     </MySearchBox>
   );
-};
+});

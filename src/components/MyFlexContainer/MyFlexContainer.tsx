@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes } from "react";
+import { ReactNode, HTMLAttributes, memo } from "react";
 import { Stack } from "@mui/material";
 // types
 import { SxProps, Theme } from "@mui/material";
@@ -50,7 +50,7 @@ interface I_MyFlexContainer extends HTMLAttributes<HTMLDivElement> {
   mr?: string | Record<string, unknown>;  
 }
 
-export const MyFlexContainer = ({
+export const MyFlexContainer = memo(({
   children,
   pd = "0.5rem",
   mr = "0.5rem",
@@ -78,4 +78,4 @@ export const MyFlexContainer = ({
       {children}
     </Stack>
   );
-};
+});

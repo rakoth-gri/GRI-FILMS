@@ -1,4 +1,4 @@
-import { useEffect, MouseEventHandler, useState } from "react";
+import { useEffect, MouseEventHandler, useState, useCallback } from "react";
 // REDUX
 import { reviewByMovieIdThunk } from "../../store/reviewThunks";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -11,7 +11,7 @@ import { RootState } from "../../store/store";
 import { useParams, useLocation } from "react-router-dom";
 // components
 import { MyFlexContainer } from "../../components/MyFlexContainer";
-import { Render } from "../../components/Render";
+import Render from "../../components/Render";
 import { MyReviewCard } from "../../components/MyReviewCard";
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
 import { MyLoader } from "../../components/MyLoader";
@@ -31,8 +31,13 @@ import {
 // types
 import { E_ROUTES } from "../../types/types";
 
+const reviewsPageRenderCallback = (item: any) => (
+  <MyReviewCard key={item.id} {...item} />
+);
+
 export const ReviewsPage = () => {
   const dispatch = useAppDispatch();
+
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   const { page, error, loading, reviews } = useAppSelector(
@@ -70,6 +75,11 @@ export const ReviewsPage = () => {
       );
   };
 
+  const stopPropagation: MouseEventHandler<HTMLElement> = useCallback(
+    (e) => e.stopPropagation(),
+    []
+  );
+
   return (
     <>
       <MyFlexContainer direction="row" justify="space-between" spacing={2}>
@@ -95,25 +105,25 @@ export const ReviewsPage = () => {
       >
         <MySelect
           list={REVIEW_SORTFIELD_SELECT_LIST}
-          name={"sortField"}
+          name="sortField"
           action={changeReviewStateQueryParams}
           reducer={"reviewSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySelect
           list={LIMIT_PARAM_SELECT_LIST}
-          name={"limit"}
+          name="limit"
           action={changeReviewStateQueryParams}
           reducer={"reviewSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySortType
           list={SORTTYPE_SELECT_LIST}
-          name={"sortType"}
+          name="sortType"
           reducer="reviewSliceReducer"
           action={changeReviewStateQueryParams}
-          onClick={(e) => e.stopPropagation()}
-        />        
+          onClick={stopPropagation}
+        />
       </MyFilterWrapper>
       <MyFlexContainer
         spacing={2}
@@ -124,10 +134,11 @@ export const ReviewsPage = () => {
           list={reviews}
           loading={loading}
           error={error}
-          cb={(item: any) => <MyReviewCard key={item.id} {...item} />}
+          cb={reviewsPageRenderCallback}
         />
       </MyFlexContainer>
       <MyPagination
+        page={page}
         action={changeReviewStateQueryParams}
         reducer="reviewSliceReducer"
         size="large"

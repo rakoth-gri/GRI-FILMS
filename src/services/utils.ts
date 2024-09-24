@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { I_PERSON_MOVIES } from "../types/types";
 
 // ! CREATING QUERY-STRING FOR DIFERENT REQUESTS
@@ -129,8 +130,10 @@ const composed = compose(unique, filtering, sorting, slicing, mapping);
 
 // ! LOCAL STORAGE ------
 
-const setToLS = <T>(d: T, key: string) => localStorage.setItem(key, JSON.stringify(d))
-const getFromLS = <T>(key: string, init: T) => JSON.parse(localStorage.getItem(key) || JSON.stringify(init))
+const setToLS = <T>(d: T, key: string) =>
+  localStorage.setItem(key, JSON.stringify(d));
+const getFromLS = <T>(key: string, init: T) =>
+  JSON.parse(localStorage.getItem(key) || JSON.stringify(init));
 
 export {
   getSelectFieldsParam,
@@ -144,5 +147,5 @@ export {
   birthDetailsFormat,
   composed,
   setToLS,
-  getFromLS 
+  getFromLS,
 };

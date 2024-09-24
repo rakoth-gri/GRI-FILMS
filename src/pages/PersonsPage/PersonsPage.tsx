@@ -3,6 +3,7 @@ import {
   useEffect,
   useMemo,
   useState,
+  useCallback,
   MouseEventHandler,
 } from "react";
 // REDUX
@@ -14,7 +15,6 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // components
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
-import { Button } from "@mui/material";
 import { MyRange } from "../../components/MyRange";
 import { MySortType } from "../../components/MySortType";
 import { MySelect } from "../../components/MySelect";
@@ -23,7 +23,7 @@ import { MyFlexContainer } from "../../components/MyFlexContainer";
 import { MyPagination } from "../../components/MyPagination";
 import { MyTitle } from "../../components/MyTitle";
 import { MyPersonCard } from "../../components/MyPersonCard";
-import { Render } from "../../components/Render";
+import Render from "../../components/Render";
 import { MyLoader } from "../../components/MyLoader";
 import { MyFilterWrapper } from "../../components/MyFilterWrapper";
 import { Toggler } from "../../components/Toggler";
@@ -38,13 +38,23 @@ import {
 // utils
 import { observerCB, options } from "../../services/utils";
 
+const personPageTogglerStyles = { fontFamily: "Roboto" };
+
+const renderCallback = (item: any) => <MyPersonCard key={item.id} {...item} />;
+
 export const PersonsPage = () => {
   const dispatch = useAppDispatch();
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
-  const { query, page, loading, error, persons } = useAppSelector(
-    (s) => s.personSliceReducer
-  );
+  // const { query, page, loading, error, persons } = useAppSelector(
+  //   (s) => s.personSliceReducer
+  // );
+
+  const query = useAppSelector((s) => s.personSliceReducer.query);
+  const page = useAppSelector((s) => s.personSliceReducer.page);
+  const loading = useAppSelector((s) => s.personSliceReducer.loading);
+  const error = useAppSelector((s) => s.personSliceReducer.error);
+  const persons = useAppSelector((s) => s.personSliceReducer.persons);
 
   const MyObserver = useMemo(
     () => new IntersectionObserver(observerCB, options),
@@ -77,6 +87,11 @@ export const PersonsPage = () => {
       })
     );
   };
+
+  const stopPropagation: MouseEventHandler<HTMLElement> = useCallback(
+    (e) => e.stopPropagation(),
+    []
+  );
 
   return (
     <Fragment>
@@ -111,35 +126,35 @@ export const PersonsPage = () => {
           name={"sortField"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySelect
           list={LIMIT_PARAM_SELECT_LIST}
           name={"limit"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySelect
           list={PERSON_PROFESSION_SELECT_LIST}
           name={"profession"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySortType
           list={SORTTYPE_SELECT_LIST}
           name={"sortType"}
           reducer="personSliceReducer"
           action={changePersonStateQueryParams}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         {/* <MyRange
           label={"Рост Персонажа"}
           name={"growth"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
           min={140}
           max={235}
         /> */}
@@ -148,7 +163,7 @@ export const PersonsPage = () => {
           name={"age"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
           min={5}
           max={100}
         />
@@ -157,7 +172,7 @@ export const PersonsPage = () => {
           name={"countAwards"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
           min={0}
           max={60}
         /> */}
@@ -166,29 +181,30 @@ export const PersonsPage = () => {
           name={"moviesRating"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
           min={0}
           max={100}
         /> */}
         <Toggler
-          sx={{ fontFamily: "Roboto" }}
+          sx={personPageTogglerStyles}
           action={changePersonSex}
           reducer={"personSliceReducer"}
           name={"sex"}
-          onClick={(e: any) => e.stopPropagation()}
-        />        
+          onClick={stopPropagation}
+        />
       </MyFilterWrapper>
       <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }}>
         <Render
           list={persons}
           loading={loading}
           error={error}
-          cb={(item: any) => <MyPersonCard key={item.id} {...item} />}
+          cb={renderCallback}
         />
       </MyFlexContainer>
       <MyPagination
         action={changePersonStateQueryParams}
         reducer="personSliceReducer"
+        page={page}
       />
     </Fragment>
   );

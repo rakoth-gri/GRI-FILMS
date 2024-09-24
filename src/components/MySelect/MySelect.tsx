@@ -1,4 +1,4 @@
-import { ChangeEvent, SelectHTMLAttributes } from "react";
+import { ChangeEvent, SelectHTMLAttributes, memo } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // components
 import { Select, MenuItem } from "@mui/material";
@@ -21,7 +21,7 @@ interface I_MySelect extends SelectHTMLAttributes<HTMLSelectElement> {
   name: keyof I_MOVIE_STATE | keyof I_PERSON_STATE | keyof I_REVIEW_STATE;
 }
 
-export const MySelect = ({
+export const MySelect = memo(({
   list,
   name,
   action,
@@ -59,4 +59,4 @@ export const MySelect = ({
       ))}
     </Select>
   );
-};
+});

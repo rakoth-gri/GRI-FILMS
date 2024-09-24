@@ -1,4 +1,10 @@
-import { MouseEventHandler, useEffect, useMemo, useState } from "react";
+import {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // createAsyncThunks
 import { movieThunk, movieSearchThunk } from "../../store/movieThunks";
@@ -15,7 +21,7 @@ import { MyTitle } from "../../components/MyTitle";
 import { MyLoader } from "../../components/MyLoader";
 import { MyMovieCard } from "../../components/MyMovieCard";
 import { MyFlexContainer } from "../../components/MyFlexContainer";
-import { Render } from "../../components/Render";
+import Render from "../../components/Render";
 import { MyMovieSelectFieldsFilter } from "../../components/MyMovieSelectFieldsFilter";
 import { MyFilterWrapper } from "../../components/MyFilterWrapper";
 // consts
@@ -33,14 +39,26 @@ import { RootState } from "../../store/store";
 // utils
 import { observerCB, options } from "../../services/utils";
 
+const renderCallback = (item: any) => <MyMovieCard key={item.id} {...item} />;
+
+const moviesPageTitleStyles ={
+  color: "var(--app-default-color)",
+  fontSize: { xs: "1.3rem", md: "2rem" },
+}
+
 export const MoviesPage = () => {
   const dispatch = useAppDispatch();
 
   const [isOpenFilter, setIsOpenFilter] = useState(false);
 
-  const { query, page, loading, movies, error } = useAppSelector(
-    (s: RootState) => s.movieSliceReducer
-  );
+  // const { query, page, loading, movies, error } = useAppSelector(
+  //   (s: RootState) => s.movieSliceReducer
+  // );
+  const query = useAppSelector((s: RootState) => s.movieSliceReducer.query);
+  const page = useAppSelector((s: RootState) => s.movieSliceReducer.page);
+  const loading = useAppSelector((s: RootState) => s.movieSliceReducer.loading);
+  const movies = useAppSelector((s: RootState) => s.movieSliceReducer.movies);
+  const error = useAppSelector((s: RootState) => s.movieSliceReducer.error);
 
   const MyObserver = useMemo(
     () => new IntersectionObserver(observerCB, options),
@@ -66,16 +84,18 @@ export const MoviesPage = () => {
     dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
   };
 
+  const stopPropagation: MouseEventHandler<HTMLElement> = useCallback(
+    (e) => e.stopPropagation(),
+    []
+  );
+
   return (
     <>
       <MyTitle
         align="center"
         component="h1"
         variant="h4"
-        sx={{
-          color: "var(--app-default-color)",
-          fontSize: { xs: "1.3rem", md: "2rem" },
-        }}
+        sx={moviesPageTitleStyles}
       >
         Кинокартины:
       </MyTitle>
@@ -98,56 +118,56 @@ export const MoviesPage = () => {
           name={"sortField"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySelect
           list={GENRES_SELECT_LIST}
           name={"genre"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySelect
           list={MOVIE_TYPES_SELECT_LIST}
           name={"type"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySelect
           list={LIMIT_PARAM_SELECT_LIST}
           name={"limit"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySelect
           list={COUNTRIES_SELECT_LIST}
           name={"countries"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MyRange
           label={"Рейтинг Кинопоиска"}
           name={"ratingKp"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MyRange
           label={"Рейтинг IMDB"}
           name={"ratingIMDB"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MyRange
           label={"Год выпуска"}
           name={"year"}
           action={changeMovieStateQueryParams}
           reducer={"movieSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
           min={1908}
           max={2034}
         />
@@ -156,15 +176,14 @@ export const MoviesPage = () => {
           name={"sortType"}
           reducer="movieSliceReducer"
           action={changeMovieStateQueryParams}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MyMovieSelectFieldsFilter
-          color={"success"}
-          spacing={2}
+          spacing={1}
           justify="space-evenly"
           direction="column"
           align="start"
-          onClick={(e: any) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
       </MyFilterWrapper>
       <MyFlexContainer
@@ -175,10 +194,11 @@ export const MoviesPage = () => {
           list={movies}
           loading={loading}
           error={error}
-          cb={(item: any) => <MyMovieCard key={item.id} {...item} />}
+          cb={renderCallback}
         />
       </MyFlexContainer>
       <MyPagination
+        page={page}
         action={changeMovieStateQueryParams}
         reducer="movieSliceReducer"
       />

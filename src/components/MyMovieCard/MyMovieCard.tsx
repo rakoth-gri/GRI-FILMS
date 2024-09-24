@@ -1,3 +1,4 @@
+import { memo } from "react";
 // REDUX
 import { addToFavorites } from "../../store/movieSlice";
 import { useAppSelector, useAppDispatch } from "../../store/store";
@@ -72,7 +73,7 @@ const MyMoviesCardFavoriteIconStyles = {
   },
 };
 
-export const MyMovieCard = ({
+export const MyMovieCard = memo(({
   id,
   name,
   enName,
@@ -220,4 +221,4 @@ export const MyMovieCard = ({
       </CardActions>
     </MyCard>
   );
-};
+});

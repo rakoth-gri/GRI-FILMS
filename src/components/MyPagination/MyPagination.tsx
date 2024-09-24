@@ -1,4 +1,4 @@
-import { ChangeEvent, HTMLAttributes } from "react";
+import { ChangeEvent, HTMLAttributes, memo } from "react";
 // components
 import { Pagination, Stack, PaginationItem, styled } from "@mui/material";
 import {
@@ -16,6 +16,7 @@ interface I_MyPagination extends HTMLAttributes<HTMLElement> {
   action: ActionCreatorWithPayload<T_ACTION_QUERY_PAYLOAD>;
   size?: "small" | "medium" | "large";
   color?: "primary" | "secondary" | "standard";
+  page: number
 }
 
 const MyPaginationStyles = {
@@ -26,19 +27,23 @@ const MyPaginationStyles = {
   alignItems: "center",
 };
 
-export const MyPagination = ({
+export const MyPagination = memo(({
   action,
   reducer,
+  page,
   color = "primary",
   ...props
 }: I_MyPagination) => {
   const dispatch = useAppDispatch();
 
-  const { pages, page } = useAppSelector((s) => s[reducer]);
+  const pages= useAppSelector((s) => s[reducer].pages);
 
   const changeHandler = (e: ChangeEvent<unknown>, page: number) => {
     dispatch(action({ name: "page", value: page }));
   };
+
+  console.log('inside pagination...');
+  
 
   return (
     <Stack sx={{ m: "1.2rem 0" }} spacing={0}>
@@ -65,4 +70,4 @@ export const MyPagination = ({
       />
     </Stack>
   );
-};
+});

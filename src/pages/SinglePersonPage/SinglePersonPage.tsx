@@ -1,4 +1,10 @@
-import { useEffect, useState, MouseEventHandler, ReactNode } from "react";
+import {
+  useEffect,
+  useState,
+  MouseEventHandler,
+  ReactNode,
+  useCallback,
+} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // REDUX:
 import { personByIdThunk, personAwardsThunk } from "../../store/personThunks";
@@ -52,6 +58,8 @@ const cardMediaStyles = {
   "&:hover": { filter: "none" },
 };
 
+const myFactsStyles = { fontSize: { xs: "13px", md: "16px" } };
+
 const prepareToRender = <T extends object>(
   l: T[],
   title: string,
@@ -59,13 +67,31 @@ const prepareToRender = <T extends object>(
 ) =>
   l.length ? <SingleMoviePropsList list={l} title={title} cb={cb} /> : null;
 
+const prepareToRenderCallback = (movie: I_PERSON_MOVIES, i?: number) => (
+  <SimilarMoviesCard key={i} {...movie} />
+);
+
+const personAwardsCallback = (personAwards: I_PERSON_AWARDS, i?: number) => (
+  <PersonAwardCard key={i} {...personAwards} />
+);
+
 export const SinglePersonPage = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const dispatch = useAppDispatch();
   const location = useNavigate();
   const { personId } = useParams();
-  const { person, personAwards, page, loading, error } = useAppSelector(
-    (s: RootState) => s.personSliceReducer
+
+  // const { person, personAwards, page, loading, error } = useAppSelector(
+  //   (s: RootState) => s.personSliceReducer
+  // );
+
+  const person = useAppSelector((s: RootState) => s.personSliceReducer.person);
+  const personAwards = useAppSelector(
+    (s: RootState) => s.personSliceReducer.personAwards
+  );
+  const page = useAppSelector((s: RootState) => s.personSliceReducer.page);
+  const loading = useAppSelector(
+    (s: RootState) => s.personSliceReducer.loading
   );
 
   useEffect(() => {
@@ -107,6 +133,11 @@ export const SinglePersonPage = () => {
       );
   };
 
+  const stopPropagation: MouseEventHandler<HTMLElement> = useCallback(
+    (e) => e.stopPropagation(),
+    []
+  );
+
   if (!Object.keys(person).length) return <MyLoader loading={true} />;
 
   const {
@@ -126,8 +157,6 @@ export const SinglePersonPage = () => {
     facts,
     movies,
   } = person as I_PERSON_FULL;
-
-  // profession --- "Режиссер"
 
   return (
     <>
@@ -280,46 +309,43 @@ export const SinglePersonPage = () => {
           name={"limit"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
-          onClick={(e) => e.stopPropagation()}
+          onClick={stopPropagation}
         />
         <MySortType
           list={SORTTYPE_SELECT_LIST}
           name={"sortType"}
           reducer="personSliceReducer"
           action={changePersonStateQueryParams}
-          onClick={(e) => e.stopPropagation()}
-        />        
+          onClick={stopPropagation}
+        />
       </MyFilterWrapper>
       <Divider />
       {personAwards.length ? (
         <SingleMoviePropsList
           list={personAwards}
           type="awards"
-          title={"Награды"}
-          cb={(personAwards: I_PERSON_AWARDS, i?: number) => (
-            <PersonAwardCard key={i} {...personAwards} />
-          )}
+          title="Награды"
+          cb={personAwardsCallback}
         />
       ) : (
         <MyError> По Вашему запросу ничего не найдено... </MyError>
       )}
       <MyPagination
+        page={page}
         action={changePersonStateQueryParams}
         reducer="personSliceReducer"
       />
       {prepareToRender(
         movies,
         "Фильмы, ШОУ, кинопремии:",
-        (movie: I_PERSON_MOVIES, i?: number) => (
-          <SimilarMoviesCard key={i} {...movie} />
-        )
+        prepareToRenderCallback
       )}
       <Divider />
       <Box sx={getBoxStyles({ mr: { xs: "0px", md: "0.5rem" } })}>
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
           А Вы знали, что ...
         </MyTitle>
-        <MyFacts facts={facts} sx={{ fontSize: { xs: "13px", md: "16px" } }} />
+        <MyFacts facts={facts} sx={myFactsStyles} />
       </Box>
     </>
   );

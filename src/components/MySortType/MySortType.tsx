@@ -1,4 +1,5 @@
-import { useAppSelector, useAppDispatch } from "../../store/store";
+import { memo } from "react";
+import { useAppSelector, useAppDispatch} from "../../store/store";
 import {
   RadioGroup,
   FormControlLabel,
@@ -31,7 +32,7 @@ interface I_MySelect extends HTMLAttributes<HTMLDivElement> {
   name: string;
 }
 
-export const MySortType = ({
+export const MySortType = memo(({
   list,
   reducer,
   name,
@@ -75,4 +76,4 @@ export const MySortType = ({
       </RadioGroup>
     </FormControl>
   );
-};
+});

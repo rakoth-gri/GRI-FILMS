@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
+// components:
 import { Box } from "@mui/material";
 import { MyFlexContainer } from "../MyFlexContainer";
 import { MyTitle } from "../MyTitle";
@@ -10,27 +11,24 @@ interface I_SingleMoviePropsList {
   type?: "awards";
 }
 
-export const SingleMoviePropsList = ({
-  list,
-  title,
-  type,
-  cb,
-}: I_SingleMoviePropsList) => {
-  return (
-    <Box component={"section"} sx={{ padding: "0.5rem" }}>
-      <MyTitle align="center" component="h3" variant="h6" color={"inherit"}>
-        {title}
-      </MyTitle>
-      <MyFlexContainer        
-        spacing={1}
-        id="moviePropListComp"
-        align="start"
-        justify={type === "awards" ? "center" : "flex-start"}
-        sx={{ margin: "0.8rem 0"}}
-        wrap={'nowrap'}
-      >
-        {list.map(cb)}
-      </MyFlexContainer>
-    </Box>
-  );
-};
+export const SingleMoviePropsList = memo(
+  ({ list, title, type, cb }: I_SingleMoviePropsList) => {
+    return (
+      <Box component={"section"} sx={{ padding: "0.5rem" }}>
+        <MyTitle align="center" component="h3" variant="h6" color={"inherit"}>
+          {title}
+        </MyTitle>
+        <MyFlexContainer
+          spacing={1}
+          id="moviePropListComp"
+          align="start"
+          justify={type === "awards" ? "center" : "flex-start"}
+          sx={{ margin: "0.8rem 0" }}
+          wrap={"nowrap"}
+        >
+          {list.map(cb)}
+        </MyFlexContainer>
+      </Box>
+    );
+  }
+);

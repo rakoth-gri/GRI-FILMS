@@ -29,10 +29,7 @@ export const Top250Page = () => {
     page: state.page,
   });
 
-  const Observer = useMemo(
-    () => new IntersectionObserver(observerCB, options),
-    []
-  );
+  const Observer = useMemo(() => new IntersectionObserver(observerCB, options),[]);
 
   useEffect(() => {
     if (movies && !state.pages) {

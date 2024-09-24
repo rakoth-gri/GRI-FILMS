@@ -1,4 +1,4 @@
-import { ChangeEvent, SelectHTMLAttributes, useState } from "react";
+import { ChangeEvent, SelectHTMLAttributes, useState, memo } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // components
 import { Slider, styled, Typography } from "@mui/material";
@@ -34,7 +34,7 @@ interface I_MyRange extends SelectHTMLAttributes<HTMLSelectElement> {
   max?: number;
 }
 
-export const MyRange = ({
+export const MyRange = memo(({
   name,
   action,
   reducer,
@@ -68,4 +68,4 @@ export const MyRange = ({
       />
     </>
   );
-};
+});

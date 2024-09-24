@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, FC } from "react";
+import { ReactNode, memo } from "react";
 import { MyError } from "../MyError/MyError";
 
 interface I_Render<T> {
@@ -8,7 +8,7 @@ interface I_Render<T> {
   cb: (item: T, i?: number) => ReactNode;
 }
 
-export function Render<T extends { id: number | string }>({
+function Render<T extends { id: number | string }>({
   list,
   loading,
   error,
@@ -22,3 +22,5 @@ export function Render<T extends { id: number | string }>({
     <MyError> {error} </MyError>
   );
 }
+
+export default memo(Render)
