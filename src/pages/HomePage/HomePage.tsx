@@ -27,7 +27,7 @@ export const HomePage = () => {
         component="h1"
         color="inherit"
       >
-        ГЛАВНАЯ
+        главная
       </MyTitle>
       <Box component={"section"} sx={{ p: { xs: "0.25rem", md: "0.5rem" } }}>
         <MyHomePageText component="p">

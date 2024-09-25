@@ -306,7 +306,7 @@ export const SingleMoviePage = () => {
             color="inherit"
             sx={{ m: "0.3rem" }}
           >
-            Рейтинг и оценки:
+            рейтинг и оценки:
           </MyTitle>
           <Span cls="rating"> KP: {ratingKp.toFixed(1)} </Span>
           <Span cls="votes"> KP: {votesKp} оценок </Span>
@@ -317,7 +317,7 @@ export const SingleMoviePage = () => {
             color="inherit"
             sx={{ m: "0.3rem" }}
           >
-            В главных ролях:
+            в главных ролях:
           </MyTitle>
           <>
             {persons.slice(0, 8).map((p, i) => (
@@ -331,7 +331,7 @@ export const SingleMoviePage = () => {
       <Divider />
       <Box sx={getBoxStyles({ mr: "0px" })}>
         <MyTitle variant="h5" component={"h3"} align="left" color="inherit">
-          Сюжет:
+          сюжет:
         </MyTitle>
         <Typography
           component={"p"}

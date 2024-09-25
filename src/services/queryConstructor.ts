@@ -1,12 +1,17 @@
 import {
   I_MOVIE_STATE,
-  T_OBJ_KEYS,
+  T_MOVIE_TYPES,
+  T_MOVIE_SORTFIELD,
   T_PERSON_SORTFIELD,
   T_PERSON_PROFESSIONS,
   T_PERSON_AWARDS_SORTFIELD,
   T_REVIEW_SORTFIELD,
   T_IMAGES_SORTFIELD,
+  T_GENRES,
+  T_MOVIE_COUNTRIES,
 } from "./../types/types";
+
+// ! Генерация объектов query-параметров для разных энд-поинтов: ---
 export const queryConstructor = {
   //! MOVIE  -----------------------------------------------------
   movie: ({
@@ -21,7 +26,18 @@ export const queryConstructor = {
     ratingKp,
     ratingIMDB,
     year,
-  }: Record<T_OBJ_KEYS<I_MOVIE_STATE>, string>) => ({
+  }: {
+    sortField: T_MOVIE_SORTFIELD;
+    sortType: "-1" | "1";
+    page: string;
+    limit: string;
+    type: T_MOVIE_TYPES;
+    genre: T_GENRES;
+    countries: T_MOVIE_COUNTRIES;
+    ratingKp: string;
+    ratingIMDB: string;
+    year: string;
+  }) => ({
     sortField: sortField || "rating.imdb",
     sortType,
     page,
@@ -52,12 +68,12 @@ export const queryConstructor = {
     age = "35-50",
     // countAwards = "10-40",
     profession,
-    // moviesRating = "5-10",
-  }: {
+  }: // moviesRating = "5-10",
+  {
     page: string;
     limit: string;
     sortField: T_PERSON_SORTFIELD;
-    sortType: string;
+    sortType: "-1" | "1";
     sex: "Мужской" | "Женский";
     growth?: string;
     age: string;
@@ -97,7 +113,7 @@ export const queryConstructor = {
   }: {
     page: string;
     limit: string;
-    sortType: string;
+    sortType: "-1" | "1";
     personId: string;
     sortField: T_PERSON_AWARDS_SORTFIELD;
   }) => ({
@@ -115,7 +131,7 @@ export const queryConstructor = {
     limit = "10",
     sortType = "-1",
   }: {
-    sortType: string;
+    sortType: "-1" | "1";
     sortField: T_IMAGES_SORTFIELD;
     movieId: string;
     page: string;
@@ -141,12 +157,12 @@ export const queryConstructor = {
     movieId: string;
     page: string;
     limit: string;
-    sortType: string;
+    sortType: "-1" | "1";
   }) => ({
     movieId,
     page,
     limit,
-    sortField: sortField || 'createdAt',
+    sortField: sortField || "createdAt",
     sortType,
   }),
   reviewByAuthorId: ({
@@ -160,12 +176,12 @@ export const queryConstructor = {
     authorId: string;
     page: string;
     limit: string;
-    sortType: string;
+    sortType: "-1" | "1";
   }) => ({
     authorId,
     page,
     limit,
-    sortField: sortField || 'createdAt',
+    sortField: sortField || "createdAt",
     sortType,
   }),
   top250: ({
@@ -176,11 +192,11 @@ export const queryConstructor = {
     type = "movie",
     lists = "top250",
   }: {
-    sortField: string;
-    sortType?: string;
+    sortField: "top250";
+    sortType?: "-1" | "1";
     page: string;
     limit?: string;
-    type?: string;
+    type?: T_MOVIE_TYPES;
     lists?: string;
   }) => ({
     sortField,

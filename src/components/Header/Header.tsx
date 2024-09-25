@@ -10,11 +10,15 @@ import { Navbar } from "../NavBar";
 // css
 import "./Header.sass";
 
-const toolBarStyles = {
+const headerToolBarStyles = {
   flexDirection: "row",
   width: "100%",
   justifyContent: "space-between",
   p: "1rem",
+};
+
+const headerTogglerStyles = {
+  fontFamily: "Merienda",
 };
 
 export function Header() {
@@ -22,13 +26,13 @@ export function Header() {
 
   return (
     <AppBar position="static">
-      <Toolbar sx={toolBarStyles}>
+      <Toolbar sx={headerToolBarStyles}>
         <Logo />
         <Toggler
-          sx={{ fontFamily: "Merienda" }}
+          sx={headerTogglerStyles}
           action={changeThemeParam}
           reducer={"themeSliceReducer"}
-          name={"theme"}
+          name="theme"
         />
         <Navbar
           isvisible={isvisible}

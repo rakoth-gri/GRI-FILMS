@@ -1,11 +1,12 @@
-// components
+import { memo } from "react";
+// components:
 import TheatersIcon from "@mui/icons-material/Theaters";
 import { Link } from "react-router-dom";
 import { IconButton, Tooltip } from "@mui/material";
-// types
+// types:
 import { E_ROUTES } from "../../types/types";
 
-export const Logo = () => {
+export const Logo = memo(() => {
   return (
     <Tooltip title="На главную">
       <Link to={E_ROUTES.home}>
@@ -31,4 +32,4 @@ export const Logo = () => {
       </Link>
     </Tooltip>
   );
-};
+});

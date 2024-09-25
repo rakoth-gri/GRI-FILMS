@@ -97,7 +97,7 @@ export const MoviesPage = () => {
         variant="h4"
         sx={moviesPageTitleStyles}
       >
-        Кинокартины:
+        кинокартины:
       </MyTitle>
       <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       <MyLoader color="info" variant="query" loading={loading} />

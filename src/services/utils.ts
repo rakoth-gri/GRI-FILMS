@@ -54,7 +54,7 @@ const birthDetailsFormat = (s: string): string => {
   } лет`;
 };
 
-// ! Функция для формирования sx Prop компоненты 'Box' MUI
+// ! Функция формирования пропа 'sx' элемента 'Box' для фреймворка MUI
 
 interface I_GetBoxStyles {
   width?: string | Record<string, unknown>;
@@ -102,7 +102,7 @@ const getBoxStyles = ({
   textAlign: ta,
 });
 
-// ! Получение лучших фильмов для страницы SinglePagePerson
+// ! Получение лучших фильмов страницы 'SinglePagePerson':
 
 // 1
 const unique = <T extends { id: number }>(l: T[]) =>
@@ -135,6 +135,7 @@ const setToLS = <T>(d: T, key: string) =>
 const getFromLS = <T>(key: string, init: T) =>
   JSON.parse(localStorage.getItem(key) || JSON.stringify(init));
 
+// --------------------------------
 export {
   getSelectFieldsParam,
   getNotNullFieldsParam,

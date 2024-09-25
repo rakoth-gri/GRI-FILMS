@@ -105,7 +105,7 @@ export const PersonsPage = () => {
         variant="h4"
       >
         {" "}
-        Поиск по людям:{" "}
+        поиск по людям:{" "}
       </MyTitle>
       <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       <MyLoader color="info" variant="query" loading={loading} />

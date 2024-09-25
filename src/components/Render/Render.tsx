@@ -17,7 +17,7 @@ function Render<T extends { id: number | string }>({
   return list.length && !loading ? (
     list.map(cb)
   ) : !list.length && !error ? (
-    <MyError> По Вашему запросу ничего не найдено... </MyError>
+    <MyError> по вашему запросу пока ничего не найдено... </MyError>
   ) : (
     <MyError> {error} </MyError>
   );

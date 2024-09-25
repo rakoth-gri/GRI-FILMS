@@ -1,5 +1,4 @@
-import {
-  T_SELECT,
+import {  
   T_SORTFIELD_SELECT,
   T_PERSON_SORTFIELD,
   T_MOVIE_SORTFIELD,
@@ -10,6 +9,8 @@ import {
   T_MAIN_MENU_LIST_ITEM,
   E_ROUTES,
   T_PERSON_PROFESSIONS,
+  T_GENRES,
+  T_MOVIE_COUNTRIES
 } from "../types/types";
 
 // ! END POINTS ------------------------
@@ -28,7 +29,8 @@ const END_POINTS = {
 
 // ! SELECT UI COMPONENT LISTS: ------------------------
 
-const GENRES_SELECT_LIST: T_SELECT[] = [
+
+const GENRES_SELECT_LIST: T_SORTFIELD_SELECT<T_GENRES>[] = [
   {
     value: "",
     text: "Выберите жанр",
@@ -452,7 +454,7 @@ const LIMIT_PARAM_SELECT_LIST: T_SORTFIELD_SELECT<number>[] = [
   },
 ];
 
-const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<string>[] = [
+const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<T_MOVIE_COUNTRIES>[] = [
   {
     value: "",
     text: "Выберите страну:",
@@ -466,7 +468,7 @@ const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<string>[] = [
     text: "Россия",
   },
   {
-    value: "Актриса",
+    value: "Россия+США",
     text: "Россия и США",
   },
   {
@@ -560,7 +562,7 @@ const COUNTRIES_SELECT_LIST: T_SORTFIELD_SELECT<string>[] = [
   },
   {
     value: "Корея Южная",
-    text: "Корея Южная",
+    text: "Южная Корея",
   },
   {
     value: "Латвия",

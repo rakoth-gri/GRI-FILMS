@@ -219,7 +219,7 @@ export const SinglePersonPage = () => {
             }}
           >
             {" "}
-            О персоне:{" "}
+            о персоне:{" "}
           </MyTitle>
           <Box
             sx={getBoxStyles({
@@ -284,7 +284,7 @@ export const SinglePersonPage = () => {
               textAlign: "left",
             }}
           >
-            Лучшие фильмы:
+            лучшие фильмы:
           </MyTitle>
           <>
             {composed(movies).map((m) => (
@@ -343,7 +343,7 @@ export const SinglePersonPage = () => {
       <Divider />
       <Box sx={getBoxStyles({ mr: { xs: "0px", md: "0.5rem" } })}>
         <MyTitle variant="h6" component={"h3"} align="center" color="inherit">
-          А Вы знали, что ...
+          а вы знали, что ...
         </MyTitle>
         <MyFacts facts={facts} sx={myFactsStyles} />
       </Box>

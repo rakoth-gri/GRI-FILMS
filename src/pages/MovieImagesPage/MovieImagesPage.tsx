@@ -93,7 +93,7 @@ export const MovieImagesPage: FC = () => {
           m: { xs: "1rem 0.5rem", md: "0.5rem" },
         }}
       >
-        Постеры и изображения:
+        постеры и изображения:
       </MyTitle>
       <SimplePagination
         page={state.page}

@@ -23,7 +23,7 @@ export const Back = ({
       <Button
         {...props}
         component="button"
-        sx={{ color: "whitesmoke", pl: '10px', pr: '10px', background: 'linear-gradient(90deg, #00b58d,#00775b,#00775b)', ...sx }}
+        sx={{ color: "whitesmoke", pl: '10px', pr: '10px', background: 'var(--app-backBtn-bg)', ...sx }}
         variant={variant}
       >
         <ArrowBackIosNewIcon fontSize="medium" color='inherit'/>
