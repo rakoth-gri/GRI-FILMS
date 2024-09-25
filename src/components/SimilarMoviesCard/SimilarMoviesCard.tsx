@@ -39,7 +39,8 @@ export const SimilarMoviesCard = ({
       <Card sx={SimilarMoviesCardStyles}>
         <CardMedia
           image={poster?.url || FAKE}
-          title={enName}
+          title={name}
+          alt={name}
           component={"img"}
           loading="lazy"
           sx={SimilarMoviesCardMediaStyles}

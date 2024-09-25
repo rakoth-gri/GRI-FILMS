@@ -3,7 +3,7 @@ import "./Span.sass"
 
 interface I_Span extends HTMLAttributes<HTMLSpanElement> {
     children: ReactNode
-    cls: string
+    cls?: string
 }
 
 export const Span = ({children, cls, ...props}: I_Span) => {

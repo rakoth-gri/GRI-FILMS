@@ -152,7 +152,7 @@ export const MyMovieCard = memo(({
         }}
       >
         {" "}
-        {top250 ? `ТОП ${top250}` : null}
+        {top250 ? `TOP ${top250}` : null}
       </MyLabel>
       <Box sx={{ position: "relative", height: "59%" }}>
         <MyCardMedia

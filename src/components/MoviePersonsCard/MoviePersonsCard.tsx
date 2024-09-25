@@ -58,7 +58,8 @@ export const MoviePersonsCard = ({
       <Card sx={moviePersonsCardStyles}>
         <CardMedia
           image={photo}
-          title={enName}
+          title={name}
+          alt={name}
           component={"img"}
           loading="lazy"
           sx={moviePersonsCardMediaStyles}
