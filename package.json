@@ -1,6 +1,7 @@
 {
   "name": "kinopoisk",
   "private": true,
+  "homepage": "https://rakoth-gri.github.io/GRI_FILMS/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
