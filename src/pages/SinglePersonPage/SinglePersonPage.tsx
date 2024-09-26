@@ -21,6 +21,7 @@ import { Back } from "../../components/Back";
 import { MyFilterTrigger } from "../../components/MyFilterTrigger";
 import { MySortType } from "../../components/MySortType";
 import { SingleMoviePropsList } from "../../components/SingleMoviePropsList";
+import { PersonAwardsContainer } from "../../components/PersonAwardsContainer";
 import { MyTitle } from "../../components/MyTitle";
 import { MyFacts } from "../../components/MyFacts";
 import { MySelect } from "../../components/MySelect";
@@ -68,6 +69,7 @@ const prepareToRender = <T extends object>(
   l.length ? <SingleMoviePropsList list={l} title={title} cb={cb} /> : null;
 
 const prepareToRenderCallback = (movie: I_PERSON_MOVIES, i?: number) => (
+  // @ts-ignore
   <SimilarMoviesCard key={i} {...movie} />
 );
 
@@ -81,7 +83,7 @@ export const SinglePersonPage = () => {
   const location = useNavigate();
   const { personId } = useParams();
 
-  // const { person, personAwards, page, loading, error } = useAppSelector(
+  // const { person, personAwards, page, loading, error} = useAppSelector(
   //   (s: RootState) => s.personSliceReducer
   // );
 
@@ -321,11 +323,11 @@ export const SinglePersonPage = () => {
       </MyFilterWrapper>
       <Divider />
       {personAwards.length ? (
-        <SingleMoviePropsList
+        <PersonAwardsContainer
           list={personAwards}
-          type="awards"
           title="Награды"
           cb={personAwardsCallback}
+          sx={{ m: { xs: "0px", sm: "0.5rem" } }}
         />
       ) : (
         <MyError> По Вашему запросу ничего не найдено... </MyError>

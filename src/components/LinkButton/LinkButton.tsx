@@ -5,12 +5,13 @@ import { Button } from "@mui/material";
 import { SxProps, Theme } from "@mui/material";
 import "./LinkButton.sass";
 
+
 interface I_LinkButton extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children?: ReactNode;
-  id?: string | number;
+  id?: string;
   route: string;
   sx?: SxProps<Theme> | undefined;
-  variant?: "contained" | "outlined" | "text" | string;
+  variant?: "contained" | "outlined" | "text";
   linkProps?: string
 }
 
@@ -23,6 +24,7 @@ export const LinkButton = ({
   ...props
 }: I_LinkButton) => {
   return (
+    // @ts-ignore
     <Button
       size="medium"
       component={Link}

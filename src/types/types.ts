@@ -10,17 +10,6 @@ export interface I_PAGINATION {
   pages: number;
 }
 
-export type T_QUERY_KEYS =
-  | "sortField"
-  | "sortType"
-  | "page"
-  | "type"
-  | "genre"
-  | "countries"
-  | "query"
-  | "id"
-  | "limit";
-
 // ! GENERIC TYPES  -----------------------------------
 export type T_OBJ_KEYS<T extends object> = keyof T;
 
@@ -393,7 +382,7 @@ export type T_REVIEW_SORTFIELD =
 // ! -----------------  <<><<><><>> ------------------------------
 
 export interface I_MOVIE_STATE {
-  favorites: T_MY_MOVIE_CARD[];
+  favorites: Omit<T_MY_MOVIE_CARD, "description" | "status" | "facts">[];
   sortField: T_MOVIE_SORTFIELD | "";
   sortType: number;
   page: number;
@@ -439,7 +428,7 @@ export interface I_PERSON_STATE {
   selectFields: string[];
 }
 
-export type T_ACTION_QUERY_PAYLOAD = Record<"name" | "value", unknown>;
+export type T_ACTION_QUERY_PAYLOAD = Record<"name" | "value", string | number | number[] | boolean>;
 
 export interface I_REVIEW_STATE {
   sortField: string;

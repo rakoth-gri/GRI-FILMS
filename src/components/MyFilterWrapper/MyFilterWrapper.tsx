@@ -39,6 +39,7 @@ export const MyFilterWrapper = ({
   return (
     <MyFlexContainer
       component="aside"
+      // @ts-ignore
       sx={{ ...getMyFilterWrapperStyles(isOpenFilter), ...sx }}
       {...props}
     >

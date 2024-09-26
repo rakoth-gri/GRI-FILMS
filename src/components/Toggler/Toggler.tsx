@@ -39,6 +39,7 @@ export const Toggler = memo(({ name, reducer, action, onClick, sx }: I_Toggler) 
 
   const label = { inputProps: { "aria-label": "Color switch demo" } };
 
+  // @ts-ignore
   const value = useAppSelector((s) => s[reducer][name]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -16,7 +16,7 @@ const reviewByMovieIdThunk = createAsyncThunk<
   string | I_API_OBJECT<I_REVIEW[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
     movieId: string;
   },
   {
@@ -26,9 +26,7 @@ const reviewByMovieIdThunk = createAsyncThunk<
 >(
   "review/reviewByMovieIdThunk",
   async ({ url, movieId, method }, { rejectWithValue, getState }) => {
-    const { limit, sortField, sortType, page } = getState().reviewSliceReducer;
-
-    
+    const { limit, sortField, sortType, page } = getState().reviewSliceReducer;    
 
     const res = await Server[method](
       url,
@@ -49,38 +47,4 @@ const reviewByMovieIdThunk = createAsyncThunk<
   }
 );
 
-const reviewByAuthorIdThunk = createAsyncThunk<
-  string | I_API_OBJECT<I_REVIEW[]>,
-  {
-    url: string;
-    authorId: string;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
-  },
-  {
-    rejectValue: string;
-    state: RootState;
-  }
->(
-  "review/reviewByAuthorIdThunk",
-  async ({ url, authorId, method }, { rejectWithValue, getState }) => {
-    const { limit, sortField, sortType, page } = getState().reviewSliceReducer;
-
-    const res = await Server[method](
-      url,
-      {
-        authorId,
-        limit: `${limit}`,
-        sortField,
-        sortType: `${sortType}`,
-        page: `${page}`,
-      },
-      method
-    );
-    if (res instanceof Object) {
-      return res as I_API_OBJECT<I_REVIEW[]>;
-    }
-    return rejectWithValue(res as string);
-  }
-);
-
-export { reviewByAuthorIdThunk, reviewByMovieIdThunk };
+export { reviewByMovieIdThunk };

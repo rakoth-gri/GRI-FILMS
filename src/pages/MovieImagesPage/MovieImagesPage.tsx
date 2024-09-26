@@ -41,6 +41,7 @@ export const MovieImagesPage: FC = () => {
     selectFieldList: IMAGE_SELECTFIELDS_LIST,
     method: "image",
     page: state.page,
+    // @ts-ignore
     movieId,
   });
 

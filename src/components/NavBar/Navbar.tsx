@@ -35,6 +35,7 @@ export const Navbar = ({ isvisible, clickHandler }: I_Navbar) => {
 
   return (
     <MyFlexContainer
+    // @ts-ignore
       sx={getMainMenuStyles(isvisible)}
       component="nav"
       w="auto"

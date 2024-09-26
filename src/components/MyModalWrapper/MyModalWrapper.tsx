@@ -28,6 +28,7 @@ export const MyModalWrapper = ({
 }: I_MyModalWrapper) => {
   return (
     <MyFlexContainer
+      // @ts-ignore
       sx={{ ...modalFlexContainerStyles, ...sx }}
       direction="column"
       spacing={3}

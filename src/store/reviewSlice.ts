@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { reviewByAuthorIdThunk, reviewByMovieIdThunk } from "./reviewThunks";
+import { reviewByMovieIdThunk } from "./reviewThunks";
 // types
 import type { PayloadAction } from "@reduxjs/toolkit";
 import {
@@ -43,6 +43,7 @@ const reviewSlice = createSlice({
       .addCase(reviewByMovieIdThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         reviewByMovieIdThunk.fulfilled,
         (state, { payload }: PayloadAction<I_API_OBJECT<I_REVIEW[]>>) => {
@@ -53,29 +54,9 @@ const reviewSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         reviewByMovieIdThunk.rejected,
-        (state, { payload }: PayloadAction<string>) => {
-          state.error = payload;
-          state.loading = false;
-        }
-      )
-      // ! reviewByAuthorIdThunk --------------------------------------------
-      .addCase(reviewByAuthorIdThunk.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(
-        reviewByAuthorIdThunk.fulfilled,
-        (state, { payload }: PayloadAction<I_API_OBJECT<I_REVIEW[]>>) => {
-          state.pages = payload.pages;
-          state.total = payload.total;
-          state.reviews = payload.data;
-          state.error = "";
-          state.loading = false;
-        }
-      )
-      .addCase(
-        reviewByAuthorIdThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
           state.error = payload;
           state.loading = false;

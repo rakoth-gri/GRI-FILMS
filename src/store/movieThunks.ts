@@ -20,7 +20,7 @@ const movieThunk = createAsyncThunk<
   string | I_API_OBJECT<I_MOVIE[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -72,7 +72,7 @@ const movieSearchThunk = createAsyncThunk<
   string | I_API_OBJECT<T_MOVIE_SEARCH[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -105,7 +105,7 @@ const movieByIdThunk = createAsyncThunk<
   {
     url: string;
     id: number;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -126,7 +126,7 @@ const movieIdImagesThunk = createAsyncThunk<
   {
     url: string;
     movieId: string;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -139,7 +139,7 @@ const movieIdImagesThunk = createAsyncThunk<
 
     const res = await Server[method](
       url,
-      { movieId, limit: `${limit}`, page: `${page}`, sortType },
+      { movieId, limit: `${limit}`, page: `${page}`, sortType: `${sortType}` },
       method
     );
     if (res instanceof Object) {

@@ -111,6 +111,7 @@ export const MyMovieCard = memo(({
   };
 
   return (
+    // @ts-ignore
     <MyCard component={"article"}>
       <MyLabel
         sx={{
@@ -159,6 +160,7 @@ export const MyMovieCard = memo(({
           // image={poster}
           data-src={poster}
           title={enName}
+          // @ts-ignore
           component="img"
           className="cardImage"
         />

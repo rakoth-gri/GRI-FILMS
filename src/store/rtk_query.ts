@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // consts
-import {
-  END_POINTS,
+import {  
   BASE_URL,
   MOVIE_NOT_NULL_FIELDS_LIST,
 } from "../consts/api";
@@ -17,6 +16,7 @@ export const RTKQueryMoviesApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
+      // @ts-ignore
       headers.set("X-API-KEY", [import.meta.env.VITE_REACT_API_KEY]);
       return headers;
     },
@@ -38,11 +38,12 @@ export const RTKQueryMoviesApi = createApi({
         )}${getNotNullFieldsParam(
           MOVIE_NOT_NULL_FIELDS_LIST
         )}${new URLSearchParams(
+          // @ts-ignore
           queryConstructor[method]({ sortField: "top250", page: `${page}` })
         )}`,
-      transformResponse: (response: I_API_OBJECT<I_MOVIE[]>) => {
+      transformResponse: (response: any) => {
         // приводим данные ответа к нужному формату
-        return responseConstructor.movie(response);
+        return responseConstructor.movie(response) as I_API_OBJECT<I_MOVIE[]>;
       },
     }),
     // ! getMovieIdImages------------------------------
@@ -60,15 +61,14 @@ export const RTKQueryMoviesApi = createApi({
         `${endPoint}?${getSelectFieldsParam(
           selectFieldList
         )}${new URLSearchParams(
-          queryConstructor[method]({ movieId, page: `${page}` })
+          // @ts-ignore
+          queryConstructor[method]({ movieId, page })
         )}`,
-      transformResponse: (response: I_API_OBJECT<I_IMAGE[]>) => {
-        // приводим данные ответа к нужному формату
-        return responseConstructor.image(response);
+      transformResponse: (response: any) => {        
+        return responseConstructor.image(response) as I_API_OBJECT<I_IMAGE[]>;
       },
     }),
   }),
 });
 
-export const { useGetTop250MoviesQuery, useGetMovieIdImagesQuery } =
-  RTKQueryMoviesApi;
+export const { useGetTop250MoviesQuery, useGetMovieIdImagesQuery } = RTKQueryMoviesApi;

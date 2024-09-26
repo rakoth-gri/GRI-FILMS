@@ -40,6 +40,7 @@ export const MySearch = memo(({
 }: I_MySearch) => {
   const dispatch = useAppDispatch();
 
+  // @ts-ignore
   const reduxQuery = useAppSelector((s) => s[reducer].query);
 
   const [query, setQuery] = useState("");

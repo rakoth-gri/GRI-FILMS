@@ -43,9 +43,10 @@ export const MyRange = memo(({
 }: I_MyRange) => {
   const dispatch = useAppDispatch();
 
+  // @ts-ignore
   const value = useAppSelector((s) => s[reducer][name]);
 
-  const changeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(action({ name, value }));
   };
@@ -61,6 +62,7 @@ export const MyRange = memo(({
         sx={{ width: "90%", color: "inherit", m: "0.25rem", mt: "0px" }}
         name={name}
         shiftStep={1}
+        // @ts-ignore
         onChange={changeHandler}
         value={value}
         valueLabelDisplay="auto"

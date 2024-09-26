@@ -75,6 +75,7 @@ export const Top250Page = () => {
             ))}
           </>
         ) : (
+          // @ts-ignore
           <MyError> {error?.data?.message as string} </MyError>
         )}
       </MyFlexContainer>

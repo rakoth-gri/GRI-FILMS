@@ -18,7 +18,7 @@ const personThunk = createAsyncThunk<
   string | I_API_OBJECT<I_PERSON_FULL[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -46,10 +46,10 @@ const personThunk = createAsyncThunk<
         page: `${page}`,
         limit: `${limit}`,
         sortField,
-        sortType: `${sortType}`,        
+        sortType: `${sortType}`,
         sex,
         // growth: growth.join('-'),
-        age: age.join('-'),
+        age: age.join("-"),
         // countAwards: countAwards.join('-'),
         profession,
         // moviesRating: getRatingParamValue(moviesRating),
@@ -71,7 +71,7 @@ const personSearchThunk = createAsyncThunk<
   string | I_API_OBJECT<I_PERSON_SEARCH[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -99,7 +99,7 @@ const personByIdThunk = createAsyncThunk<
   {
     url: string;
     id: number;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -121,7 +121,7 @@ const personAwardsThunk = createAsyncThunk<
   {
     url: string;
     personId: string;
-    method: T_OBJ_KEYS<typeof queryConstructor>;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
   },
   {
     rejectValue: string;
@@ -130,13 +130,13 @@ const personAwardsThunk = createAsyncThunk<
 >(
   "person/personAwardsThunk",
   async ({ url, personId, method }, { rejectWithValue, getState }) => {
-    const { /*limit*/sortType, page } = getState().personSliceReducer;
+    const { limit, sortType, page } = getState().personSliceReducer;
 
     const res = await Server[method](
       url,
       {
-        personId,        
-        // limit: `${limit}`,
+        personId,
+        limit: `${limit}`,
         sortType: `${sortType}`,
         page: `${page}`,
       },

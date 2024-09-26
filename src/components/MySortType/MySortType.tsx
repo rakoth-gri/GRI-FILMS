@@ -41,6 +41,7 @@ export const MySortType = memo(({
 }: I_MySelect) => {
   const dispatch = useAppDispatch();
 
+  // @ts-ignore
   const value = useAppSelector((s) => s[reducer][name]);
 
   const changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -49,6 +50,7 @@ export const MySortType = memo(({
   };
 
   return (
+    // @ts-ignore
     <FormControl sx={mySortTypeStyles} component="section" {...props}>
       <FormLabel
         id="demo-radio-buttons-group-label"

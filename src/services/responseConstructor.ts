@@ -7,7 +7,6 @@ import { personByIdResponse } from "./personByIdResponse";
 import { personAwardsResponse } from "./personAwardsResponse";
 import { imageResponse } from "./imageResponse";
 import { reviewByMovieIdResponse } from "./reviewByMovieIdResponse";
-import { reviewByAuthorIdResponse } from "./reviewByAuthorIdResponse";
 import { personResponse } from './personResponse';
 
 // types:
@@ -137,22 +136,7 @@ const responseConstructor = {
   ): I_API_OBJECT<I_REVIEW[]> => {
     const { docs, total, limit, page, pages } = review;
     return reviewByMovieIdResponse(docs, total, limit, page, pages);
-  },
-
-  reviewByAuthorId: <
-    T extends {
-      total: number;
-      limit: number;
-      page: number;
-      pages: number;
-      docs: unknown[];
-    }
-  >(
-    review: T
-  ): I_API_OBJECT<I_REVIEW[]> => {
-    const { docs, total, limit, page, pages } = review;
-    return reviewByAuthorIdResponse(docs, total, limit, page, pages);
-  },
+  },  
 };
 
 export { responseConstructor };

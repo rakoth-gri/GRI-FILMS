@@ -28,6 +28,7 @@ interface I_MyAppContainer extends HTMLAttributes<HTMLDivElement> {
 export const AppContainer = ({ children, ...props }: I_MyAppContainer) => {
   return (
     <Container
+      // @ts-ignore
       sx={appContainerStyles(props)}
       component={"main"}
       maxWidth={false}

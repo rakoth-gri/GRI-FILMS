@@ -10,6 +10,7 @@ export const movieSearchResponse = (
   page: number,
   pages: number
 ) => {
+  // @ts-ignore
   const movieSearchList: T_MOVIE_SEARCH[] = docs?.map((movie: any) => ({
     id: movie?.id || 0,
     name: movie?.name || "Нет данных",

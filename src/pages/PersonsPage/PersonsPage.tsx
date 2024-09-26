@@ -11,6 +11,7 @@ import { personSearchThunk, personThunk } from "../../store/personThunks";
 import {
   changePersonStateQueryParams,
   changePersonSex,
+  cleanUpPersonsInfo,
 } from "../../store/personSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 // components
@@ -78,6 +79,12 @@ export const PersonsPage = () => {
         .querySelectorAll(".personImage")
         .forEach((img) => MyObserver.observe(img));
   }, [persons]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanUpPersonsInfo());
+    };
+  }, []);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     dispatch(
@@ -187,6 +194,7 @@ export const PersonsPage = () => {
         /> */}
         <Toggler
           sx={personPageTogglerStyles}
+          // @ts-ignore
           action={changePersonSex}
           reducer={"personSliceReducer"}
           name={"sex"}

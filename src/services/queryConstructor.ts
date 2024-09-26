@@ -164,26 +164,7 @@ export const queryConstructor = {
     limit,
     sortField: sortField || "createdAt",
     sortType,
-  }),
-  reviewByAuthorId: ({
-    sortField = "id",
-    authorId,
-    page = "1",
-    limit = "10",
-    sortType = "-1",
-  }: {
-    sortField: T_REVIEW_SORTFIELD;
-    authorId: string;
-    page: string;
-    limit: string;
-    sortType: "-1" | "1";
-  }) => ({
-    authorId,
-    page,
-    limit,
-    sortField: sortField || "createdAt",
-    sortType,
-  }),
+  }),  
   top250: ({
     sortField = "top250",
     sortType = "1",
@@ -215,7 +196,6 @@ export type T_QueryConctructor_Objects =
   | ReturnType<typeof queryConstructor.personSearch>
   | ReturnType<typeof queryConstructor.personById>
   | ReturnType<typeof queryConstructor.personAwards>
-  | ReturnType<typeof queryConstructor.reviewByAuthorId>
   | ReturnType<typeof queryConstructor.reviewByMovieId>
   | ReturnType<typeof queryConstructor.image>
   | ReturnType<typeof queryConstructor.person>;

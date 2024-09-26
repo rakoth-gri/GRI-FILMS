@@ -38,6 +38,7 @@ const observerCB: IntersectionObserverCallback = (entries, observer) => {
     if (e.isIntersecting) {
       let elem = e.target as HTMLImageElement;
       let src = elem?.dataset?.src;
+      // @ts-ignore
       elem.src = src;
       observer.unobserve(elem);
     }

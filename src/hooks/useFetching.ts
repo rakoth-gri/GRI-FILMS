@@ -1,6 +1,10 @@
 import { useState } from "react";
 // service:
 import { Server } from "../services/Server";
+// services
+import { queryConstructor } from "../services/queryConstructor";
+// types:
+import { T_OBJ_KEYS } from "../types/types";
 
 export const useFetching = () => {
   const [state, setState] = useState<{
@@ -22,7 +26,7 @@ export const useFetching = () => {
   const fetchData = async (
     url: string,
     queryParams: Record<string, string>,
-    method: keyof typeof Server
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">
   ) => {
     try {
       setState((p) => ({ ...p, loading: true }));
@@ -31,7 +35,9 @@ export const useFetching = () => {
       if (res instanceof Object) {
         return setState((p) => ({
           ...p,
+          // @ts-ignore
           data: res.data,
+          // @ts-ignore
           pages: res.pages,
           error: "",
         }));
@@ -62,14 +68,3 @@ export const useFetching = () => {
   ] as const;
 };
 
-/*
-
-  const [loading, error, data, page, pages, fetchData, changeLimit, changePage] = useFetching()
-
-  useEffect(() => {
-    personId && fetchData(END_POINTS.personAwards, {personId, page, limit}, 'personAwards')
-  }, [personId, page, limit]);
-
-  
-
-  */

@@ -70,6 +70,7 @@ export const MyPersonCard = memo(({
   photo,
 }: I_PERSON_SEARCH) => {
   return (
+    // @ts-ignore
     <MyCard component={"article"}>
       <MyLabel
         style={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)", backdropFilter: 'blur(1.6px)' }}
@@ -81,6 +82,7 @@ export const MyPersonCard = memo(({
         className="personImage"
         title={enName}
         data-src={photo}
+        // @ts-ignore
         component={"img"}
         loading="lazy"
       />

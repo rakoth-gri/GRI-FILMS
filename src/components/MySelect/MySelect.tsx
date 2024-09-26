@@ -30,6 +30,7 @@ export const MySelect = memo(({
 }: I_MySelect) => {
   const dispatch = useAppDispatch();
 
+  // @ts-ignore
   const value = useAppSelector((s) => s[reducer][name]);
 
   const changeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -46,6 +47,7 @@ export const MySelect = memo(({
       }}
       label="select"
       name={name}
+      // @ts-ignore
       onChange={changeHandler}
       value={value}
       displayEmpty={true}
@@ -53,6 +55,7 @@ export const MySelect = memo(({
       {...props}
     >
       {list.map(({ value, text }) => (
+        // @ts-ignore
         <MenuItem key={value} value={value}>
           {text as string}
         </MenuItem>

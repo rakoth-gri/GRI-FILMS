@@ -39,6 +39,7 @@ class Server {
         method === "movie" || method === "person"
           ? getNotNullFieldsParam(notNullFieldList as string[])
           : ""
+      // @ts-ignore 
       }${new URLSearchParams(queryConstructor[method](queryParams))}`,
       method: "get",
       headers: {
@@ -53,14 +54,14 @@ class Server {
     url: string,
     queryParams: Record<string, string>,
     method: T_OBJ_KEYS<typeof responseConstructor>,
-    selectFields: string[]
+    selectFields?: string[]
   ): Promise<string | I_API_OBJECT<I_MOVIE[]>> {
     try {
       let res = await Server.fetchindDataBySelectFields(
         url,
         queryParams,
         method,
-        selectFields,
+        selectFields as string[],
         MOVIE_NOT_NULL_FIELDS_LIST
       );
       if (res.status !== 200) throw new Error(res.data);
@@ -128,14 +129,14 @@ class Server {
     url: string,
     queryParams: Record<string, string>,
     method: T_OBJ_KEYS<typeof responseConstructor>,
-    selectFields: string[]
+    selectFields?: string[]
   ): Promise<string | I_API_OBJECT<I_PERSON_FULL[]>> {
     try {
       let res = await Server.fetchindDataBySelectFields(
         url,
         queryParams,
         method,
-        selectFields,
+        selectFields as string[],
         PERSON_NOT_NULL_FIELDS_LIST
       );
       if (res.status !== 200) throw new Error(res.data);
@@ -226,24 +227,7 @@ class Server {
     }
   }
 
-  static async reviewByAuthorId(
-    url: string,
-    queryParams: Record<string, string>,
-    method: T_OBJ_KEYS<typeof responseConstructor>
-  ): Promise<string | I_API_OBJECT<I_REVIEW[]>> {
-    try {
-      let res = await Server.fetchindDataBySelectFields(
-        url,
-        queryParams,
-        method,
-        REVIEW_SELECTFIELDS_LIST
-      );
-      if (res.status !== 200) throw new Error(res.data);
-      return responseConstructor[method](res.data) as I_API_OBJECT<I_REVIEW[]>;
-    } catch (e) {
-      return (e as Error).message;
-    }
-  }
+  
 }
 
 export { Server };

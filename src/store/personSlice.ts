@@ -49,12 +49,11 @@ const personSlice = createSlice({
       state,
       { payload: { name, value } }: PayloadAction<T_ACTION_QUERY_PAYLOAD>
     ) {
+      // @ts-ignore
       state[name as keyof I_PERSON_STATE] = value;
       if (name !== "page") state.page = 1;
     },
-    changePersonSex(state, {payload}: PayloadAction<keyof I_PERSON_STATE>) {
-      console.log(payload);
-      
+    changePersonSex(state, {payload}: PayloadAction<'sex'>) {
       state[payload] = state.sex === 'Мужской' ? 'Женский' : 'Мужской'
     },
     cleanUpSinglePersonInfo(state) {
@@ -64,6 +63,15 @@ const personSlice = createSlice({
       state.sortType = -1;
       state.limit = 5;
     },
+    cleanUpPersonsInfo(state) {
+      state.persons = [];      
+      state.sortField = "countAwards";
+      state.sortType = -1;
+      state.limit = 5;
+      state.sex = 'Мужской'
+      state.profession = ''
+      state.age = [5, 100]
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -71,6 +79,7 @@ const personSlice = createSlice({
       .addCase(personThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         personThunk.fulfilled,
         (
@@ -84,6 +93,7 @@ const personSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         personThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
@@ -95,6 +105,7 @@ const personSlice = createSlice({
       .addCase(personSearchThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         personSearchThunk.fulfilled,
         (
@@ -108,6 +119,7 @@ const personSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         personSearchThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
@@ -119,6 +131,7 @@ const personSlice = createSlice({
       .addCase(personByIdThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         personByIdThunk.fulfilled,
         (state, { payload }: PayloadAction<I_PERSON_FULL>) => {
@@ -127,6 +140,7 @@ const personSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         personByIdThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
@@ -138,6 +152,7 @@ const personSlice = createSlice({
       .addCase(personAwardsThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         personAwardsThunk.fulfilled,
         (
@@ -151,6 +166,7 @@ const personSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         personAwardsThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
@@ -161,6 +177,6 @@ const personSlice = createSlice({
   },
 });
 
-export const { changePersonStateQueryParams, cleanUpSinglePersonInfo, changePersonSex } =
+export const { changePersonStateQueryParams, cleanUpSinglePersonInfo, changePersonSex, cleanUpPersonsInfo } =
   personSlice.actions;
 export default personSlice.reducer;

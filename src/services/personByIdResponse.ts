@@ -50,3 +50,16 @@ export const personByIdResponse = (person: any) => {
       : [],
   } as I_PERSON_FULL;
 };
+
+
+// interface I_EX<T, K> {
+//   name: string;
+//   age: T,
+//   hasFoo: K
+// }
+
+// const ex: I_EX<number, boolean> = {
+//   name: 'Ramil',
+//   age: 12,
+//   hasFoo: false
+// }

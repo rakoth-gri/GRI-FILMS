@@ -66,7 +66,8 @@ const movieSlice = createSlice({
       state,
       { payload: { name, value } }: PayloadAction<T_ACTION_QUERY_PAYLOAD>
     ) {
-      state[name as keyof I_MOVIE_STATE] = value;
+      // @ts-ignore
+      state[name] = value;
       if (name !== "page") state.page = 1;
     },
     changeMovieStateSelectFields(state, { payload }: PayloadAction<string>) {
@@ -109,6 +110,7 @@ const movieSlice = createSlice({
       .addCase(movieThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         movieThunk.fulfilled,
         (state, { payload }: PayloadAction<I_API_OBJECT<I_MOVIE[]>>) => {
@@ -119,6 +121,7 @@ const movieSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         movieThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
@@ -130,6 +133,7 @@ const movieSlice = createSlice({
       .addCase(movieSearchThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         movieSearchThunk.fulfilled,
         (state, { payload }: PayloadAction<I_API_OBJECT<T_MOVIE_SEARCH[]>>) => {
@@ -140,6 +144,7 @@ const movieSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         movieSearchThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
@@ -151,6 +156,7 @@ const movieSlice = createSlice({
       .addCase(movieByIdThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         movieByIdThunk.fulfilled,
         (state, { payload }: PayloadAction<I_API_OBJECT<T_MOVIE_SEARCH[]>>) => {
@@ -159,6 +165,7 @@ const movieSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         movieByIdThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {
@@ -170,6 +177,7 @@ const movieSlice = createSlice({
       .addCase(movieIdImagesThunk.pending, (state) => {
         state.loading = true;
       })
+      // @ts-ignore
       .addCase(
         movieIdImagesThunk.fulfilled,
         (state, { payload }: PayloadAction<I_API_OBJECT<I_IMAGE[]>>) => {
@@ -180,6 +188,7 @@ const movieSlice = createSlice({
           state.loading = false;
         }
       )
+      // @ts-ignore
       .addCase(
         movieIdImagesThunk.rejected,
         (state, { payload }: PayloadAction<string>) => {

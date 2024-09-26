@@ -10,9 +10,9 @@ import { I_PERSON_AWARDS } from "../../types/types";
 import "./PersonAwardCard.sass";
 
 const PersonAwardCardStyles = {
-  width: '180px',
+  width: { xs: "145px", md: "180px" },
   padding: "0.35rem",
-  height: '215px',
+  height: { xs: "180px", md: "215px" },
   display: "flex",
   justifyContent: "space-between",
   flexDirection: "column",

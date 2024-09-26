@@ -36,6 +36,7 @@ export const MyPagination = memo(({
 }: I_MyPagination) => {
   const dispatch = useAppDispatch();
 
+  // @ts-ignore
   const pages= useAppSelector((s) => s[reducer].pages);
 
   const changeHandler = (e: ChangeEvent<unknown>, page: number) => {

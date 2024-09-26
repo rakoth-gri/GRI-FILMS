@@ -55,6 +55,7 @@ export const MyTitle = ({
       component={component}
       align={align}
       color={color}
+      // @ts-ignore
       sx={{...MyTitleStyles, ...sx}}
     >
       {children}

@@ -23,13 +23,14 @@ export const MyMasonry = ({
         list={images}
         loading={isLoading}
         error={error}
-        cb={(image: I_IMAGE, i: number) => (
-          <ImageListItem key={image.id}>
+        // @ts-ignore
+        cb={(item: I_IMAGE, i: number) => (
+          <ImageListItem key={item.id}>
             <img
-              // data-src={`${image.url}?w=248&fit=crop&auto=format`}
-              src={`${image.url}?w=248&fit=crop&auto=format`}
-              alt={image.id}
-              onClick={(e) => ImagesModalHandler(+e.target.id)}
+              // data-src={`${item.url}?w=248&fit=crop&auto=format`}
+              src={`${item.url}?w=248&fit=crop&auto=format`}
+              alt={item.id}
+              onClick={(e) => ImagesModalHandler(+(e.target as HTMLElement).id)}
               id={`${i}`}
               className={"movieImage"}
             />

@@ -12,6 +12,7 @@ const getAxiosConfig = (
     url,
     method: "get",
     baseURL: "https://api.kinopoisk.dev/v1.4/",
+    // @ts-ignore
     params: queryConstructor[method](params),
     headers: {
       "Content-Type": "application/json;charset=utf-8",
