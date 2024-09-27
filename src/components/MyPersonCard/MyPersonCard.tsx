@@ -34,16 +34,15 @@ const MyCard = styled(Card)(({ theme }) => ({
     fontSize: "14px",
   },
   [theme.breakpoints.down("sm")]: {
-    width: "85%", 
+    width: "85%",
     height: 435,
   },
-  
 }));
 
 const MyCardMedia = styled(CardMedia)(() => ({
   height: "55%",
   objectFit: "cover",
-  borderRadius: '0.4rem',
+  borderRadius: "0.4rem",
   filter: "grayscale(50%)",
   "&:hover": { filter: "none" },
 }));
@@ -55,67 +54,82 @@ const myPersonCardULStyles = {
   pl: "0.6rem",
   listStyleType: "none",
   fontSize: "inherit",
-  opacity: 0.85
+  opacity: 0.85,
 };
 
-export const MyPersonCard = memo(({
-  id,
-  name,
-  enName,
-  age,
-  sex,
-  growth,
-  birthday,
-  death,
-  photo,
-}: I_PERSON_SEARCH) => {
-  return (
-    // @ts-ignore
-    <MyCard component={"article"}>
-      <MyLabel
-        style={{ top: "2%", right: "2%", backgroundColor: "rgba(0,0,0, .12)", backdropFilter: 'blur(1.6px)' }}
-      >
-        {" "}
-        {age ? age + " лет" : null}
-      </MyLabel>
-      <MyCardMedia
-        className="personImage"
-        title={enName}
-        data-src={photo}
-        // @ts-ignore
-        component={"img"}
-        loading="lazy"
-      />
-      <CardContent sx={{ padding: "0.25rem" }}>
-        <MyTitle
-          variant="subtitle1"
-          component="h4"
-          sx={{ m: "0.25rem" }}
-          color="inherit"
+export const MyPersonCard = memo(
+  ({
+    id,
+    name,
+    enName,
+    age,
+    sex,
+    growth,
+    birthday,
+    death,
+    photo,
+  }: I_PERSON_SEARCH) => {
+    return (
+      // @ts-ignore
+      <MyCard component={"article"}>
+        <MyLabel
+          sx={{
+            top: "2%",
+            right: "2%",
+            background: "green",
+            fontFamily: "Merienda",
+            fontWeight: 700,
+            display: "flex",
+            alignItems: "center",
+            color: "white",
+            p: "0.25rem",
+          }}
         >
-          {name}
-        </MyTitle>
-        <Box component="ul" sx={myPersonCardULStyles}>
-          <li className="myPersonCard">
+          {age ? age : null}
+        </MyLabel>
+        <MyCardMedia
+          className="personImage"
+          title={enName}
+          data-src={photo}
+          // @ts-ignore
+          component={"img"}
+          loading="lazy"
+        />
+        <CardContent sx={{ padding: "0.25rem" }}>
+          <MyTitle
+            variant="subtitle1"
+            component="h4"
+            sx={{ m: "0.25rem" }}
+            color="inherit"
+          >
+            {name}
+          </MyTitle>
+          <Box component="ul" sx={myPersonCardULStyles}>
+            <li className="myPersonCard">
+              {" "}
+              Дата рождения:{" "}
+              {birthday && new Date(birthday).toLocaleDateString() + " " + "г."}
+            </li>
+            <li className="myPersonCard">Пол: {sex}</li>
+            <li className="myPersonCard">Рост: {growth} см.</li>
+            <li className="myPersonCard">
+              {death
+                ? `Дата смерти: ${new Date(death).toLocaleDateString()} г.`
+                : "Дата смерти: -"}
+            </li>
+          </Box>
+        </CardContent>
+        <CardActions sx={{ justifyContent: "space-around", p: "0.35rem" }}>
+          <LinkButton
+            id={`${id}`}
+            route={E_ROUTES.persons}
+            sx={{ background: "var(--app-card-bg)" }}
+          >
             {" "}
-            Дата рождения:{" "}
-            {birthday && new Date(birthday).toLocaleDateString() + " " + "г."}
-          </li>
-          <li className="myPersonCard">Пол: {sex}</li>
-          <li className="myPersonCard">Рост: {growth} см.</li>
-          <li className="myPersonCard">
-            {death
-              ? `Дата смерти: ${new Date(death).toLocaleDateString()} г.`
-              : "Дата смерти: -"}
-          </li>
-        </Box>
-      </CardContent>
-      <CardActions sx={{ justifyContent: "space-around", p: "0.35rem" }}>
-        <LinkButton id={`${id}`} route={E_ROUTES.persons} sx={{background: 'var(--app-card-bg)'}}>
-          {" "}
-          подробнее{" "}
-        </LinkButton>
-      </CardActions>
-    </MyCard>
-  );
-});
+            подробнее{" "}
+          </LinkButton>
+        </CardActions>
+      </MyCard>
+    );
+  }
+);

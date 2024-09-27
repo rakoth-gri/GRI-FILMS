@@ -1,5 +1,7 @@
-import {
-  I_MOVIE_STATE,
+// utils
+import { getRatingParamValue } from "./utils";
+// types
+import { 
   T_MOVIE_TYPES,
   T_MOVIE_SORTFIELD,
   T_PERSON_SORTFIELD,
@@ -34,9 +36,9 @@ export const queryConstructor = {
     type: T_MOVIE_TYPES;
     genre: T_GENRES;
     countries: T_MOVIE_COUNTRIES;
-    ratingKp: string;
-    ratingIMDB: string;
-    year: string;
+    ratingKp: number[];
+    ratingIMDB: number[];
+    year: number[];
   }) => ({
     sortField: sortField || "rating.imdb",
     sortType,
@@ -45,9 +47,9 @@ export const queryConstructor = {
     type,
     ["genres.name"]: genre,
     ["countries.name"]: countries || "США",
-    ["rating.kp"]: ratingKp,
-    ["rating.imdb"]: ratingIMDB,
-    year,
+    ["rating.kp"]: getRatingParamValue(ratingKp),
+    ["rating.imdb"]: getRatingParamValue(ratingIMDB),
+    year: year.join('-'),
   }),
   movieSearch: ({ page = "1", limit = "3", query = "" }) => ({
     page,
@@ -64,33 +66,33 @@ export const queryConstructor = {
     sortField,
     sortType = "-1",
     sex = "Мужской",
-    // growth = "168-180",
-    age = "35-50",
-    // countAwards = "10-40",
+    // growth = [168, 180],
+    age = [35, 50],
+    // countAwards = [10, 40],
     profession,
-  }: // moviesRating = "5-10",
-  {
+    // moviesRating = [5, 10],
+  }: {
     page: string;
     limit: string;
     sortField: T_PERSON_SORTFIELD;
     sortType: "-1" | "1";
     sex: "Мужской" | "Женский";
-    growth?: string;
-    age: string;
-    countAwards?: string;
+    growth?: number[];
+    age: number[];
+    countAwards?: number[];
     profession: T_PERSON_PROFESSIONS;
-    moviesRating?: string;
+    moviesRating?: number[];
   }) => ({
     page,
     limit,
     sortField: sortField || "name",
     sortType,
     sex,
-    // growth,
-    age,
-    // countAwards,
+    // growth: growth.join('-'),
+    age: age.join('-'),
+    // countAwards: countAwards.join('-'),
     ["profession.value"]: profession || "Актер",
-    // ["movies.rating"]: moviesRating,
+    // ["movies.rating"]: getRatingParamValue(moviesRating),
   }),
   personById: ({ id }: { id: string }) => ({
     id,
@@ -164,7 +166,7 @@ export const queryConstructor = {
     limit,
     sortField: sortField || "createdAt",
     sortType,
-  }),  
+  }),
   top250: ({
     sortField = "top250",
     sortType = "1",

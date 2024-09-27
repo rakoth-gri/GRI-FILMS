@@ -135,11 +135,6 @@ export type T_MOVIE_TYPES =
   | "animated-series"
   | "anime";
 
-export type T_MY_MOVIE_CARD = Omit<
-  T_MOVIE_SEARCH,
-  "type" | "votesKp" | "votesImdb" | "genres" | "countries" | "persons"
->;
-
 export type T_MOVIE_PERSONS_PROFESSIONS =
   | "режиссеры"
   | "операторы"
@@ -382,7 +377,7 @@ export type T_REVIEW_SORTFIELD =
 // ! -----------------  <<><<><><>> ------------------------------
 
 export interface I_MOVIE_STATE {
-  favorites: Omit<T_MY_MOVIE_CARD, "description" | "status" | "facts">[];
+  favorites: I_MOVIE[];
   sortField: T_MOVIE_SORTFIELD | "";
   sortType: number;
   page: number;

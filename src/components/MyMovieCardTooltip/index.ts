@@ -1,0 +1,1 @@
+export {MyMovieCardTooltip} from "./MyMovieCardTooltip"

@@ -36,15 +36,18 @@ import {
 } from "../../consts/api";
 // types:
 import { RootState } from "../../store/store";
+import { I_MOVIE, T_MOVIE_SEARCH } from "../../types/types";
 // utils
 import { observerCB, options } from "../../services/utils";
 
-const renderCallback = (item: any) => <MyMovieCard key={item.id} {...item} />;
+const renderCallback = (item: I_MOVIE) => (
+  <MyMovieCard key={item.id} {...item} />
+);
 
-const moviesPageTitleStyles ={
+const moviesPageTitleStyles = {
   color: "var(--app-default-color)",
   fontSize: { xs: "1.3rem", md: "2rem" },
-}
+};
 
 export const MoviesPage = () => {
   const dispatch = useAppDispatch();
@@ -194,6 +197,7 @@ export const MoviesPage = () => {
           list={movies}
           loading={loading}
           error={error}
+          // @ts-ignore
           cb={renderCallback}
         />
       </MyFlexContainer>

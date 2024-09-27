@@ -13,8 +13,6 @@ import {
 } from "../types/types";
 // consts
 import { END_POINTS } from "../consts/api";
-// utils
-import { getRatingParamValue } from "../services/utils";
 
 const movieThunk = createAsyncThunk<
   string | I_API_OBJECT<I_MOVIE[]>,
@@ -53,9 +51,12 @@ const movieThunk = createAsyncThunk<
         type,
         genre,
         countries,
-        ratingKp: getRatingParamValue(ratingKp),
-        ratingIMDB: getRatingParamValue(ratingIMDB),
-        year: year.join('-'),
+        // @ts-ignore
+        ratingKp,
+        // @ts-ignore
+        ratingIMDB,
+        // @ts-ignore
+        year,
       },
       method,
       selectFields

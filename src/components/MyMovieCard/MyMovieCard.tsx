@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 // REDUX
 import { addToFavorites } from "../../store/movieSlice";
 import { useAppSelector, useAppDispatch } from "../../store/store";
@@ -19,11 +19,13 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { MyLabel } from "../MyLabel";
 import { LinkButton } from "../LinkButton";
+import { MyMovieCardTooltip } from "../MyMovieCardTooltip";
 import { colors } from "@mui/material";
 // types:
-import { T_MY_MOVIE_CARD, E_ROUTES } from "../../types/types";
+import { E_ROUTES, I_MOVIE } from "../../types/types";
 
 const MyCard = styled(Card)(({ theme }) => ({
+  overflow: "initial",
   width: "27%",
   height: 470,
   display: "flex",
@@ -65,7 +67,7 @@ const MyMoviesCardChipStyles = {
 const MyMoviesCardFavoriteIconStyles = {
   position: "absolute",
   bottom: "2%",
-  right: "3%",
+  left: "3%",
   color: colors.red[500],
   cursor: "pointer",
   "&:hover": {
@@ -73,154 +75,187 @@ const MyMoviesCardFavoriteIconStyles = {
   },
 };
 
-export const MyMovieCard = memo(({
-  id,
-  name,
-  enName,
-  year,
-  shortDescription,
-  ageRating,
-  poster,
-  movieLength,
-  ratingKp,
-  ratingImdb,
-  top250,
-}: T_MY_MOVIE_CARD) => {
-  const dispatch = useAppDispatch();
+export const MyMovieCard = memo(
+  ({
+    id,
+    name,
+    enName,
+    shortDescription,
+    countries,
+    description,
+    ageRating,
+    poster,
+    movieLength,
+    ratingKp,
+    ratingImdb,
+    top250,
+    year,
+    type,
+    genres,
+  }: I_MOVIE) => {
+    const dispatch = useAppDispatch();
 
-  const isFavoriteMovie = useAppSelector(
-    (s) => s.movieSliceReducer.favorites
-  ).find((f) => f.id === id);
+    const isFavoriteMovie = useAppSelector(
+      (s) => s.movieSliceReducer.favorites
+    ).find((f) => f.id === id);
 
-  const favorClickHandler = () => {
-    dispatch(
-      addToFavorites({
-        id,
-        name,
-        enName,
-        year,
-        shortDescription,
-        ageRating,
-        poster,
-        movieLength,
-        ratingKp,
-        ratingImdb,
-        top250,
-      })
-    );
-  };
+    const [visible, setIsVisible] = useState(false);
 
-  return (
-    // @ts-ignore
-    <MyCard component={"article"}>
-      <MyLabel
-        sx={{
-          top: "2%",
-          left: "2%",
-          background: "green",
-          color: "white",
-          padding: "0.25rem",
-          fontFamily: "Merienda",
-        }}
+    const favorClickHandler = () => {
+      dispatch(
+        addToFavorites({
+          id,
+          name,
+          enName,
+          shortDescription,
+          countries,
+          description,
+          ageRating,
+          poster,
+          movieLength,
+          ratingKp,
+          ratingImdb,
+          top250,
+          year,
+          type,
+          genres,
+        } as I_MOVIE)
+      );
+    };
+
+    return (
+      <MyCard
+        // @ts-ignore
+        component={"article"}
+        onMouseEnter={() => setIsVisible((p) => !p)}
+        onMouseLeave={() => setIsVisible((p) => !p)}
       >
-        {" "}
-        {ageRating}+{" "}
-      </MyLabel>
-      <MyLabel
-        sx={{
-          top: "2%",
-          right: "2%",
-          background: "green",
-          fontFamily: "Merienda",
-          fontWeight: 700,
-          display: "flex",
-          alignItems: "center",
-          color: "white",
-          p: "0.25rem",
-        }}
-      >
-        <AccessTimeFilledIcon sx={{ mr: "0.5rem" }} />
-        {movieLength}
-      </MyLabel>
-      <MyLabel
-        sx={{
-          top: "10%",
-          left: "2%",
-          backgroundColor: "rgba(0,0,0, .12)",
-          fontFamily: "Merienda",
-          backdropFilter: "blur(1px)",
-          fontWeight: 700,
-        }}
-      >
-        {" "}
-        {top250 ? `TOP ${top250}` : null}
-      </MyLabel>
-      <Box sx={{ position: "relative", height: "59%" }}>
-        <MyCardMedia
-          // image={poster}
-          data-src={poster}
-          title={enName}
-          // @ts-ignore
-          component="img"
-          className="cardImage"
-        />
-        {isFavoriteMovie ? (
-          <FavoriteIcon
-            fontSize="large"
-            sx={MyMoviesCardFavoriteIconStyles}
-            onClick={favorClickHandler}
+        <MyLabel
+          sx={{
+            top: "2%",
+            left: "2%",
+            background: "green",
+            color: "white",
+            padding: "0.25rem",
+            fontFamily: "Merienda",
+          }}
+        >
+          {" "}
+          {ageRating}+{" "}
+        </MyLabel>
+        <MyLabel
+          sx={{
+            top: "2%",
+            right: "2%",
+            background: "green",
+            fontFamily: "Merienda",
+            fontWeight: 700,
+            display: "flex",
+            alignItems: "center",
+            color: "white",
+            p: "0.25rem",
+          }}
+        >
+          <AccessTimeFilledIcon sx={{ mr: "0.5rem" }} />
+          {movieLength}
+        </MyLabel>
+        <MyLabel
+          sx={{
+            top: "10%",
+            left: "2%",
+            backgroundColor: "rgba(0,0,0, .12)",
+            fontFamily: "Merienda",
+            backdropFilter: "blur(1px)",
+            fontWeight: 700,
+          }}
+        >
+          {" "}
+          {top250 ? `TOP ${top250}` : null}
+        </MyLabel>
+        <Box sx={{ position: "relative", height: "59%" }}>
+          <MyCardMedia
+            // image={poster}
+            data-src={poster}
+            title={enName}
+            // @ts-ignore
+            component="img"
+            className="cardImage"
           />
-        ) : (
+          {isFavoriteMovie ? (
+            <FavoriteIcon
+              fontSize="large"
+              sx={MyMoviesCardFavoriteIconStyles}
+              onClick={favorClickHandler}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              fontSize="large"
+              sx={MyMoviesCardFavoriteIconStyles}
+              onClick={favorClickHandler}
+            />
+          )}
           <FavoriteBorderIcon
             fontSize="large"
             sx={MyMoviesCardFavoriteIconStyles}
             onClick={favorClickHandler}
           />
-        )}
-        <FavoriteBorderIcon
-          fontSize="large"
-          sx={MyMoviesCardFavoriteIconStyles}
-          onClick={favorClickHandler}
+        </Box>
+        <CardContent sx={{ padding: "0.5rem" }}>
+          <Typography gutterBottom variant="subtitle2" component="h3">
+            {name}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "secondary",
+              textAlign: "justify",
+              fontSize: "inherit",
+            }}
+            component="p"
+          >
+            {shortDescription} ( <strong> {year} г. </strong>)
+          </Typography>
+        </CardContent>
+        <CardActions sx={{ justifyContent: "space-around" }}>
+          <LinkButton
+            id={`${id}`}
+            route={E_ROUTES.movies}
+            sx={{
+              border: "none",
+              fontSize: "9px",
+              background: "var(--app-card-bg)",
+            }}
+          >
+            {" "}
+            подробнее{" "}
+          </LinkButton>
+          <Chip
+            label={`IMDB ${ratingImdb.toFixed(1)}`}
+            icon={<GradeIcon color="warning" />}
+            variant="outlined"
+            sx={MyMoviesCardChipStyles}
+          />
+          <Chip
+            label={`KP ${ratingKp.toFixed(1)}`}
+            icon={<GradeIcon color="warning" />}
+            variant="outlined"
+            sx={MyMoviesCardChipStyles}
+          />
+        </CardActions>
+        <MyMovieCardTooltip
+          enName={enName}
+          description={description}
+          ratingKp={ratingKp}
+          ratingImdb={ratingImdb}
+          type={type}
+          top250={top250}
+          year={year}
+          genres={genres}
+          countries={countries}
+          className={"tooltip"}
+          visible={visible}
         />
-      </Box>
-      <CardContent sx={{ padding: "0.5rem" }}>
-        <Typography gutterBottom variant="subtitle2" component="h3">
-          {name}
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{ color: "secondary", textAlign: "justify", fontSize: "inherit" }}
-          component="p"
-        >
-          {shortDescription} ( <strong> {year} г. </strong>)
-        </Typography>
-      </CardContent>
-      <CardActions sx={{ justifyContent: "space-around" }}>
-        <LinkButton
-          id={`${id}`}
-          route={E_ROUTES.movies}
-          sx={{
-            border: "none",
-            fontSize: "9px",
-            background: "var(--app-card-bg)",
-          }}
-        >
-          {" "}
-          подробнее{" "}
-        </LinkButton>
-        <Chip
-          label={`IMDB ${ratingImdb.toFixed(1)}`}
-          icon={<GradeIcon color="warning" />}
-          variant="outlined"
-          sx={MyMoviesCardChipStyles}
-        />
-        <Chip
-          label={`KP ${ratingKp.toFixed(1)}`}
-          icon={<GradeIcon color="warning" />}
-          variant="outlined"
-          sx={MyMoviesCardChipStyles}
-        />
-      </CardActions>
-    </MyCard>
-  );
-});
+      </MyCard>
+    );
+  }
+);

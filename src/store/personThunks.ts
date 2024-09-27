@@ -12,7 +12,6 @@ import {
   I_PERSON_AWARDS,
 } from "../types/types";
 import { END_POINTS } from "../consts/api";
-import { getRatingParamValue } from "../services/utils";
 
 const personThunk = createAsyncThunk<
   string | I_API_OBJECT<I_PERSON_FULL[]>,
@@ -48,11 +47,12 @@ const personThunk = createAsyncThunk<
         sortField,
         sortType: `${sortType}`,
         sex,
-        // growth: growth.join('-'),
-        age: age.join("-"),
-        // countAwards: countAwards.join('-'),
+        // growth,
+        // @ts-ignore
+        age,
+        // countAwards,
         profession,
-        // moviesRating: getRatingParamValue(moviesRating),
+        // moviesRating,
       },
       method,
       selectFields

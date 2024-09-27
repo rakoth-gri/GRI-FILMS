@@ -13,8 +13,7 @@ import {
   I_API_OBJECT,
   I_MOVIE,
   T_MOVIE_SEARCH,
-  I_IMAGE,
-  T_MY_MOVIE_CARD,
+  I_IMAGE,  
 } from "../types/types";
 // utils
 import { getFromLS, setToLS } from "../services/utils";
@@ -86,14 +85,7 @@ const movieSlice = createSlice({
       state.limit = 10;
       state.images = [];
     },
-    addToFavorites: (
-      state,
-      {
-        payload,
-      }: PayloadAction<
-        Omit<T_MY_MOVIE_CARD, "description" | "status" | "facts">
-      >
-    ) => {
+    addToFavorites: (state, { payload }: PayloadAction<I_MOVIE>) => {
       if (state.favorites.find((f) => f.id === payload.id)) {
         state.favorites = state.favorites.filter((f) => f.id !== payload.id);
       } else {
