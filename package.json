@@ -1,7 +1,7 @@
 {
   "name": "kinopoisk",
   "private": true,
-  "homepage": "https://rakoth-gri.github.io/GRI_FILMS/",
+  "homepage": "https://rakoth-gri.github.io/GRI_FILMS",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,8 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist",
-    "predeploy": "npm run build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

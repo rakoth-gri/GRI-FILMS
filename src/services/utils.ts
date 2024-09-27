@@ -56,7 +56,6 @@ const birthDetailsFormat = (s: string): string => {
 };
 
 // ! Функция формирования пропа 'sx' элемента 'Box' для фреймворка MUI
-
 interface I_GetBoxStyles {
   width?: string | Record<string, unknown>;
   height?: string | Record<string, unknown>;

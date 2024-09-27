@@ -22,7 +22,7 @@ const MyReviewCardHeaderStyles = {
   ...getBoxStyles({
     display: "flex",
     justify: "space-between",
-    direction: "space-between",
+    direction: 'row',   
     pd: "0px",
     width: "100%",
     mr: "0.25rem 0px",
