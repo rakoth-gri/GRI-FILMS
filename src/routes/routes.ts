@@ -9,6 +9,7 @@ import { HomePage } from "../pages/HomePage";
 import { ReviewsPage } from "../pages/ReviewsPage";
 import { Top250Page } from "../pages/Top250Page";
 import { FavoriteMoviesPage } from "../pages/FavoriteMoviesPage";
+import { StudiosPage } from "../pages/StudiosPage";
 // types
 import { T_ROUTES, E_ROUTES } from "../types/types";
 
@@ -48,6 +49,10 @@ export const ROUTES: T_ROUTES[] = [
   {
     path: E_ROUTES.review,
     Element: ReviewsPage,
+  },
+  {
+    path: E_ROUTES.studios,
+    Element: StudiosPage,
   },
   {
     path: E_ROUTES.notFound,

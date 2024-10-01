@@ -11,6 +11,7 @@ import {
   T_IMAGES_SORTFIELD,
   T_GENRES,
   T_MOVIE_COUNTRIES,
+  T_STUDIO_SORTFIELD
 } from "./../types/types";
 
 // ! Генерация объектов query-параметров для разных энд-поинтов: ---
@@ -188,6 +189,26 @@ export const queryConstructor = {
     limit,
     type,
     lists,
+  }),
+  //! STUDIO -----  -----------------------------------------------------
+  studio: ({
+    sortField,    
+    page = "1",
+    limit = "10",
+    sortType = "-1",
+    // title,
+  }: {
+    sortField: T_STUDIO_SORTFIELD;    
+    page: string;
+    limit: string;
+    sortType: "-1" | "1";
+    title?: string;
+  }) => ({    
+    page,
+    limit,
+    sortField: sortField || "title",
+    sortType,
+    // title
   }),
 };
 

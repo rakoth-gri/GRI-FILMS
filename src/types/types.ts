@@ -373,6 +373,40 @@ export type T_REVIEW_SORTFIELD =
   | "updatedAt"
   | "createdAt";
 
+//! STUDIO сущности  '/studio' ------------------------------
+
+export interface I_STUDIO {
+  id: string;
+  subType: string;
+  title: string;
+  type: string;
+  movies: Array<number>;
+  updatedAt: string;
+  createdAt: string;
+}
+
+export type T_STUDIO_SORTFIELD =
+  | "id"
+  | "movies.id"
+  | "title"
+  | "type"
+  | "subType"
+  | "updatedAt"
+  | "createdAt";
+
+export interface I_STUDIO_STATE {
+  loading: boolean;
+  error: string;
+  studios: I_STUDIO[];
+  page: number;
+  pages: number;
+  limit: number | string;
+  sortField: string;
+  sortType: string;
+  isOpenFilter: boolean;
+  title: string;
+}
+
 // ! -----------------  REDUX TYPES ------------------------------
 // ! -----------------  <<><<><><>> ------------------------------
 
@@ -423,7 +457,10 @@ export interface I_PERSON_STATE {
   selectFields: string[];
 }
 
-export type T_ACTION_QUERY_PAYLOAD = Record<"name" | "value", string | number | number[] | boolean>;
+export type T_ACTION_QUERY_PAYLOAD = Record<
+  "name" | "value",
+  string | number | number[] | boolean
+>;
 
 export interface I_REVIEW_STATE {
   sortField: string;
@@ -449,8 +486,7 @@ export enum E_ROUTES {
   person = "/persons/:personId",
   reviews = "/reviews",
   review = "/reviews/:movieId",
-  // reviewsByAuthor = "/reviews/byAuthor",
-  // reviewByAuthor = "/reviews/byAuthor/:id",
+  studios = "/studios",
   images = "/movies/images",
   image = "/movies/images/:movieId",
   top250 = "/movies/top250",

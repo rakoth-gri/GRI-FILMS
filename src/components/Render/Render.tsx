@@ -1,11 +1,11 @@
-import { ReactNode, memo } from "react";
+import { ReactNode, memo, ReactElement, FC } from "react";
 import { MyError } from "../MyError/MyError";
 
 interface I_Render<T> {
   list: T[];
   loading: boolean;
   error: string;
-  cb: (item: T, i?: number) => ReactNode;
+  cb: (item: T, i?: number) => ReactNode | ReactElement;
 }
 
 function Render<T extends { id: number | string }>({

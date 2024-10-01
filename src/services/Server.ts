@@ -10,6 +10,7 @@ import {
   MOVIE_NOT_NULL_FIELDS_LIST,
   BASE_URL,
   PERSON_NOT_NULL_FIELDS_LIST,
+  STUDIO_SELECTFIELDS_LIST,
 } from "../consts/api";
 // utils
 import { getSelectFieldsParam, getNotNullFieldsParam } from "./utils";
@@ -219,6 +220,27 @@ class Server {
         queryParams,
         method,
         REVIEW_SELECTFIELDS_LIST
+      );
+      if (res.status !== 200) throw new Error(res.data);
+      return responseConstructor[method](res.data) as I_API_OBJECT<I_REVIEW[]>;
+    } catch (e) {
+      return (e as Error).message;
+    }
+  }
+
+  //! STUDIO  -----------------------------------------------------
+
+  static async studio(
+    url: string,
+    queryParams: Record<string, string>,
+    method: T_OBJ_KEYS<typeof responseConstructor>
+  ): Promise<string | I_API_OBJECT<I_REVIEW[]>> {
+    try {
+      let res = await Server.fetchindDataBySelectFields(
+        url,
+        queryParams,
+        method,
+        STUDIO_SELECTFIELDS_LIST
       );
       if (res.status !== 200) throw new Error(res.data);
       return responseConstructor[method](res.data) as I_API_OBJECT<I_REVIEW[]>;

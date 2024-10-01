@@ -1,26 +1,23 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 // service:
 import { Server } from "../services/Server";
 // services
 import { queryConstructor } from "../services/queryConstructor";
 // types:
-import { T_OBJ_KEYS } from "../types/types";
+import { T_OBJ_KEYS, I_STUDIO_STATE } from "../types/types";
 
 export const useFetching = () => {
-  const [state, setState] = useState<{
-    loading: boolean;
-    error: string;
-    data: unknown[];
-    page: number;
-    pages: number;
-    limit: number;
-  }>({
+  const [state, setState] = useState<I_STUDIO_STATE>({
     loading: false,
+    isOpenFilter: false,
+    title: '',
     error: "",
-    data: [],
+    studios: [],
     page: 1,
     pages: 0,
     limit: 5,
+    sortField: "",
+    sortType: "-1",
   });
 
   const fetchData = async (
@@ -36,7 +33,7 @@ export const useFetching = () => {
         return setState((p) => ({
           ...p,
           // @ts-ignore
-          data: res.data,
+          studios: res.data,
           // @ts-ignore
           pages: res.pages,
           error: "",
@@ -52,19 +49,30 @@ export const useFetching = () => {
     }
   };
 
-  const changeLimit = (limit: number) => setState((p) => ({ ...p, limit }));
+  const changeStudioStateQueryParams = useCallback(
+    ({ name, value }: { name: keyof I_STUDIO_STATE; value: unknown }) =>
+      setState((p) => ({ ...p, [name]: value })),
+    []
+  );
 
-  const changePage = (page: number) => setState((p) => ({ ...p, page }));
+  const setIsOpenFilter = useCallback(
+    () => setState((p) => ({ ...p, isOpenFilter: !p.isOpenFilter })),
+    []
+  );
 
-  return [
-    state.loading,
-    state.error,
-    state.data,
-    state.page,
-    state.pages,
+  return {
+    loading: state.loading,
+    error: state.error,
+    studios: state.studios,
+    title: state.title,
+    page: state.page,
+    pages: state.pages,
+    sortField: state.sortField,
+    sortType: state.sortType,
+    limit: state.limit,
+    isOpenFilter: state.isOpenFilter,
     fetchData,
-    changeLimit,
-    changePage,
-  ] as const;
+    changeStudioStateQueryParams,
+    setIsOpenFilter,
+  }
 };
-

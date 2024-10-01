@@ -1,5 +1,14 @@
+import {
+  useDeferredValue,
+  useState,
+  // InputEvent,
+  MouseEvent,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+} from "react";
 import { MyTitle } from "../../components/MyTitle";
-import { Box, styled } from "@mui/material";
+import { Box, Input, styled } from "@mui/material";
 
 const MyHomePageText = styled(Box)(({ theme }) => ({
   fontSize: "1.2em",
@@ -19,6 +28,28 @@ const MyHomePageText = styled(Box)(({ theme }) => ({
 }));
 
 export const HomePage = () => {
+  const [text, setText] = useState("");
+  const deferredText = useDeferredValue(text);
+
+  // const ref = useRef<null | HTMLDivElement>(null);
+
+  // useEffect(() => {
+  //   console.log("INSIDE_ EFFECT...");
+  // }, [deferredText]);
+
+  // const keyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.code === "Enter") {
+  //     alert((e.target as HTMLInputElement).value?.trim());
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   function handleScroll(e: MouseEvent<HTMLHtmlElement>) {
+  //     console.log(this.scrollTop, this.offsetHeight, this.scrollHeight);
+  //   }
+  //   ref?.current?.addEventListener("scroll", handleScroll);
+  // }, []);
+
   return (
     <>
       <MyTitle
@@ -29,7 +60,48 @@ export const HomePage = () => {
       >
         главная
       </MyTitle>
-      <Box component={"section"} sx={{ p: { xs: "0.25rem", md: "0.5rem" } }}>
+      {/* <Input
+        fullWidth={true}
+        name="text"
+        placeholder="Enter..."
+        sx={{ color: "var(--app-default-color)", m: "0.5rem" }}
+        value={text}
+        onInput={(e: InputEvent<HTMLInputElement>) => setText(e.target.value)}
+        type={"search"}
+        onKeyUp={keyUpHandler}
+      /> */}
+      <Box
+        component={"section"}
+        sx={{
+          p: { xs: "0.25rem", md: "0.5rem" },
+          height: "60vh",
+          overflow: "auto",
+        }}
+        className="scrolled"
+        // ref={ref}
+      >
+        <MyHomePageText component="p">
+          Добро пожаловать на наш уникальный сайт, посвященный миру кино и
+          блестящим актерам! Здесь, среди ярких постеров и захватывающих
+          трейлеров, вы найдете всё, что нужно для истинного ценителя искусства
+          седьмого экрана. Мы предлагаем широкий выбор фильмов — от классики до
+          современных шедевров, от драм до комедий, от триллеров до анимации.
+          Каждый пользователь сможет легко ориентироваться в нашем обширном
+          каталоге, где скрыты настоящие киношедевры.
+        </MyHomePageText>
+        <MyHomePageText component="p">
+          На нашем сайте также представлено множество увлекательных биографий
+          известных актеров и режиссеров, которые вдохнули жизнь в незабываемые
+          образы. Узнайте о их карьере. Мы обновляем нашу библиотеку мира кино,
+          а также рецензии и рекомендации фильмов, чтобы помочь вам выбрать
+          идеальное кино для вечернего просмотра.
+        </MyHomePageText>
+        <MyHomePageText component="p">
+          Присоединяйтесь к нашему сообществу киноманов, делитесь впечатлениями,
+          открывайте новые горизонты и получайте удовольствие от волшебства
+          кино! Откройте для себя бесконечные возможности на нашем сайте — вашем
+          личном путеводителе в интернете.
+        </MyHomePageText>
         <MyHomePageText component="p">
           Добро пожаловать на наш уникальный сайт, посвященный миру кино и
           блестящим актерам! Здесь, среди ярких постеров и захватывающих

@@ -1,5 +1,4 @@
 import { memo, ChangeEventHandler, HTMLAttributes } from "react";
-import { useAppSelector, useAppDispatch } from "../../store/store";
 import {
   RadioGroup,
   FormControlLabel,
@@ -9,11 +8,9 @@ import {
 } from "@mui/material";
 import SortIcon from "@mui/icons-material/Sort";
 // types:
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { T_ACTION_QUERY_PAYLOAD, T_SORTFIELD_SELECT } from "../../types/types";
-import { RootState } from "../../store/store";
+import { T_SORTFIELD_SELECT, I_STUDIO_STATE } from "../../types/types";
 // sass styling:
-import "./MySortType.sass";
+import "./MyStudioSortType.sass";
 
 const mySortTypeStyles = {
   p: "0.5rem",
@@ -24,23 +21,24 @@ const mySortTypeStyles = {
   justifyContent: "center",
 };
 
-interface I_MySortType extends HTMLAttributes<HTMLDivElement> {
+interface I_MyStudioSortType extends HTMLAttributes<HTMLDivElement> {
   list: T_SORTFIELD_SELECT<-1 | 1>[];
-  action: ActionCreatorWithPayload<T_ACTION_QUERY_PAYLOAD>;
-  reducer: keyof RootState;
-  name: string;
+  action: ({
+    name,
+    value,
+  }: {
+    name: keyof I_STUDIO_STATE;
+    value: unknown;
+  }) => void;
+  value: string;
+  name: keyof I_STUDIO_STATE;
 }
 
-export const MySortType = memo(
-  ({ list, reducer, name, action, ...props }: I_MySortType) => {
-    const dispatch = useAppDispatch();
-
-    // @ts-ignore
-    const value = useAppSelector((s) => s[reducer][name]);
-
+export const MyStudioSortType = memo(
+  ({ list, name, value, action, ...props }: I_MyStudioSortType) => {
     const changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
       const { name, value } = e.target;
-      dispatch(action({ name, value }));
+      action({ name, value });
     };
 
     return (

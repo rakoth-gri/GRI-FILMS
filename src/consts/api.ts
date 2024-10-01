@@ -1,4 +1,4 @@
-import {  
+import {
   T_SORTFIELD_SELECT,
   T_PERSON_SORTFIELD,
   T_MOVIE_SORTFIELD,
@@ -10,7 +10,8 @@ import {
   E_ROUTES,
   T_PERSON_PROFESSIONS,
   T_GENRES,
-  T_MOVIE_COUNTRIES
+  T_MOVIE_COUNTRIES,
+  T_STUDIO_SORTFIELD,
 } from "../types/types";
 
 // ! END POINTS ------------------------
@@ -25,10 +26,10 @@ const END_POINTS = {
   personAwards: "person/awards",
   image: "image",
   review: "review",
+  studio: "studio",
 } as const;
 
 // ! SELECT UI COMPONENT LISTS: ------------------------
-
 
 const GENRES_SELECT_LIST: T_SORTFIELD_SELECT<T_GENRES>[] = [
   {
@@ -394,6 +395,37 @@ const IMAGES_SORTFIELD_SELECT_LIST: T_SORTFIELD_SELECT<T_IMAGES_SORTFIELD>[] = [
     value: "movieId",
     text: "По id картины",
   },
+  {
+    value: "updatedAt",
+    text: "По дате обновления",
+  },
+  {
+    value: "createdAt",
+    text: "По дате создания",
+  },
+];
+
+const STUDIO_SORTFIELD_SELECT_LIST: T_SORTFIELD_SELECT<T_STUDIO_SORTFIELD>[] = [
+  {
+    value: "",
+    text: "Сортировать по:",
+  },
+  {
+    value: "id",
+    text: "По id студии",
+  },
+  {
+    value: "movies.id",
+    text: "По id картины",
+  },
+  {
+    value: "type",
+    text: "По типу студии",
+  },
+  {
+    value: "title",
+    text: "По названию",
+  },  
   {
     value: "updatedAt",
     text: "По дате обновления",
@@ -826,8 +858,6 @@ const PERSON_SELECTFIELDS_LIST = [
   // "movies",
 ];
 
-
-
 const REVIEW_SELECTFIELDS_LIST = [
   "id",
   "movieId",
@@ -837,6 +867,16 @@ const REVIEW_SELECTFIELDS_LIST = [
   "date",
   "authorId",
   "author",
+];
+
+const STUDIO_SELECTFIELDS_LIST = [
+  "id",
+  "subType",
+  "type",
+  "title",
+  "movies",
+  "createdAt",
+  "updatedAt",
 ];
 
 const IMAGE_SELECTFIELDS_LIST = [
@@ -964,9 +1004,11 @@ const PERSON_NOT_NULL_FIELDS_LIST = [
   // 'movies'
 ];
 
+// ! STUDIO ------------------------------
+
 // ! MENU -- HEADER: ------------------------
 
-const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [  
+const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [
   {
     to: E_ROUTES.movies,
     text: "кинокартины",
@@ -983,13 +1025,18 @@ const MAIN_MENU_LIST: T_MAIN_MENU_LIST_ITEM[] = [
     to: E_ROUTES.favoriteMovies,
     text: "Избранное",
   },
+  {
+    to: E_ROUTES.studios,
+    text: "Студии",
+  },
 ];
 
-const ROOT = document.documentElement
+const ROOT = document.documentElement;
 
 export {
   ROOT,
   END_POINTS,
+  STUDIO_SELECTFIELDS_LIST,
   GENRES_SELECT_LIST,
   MOVIE_SELECTFIELDS_LIST,
   REVIEW_SELECTFIELDS_LIST,
@@ -1001,6 +1048,7 @@ export {
   REVIEW_SORTFIELD_SELECT_LIST,
   PERSON_AWARDS_SORTFIELD_SELECT_LIST,
   MOVIE_SORTFIELD_SELECT_LIST,
+  STUDIO_SORTFIELD_SELECT_LIST,
   MOVIE_TYPES_SELECT_LIST,
   LIMIT_PARAM_SELECT_LIST,
   SORTTYPE_SELECT_LIST,

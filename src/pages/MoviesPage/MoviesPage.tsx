@@ -73,7 +73,7 @@ export const MoviesPage = () => {
       dispatch(
         movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
       );
-    else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
+    else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));    
   }, [page, query]);
 
   useEffect(() => {

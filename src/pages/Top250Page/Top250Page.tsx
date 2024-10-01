@@ -41,6 +41,7 @@ export const Top250Page = () => {
     let cardImages = document.querySelectorAll(".cardImage");
     if (cardImages.length)
       cardImages.forEach((cardImage) => Observer.observe(cardImage));
+    window.scrollTo(0, 0);
   }, [movies]);
 
   const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {

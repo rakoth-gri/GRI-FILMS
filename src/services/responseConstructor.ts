@@ -8,6 +8,7 @@ import { personAwardsResponse } from "./personAwardsResponse";
 import { imageResponse } from "./imageResponse";
 import { reviewByMovieIdResponse } from "./reviewByMovieIdResponse";
 import { personResponse } from './personResponse';
+import { studioResponse } from "./studioResponse";
 
 // types:
 import {
@@ -19,6 +20,7 @@ import {
   I_IMAGE,
   T_MOVIE_SEARCH,
   I_REVIEW,
+  I_STUDIO
 } from "../types/types";
 
 const responseConstructor = {
@@ -136,6 +138,22 @@ const responseConstructor = {
   ): I_API_OBJECT<I_REVIEW[]> => {
     const { docs, total, limit, page, pages } = review;
     return reviewByMovieIdResponse(docs, total, limit, page, pages);
+  },
+  
+  // ! studio Response -------------------------------------
+  studio: <
+    T extends {
+      total: number;
+      limit: number;
+      page: number;
+      pages: number;
+      docs: unknown[];
+    }
+  >(
+    review: T
+  ): I_API_OBJECT<I_STUDIO[]> => {
+    const { docs, total, limit, page, pages } = review;
+    return studioResponse(docs, total, limit, page, pages);
   },  
 };
 

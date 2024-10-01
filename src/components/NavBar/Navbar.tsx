@@ -18,7 +18,7 @@ const getMainMenuStyles = (isvisible: boolean) => ({
   backgroundColor: "primary.main",
   position: { xs: "absolute", lg: "static" },
   flexDirection: { xs: "column", lg: "row" },
-  height: { xs: "200px", lg: "auto" },
+  minHeight: { xs: "200px", lg: "auto" },
   margin: "0px",
   top: "0%",
   right: "0%",

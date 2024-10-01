@@ -53,6 +53,7 @@ export const MovieImagesPage: FC = () => {
   // }, [images]);
 
   useEffect(() => {
+    window.scrollTo(0,0)
     if (images && !state.pages) {
       setState((p) => ({ ...p, pages: images.pages }));
     }
@@ -95,12 +96,7 @@ export const MovieImagesPage: FC = () => {
         }}
       >
         постеры и изображения:
-      </MyTitle>
-      <SimplePagination
-        page={state.page}
-        pages={state.pages}
-        clickHandler={clickHandler}
-      />
+      </MyTitle>      
       <MyLoader color="info" variant="query" loading={isLoading} />
       {images && (
         <MyMasonry
@@ -110,6 +106,11 @@ export const MovieImagesPage: FC = () => {
           ImagesModalHandler={ImagesModalHandler}
         />
       )}
+      <SimplePagination
+        page={state.page}
+        pages={state.pages}
+        clickHandler={clickHandler}
+      />
     </>
   );
 };
