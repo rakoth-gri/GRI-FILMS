@@ -23,6 +23,7 @@ import { MyMovieCardTooltip } from "../MyMovieCardTooltip";
 import { colors } from "@mui/material";
 // types:
 import { E_ROUTES, I_MOVIE } from "../../types/types";
+import { MyTitle } from "../MyTitle";
 
 const MyCard = styled(Card)(({ theme }) => ({
   overflow: "initial",
@@ -127,8 +128,6 @@ export const MyMovieCard = memo(
       <MyCard
         // @ts-ignore
         component={"article"}
-        onMouseEnter={() => setIsVisible((p) => !p)}
-        onMouseLeave={() => setIsVisible((p) => !p)}
       >
         <MyLabel
           sx={{
@@ -172,7 +171,11 @@ export const MyMovieCard = memo(
           {" "}
           {top250 ? `TOP ${top250}` : null}
         </MyLabel>
-        <Box sx={{ position: "relative", height: "59%" }}>
+        <Box
+          sx={{ position: "relative", height: "59%" }}
+          onMouseEnter={() => setIsVisible((p) => !p)}
+          onMouseLeave={() => setIsVisible((p) => !p)}
+        >
           <MyCardMedia
             // image={poster}
             data-src={poster}
@@ -194,22 +197,34 @@ export const MyMovieCard = memo(
               onClick={favorClickHandler}
             />
           )}
-          <FavoriteBorderIcon
-            fontSize="large"
-            sx={MyMoviesCardFavoriteIconStyles}
-            onClick={favorClickHandler}
+          <MyMovieCardTooltip
+            enName={enName}
+            description={description}
+            ratingKp={ratingKp}
+            ratingImdb={ratingImdb}
+            type={type}
+            top250={top250}
+            year={year}
+            genres={genres}
+            countries={countries}
+            className={"tooltip"}
+            visible={visible}
           />
         </Box>
         <CardContent sx={{ padding: "0.5rem" }}>
-          <Typography gutterBottom variant="subtitle2" component="h3">
+          <MyTitle
+            variant="subtitle2"
+            component="h3"
+            sx={{ m: "0 0 0.5rem 0", fontSize: "1em" }}
+          >
             {name}
-          </Typography>
+          </MyTitle>
           <Typography
             variant="body2"
             sx={{
               color: "secondary",
               textAlign: "justify",
-              fontSize: "inherit",
+              fontSize: { xs: "1em", md: "0.9em" },
             }}
             component="p"
           >
@@ -242,19 +257,6 @@ export const MyMovieCard = memo(
             sx={MyMoviesCardChipStyles}
           />
         </CardActions>
-        <MyMovieCardTooltip
-          enName={enName}
-          description={description}
-          ratingKp={ratingKp}
-          ratingImdb={ratingImdb}
-          type={type}
-          top250={top250}
-          year={year}
-          genres={genres}
-          countries={countries}
-          className={"tooltip"}
-          visible={visible}
-        />
       </MyCard>
     );
   }

@@ -76,7 +76,7 @@ export const MySearch = memo(({
             letterSpacing: "0.85px",
           }}          
           fullWidth
-          placeholder="Начните поиск:"
+          placeholder={props.placeholder}
         />
       </Box>
     </MySearchBox>

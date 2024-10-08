@@ -112,7 +112,7 @@ export const PersonsPage = () => {
         variant="h4"
       >
         {" "}
-        поиск по людям:{" "}
+        актеры, режиссеры, продюсеры...:{" "}
       </MyTitle>
       <MyFilterTrigger onClick={() => setIsOpenFilter((p) => !p)} />
       <MyLoader color="info" variant="query" loading={loading} />
