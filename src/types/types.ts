@@ -484,7 +484,7 @@ export interface I_REVIEW_STATE {
 export enum E_ROUTES {
   home = "/",
   movies = "/movies",
-  favoriteMovies = "movies/favoriteMovies",
+  favoriteMovies = "/movies/favoriteMovies",
   movie = "/movies/:movieId",
   persons = "/persons",
   person = "/persons/:personId",

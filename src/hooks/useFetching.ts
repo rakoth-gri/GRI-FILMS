@@ -10,7 +10,7 @@ export const useFetching = () => {
   const [state, setState] = useState<I_STUDIO_STATE>({
     loading: false,
     isOpenFilter: false,
-    title: '',
+    title: "",
     error: "",
     studios: [],
     page: 1,
@@ -23,7 +23,7 @@ export const useFetching = () => {
   const fetchData = async (
     url: string,
     queryParams: Record<string, string>,
-    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | 'image'>
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | "image">
   ) => {
     try {
       setState((p) => ({ ...p, loading: true }));
@@ -43,7 +43,6 @@ export const useFetching = () => {
     } catch (e) {
       if (e instanceof Error)
         return setState((p) => ({ ...p, error: e.message }));
-      return "";
     } finally {
       setState((p) => ({ ...p, loading: false }));
     }
@@ -74,5 +73,5 @@ export const useFetching = () => {
     fetchData,
     changeStudioStateQueryParams,
     setIsOpenFilter,
-  }
+  };
 };

@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  movieThunk,
-  movieSearchThunk,
-  movieByIdThunk,  
-} from "./movieThunks";
+import { movieThunk, movieSearchThunk, movieByIdThunk } from "./movieThunks";
 // types
 import type { PayloadAction } from "@reduxjs/toolkit";
 import {
@@ -12,7 +8,7 @@ import {
   I_API_OBJECT,
   I_MOVIE,
   T_MOVIE_SEARCH,
-  I_IMAGE,  
+  I_IMAGE,
 } from "../types/types";
 // utils
 import { getFromLS, setToLS } from "../services/utils";
@@ -36,7 +32,7 @@ const initialState = {
   total: 0,
   pages: 0,
   movies: [],
-  movie: {},  
+  movie: {},
   selectFields: [
     "id",
     "name",
@@ -75,7 +71,7 @@ const movieSlice = createSlice({
         return;
       }
       state.selectFields.push(payload);
-    },   
+    },
     addToFavorites: (state, { payload }: PayloadAction<I_MOVIE>) => {
       if (state.favorites.find((f) => f.id === payload.id)) {
         state.favorites = state.favorites.filter((f) => f.id !== payload.id);
@@ -155,36 +151,13 @@ const movieSlice = createSlice({
           state.error = payload;
           state.loading = false;
         }
-      )
-      // ! movieIdImagesThunk -----------------------------------------
-      // .addCase(movieIdImagesThunk.pending, (state) => {
-      //   state.loading = true;
-      // })
-      // // @ts-ignore
-      // .addCase(
-      //   movieIdImagesThunk.fulfilled,
-      //   (state, { payload }: PayloadAction<I_API_OBJECT<I_IMAGE[]>>) => {
-      //     state.images = payload.data;
-      //     state.pages = payload.pages;
-      //     state.total = payload.total;
-      //     state.error = "";
-      //     state.loading = false;
-      //   }
-      // )
-      // // @ts-ignore
-      // .addCase(
-      //   movieIdImagesThunk.rejected,
-      //   (state, { payload }: PayloadAction<string>) => {
-      //     state.error = payload;
-      //     state.loading = false;
-      //   }
-      // );
+      );
   },
 });
 
 export const {
   changeMovieStateQueryParams,
-  changeMovieStateSelectFields,  
+  changeMovieStateSelectFields,
   cleanUpSingleMovieInfo,
   addToFavorites,
 } = movieSlice.actions;

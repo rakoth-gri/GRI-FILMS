@@ -44,7 +44,6 @@ export const StudiosPage = () => {
     setIsOpenFilter,
   } = useFetching();
 
-
   useEffect(() => {
     fetchData(
       END_POINTS.studio,
@@ -53,11 +52,11 @@ export const StudiosPage = () => {
         page: `${page}`,
         limit: `${limit}`,
         sortType,
-        // title,
+        title,
       },
       END_POINTS.studio
     );
-  }, [page, /*title*/]);
+  }, [page, title]);
 
   const clickHandler = () =>
     fetchData(
@@ -67,7 +66,7 @@ export const StudiosPage = () => {
         page: `${page}`,
         limit: `${limit}`,
         sortType,
-        // title
+        title,
       },
       END_POINTS.studio
     );
@@ -84,7 +83,7 @@ export const StudiosPage = () => {
         список студий{" "}
       </MyTitle>
       <MyFilterTrigger onClick={setIsOpenFilter} />
-      <MyStudioSearch name='title' action={changeStudioStateQueryParams}/>
+      <MyStudioSearch name="title" action={changeStudioStateQueryParams} />
       <MyLoader loading={loading} />
       <MyFilterWrapper
         onClick={setIsOpenFilter}

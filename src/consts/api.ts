@@ -425,7 +425,7 @@ const STUDIO_SORTFIELD_SELECT_LIST: T_SORTFIELD_SELECT<T_STUDIO_SORTFIELD>[] = [
   {
     value: "title",
     text: "По названию",
-  },  
+  },
   {
     value: "updatedAt",
     text: "По дате обновления",

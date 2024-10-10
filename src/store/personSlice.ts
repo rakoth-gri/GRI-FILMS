@@ -68,9 +68,7 @@ const personSlice = createSlice({
       state.awardsSortType = -1;
       state.awardsSortField = "";
     },
-    cleanUpPersonsInfo(state) {
-      // state.age = [5, 100];
-    },
+    cleanUpPersonsInfo(state) {},
   },
   extraReducers: (builder) => {
     builder

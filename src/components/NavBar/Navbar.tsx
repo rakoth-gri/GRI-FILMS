@@ -10,8 +10,8 @@ const getMainMenuStyles = (isvisible: boolean) => ({
   letterSpacing: "0.7px",
   textTransform: "uppercase",
   transform: {
-    xs: !isvisible ? "translateY(-100%)" : "translateY(0%)",
-    lg: !isvisible && "translateY(0%)",
+    xs: isvisible ? "translateY(0%)" : "translateY(-100%)",
+    lg: "translateY(0%)",
   },
   transition: "0.3s all ease",
   padding: "0.75rem",
@@ -26,8 +26,8 @@ const getMainMenuStyles = (isvisible: boolean) => ({
 });
 
 interface I_Navbar {
-    isvisible: boolean;
-    clickHandler: () => void
+  isvisible: boolean;
+  clickHandler: () => void;
 }
 
 export const Navbar = ({ isvisible, clickHandler }: I_Navbar) => {
@@ -35,7 +35,7 @@ export const Navbar = ({ isvisible, clickHandler }: I_Navbar) => {
 
   return (
     <MyFlexContainer
-    // @ts-ignore
+      // @ts-ignore
       sx={getMainMenuStyles(isvisible)}
       component="nav"
       w="auto"
