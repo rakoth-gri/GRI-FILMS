@@ -147,6 +147,14 @@ const setToLS = <T>(d: T, key: string) =>
 const getFromLS = <T>(key: string, init: T) =>
   JSON.parse(localStorage.getItem(key) || JSON.stringify(init));
 
+// ! TO THE TOP OF THE PAGE -----
+
+const toTheTop = () => window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: "smooth",
+});
+
 // --------------------------------
 export {
   getSelectFieldsParam,
@@ -161,4 +169,5 @@ export {
   composed,
   setToLS,
   getFromLS,
+  toTheTop,
 };

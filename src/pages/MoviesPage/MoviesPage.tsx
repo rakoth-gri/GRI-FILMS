@@ -38,7 +38,7 @@ import {
 import { RootState } from "../../store/store";
 import { I_MOVIE, T_MOVIE_SEARCH } from "../../types/types";
 // utils
-import { observerCB, options } from "../../services/utils";
+import { observerCB, options, toTheTop } from "../../services/utils";
 
 const renderCallback = (item: I_MOVIE) => (
   <MyMovieCard key={item.id} {...item} />
@@ -73,7 +73,7 @@ export const MoviesPage = () => {
       dispatch(
         movieSearchThunk({ url: END_POINTS.movieSearch, method: "movieSearch" })
       );
-    else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));    
+    else dispatch(movieThunk({ url: END_POINTS.movie, method: "movie" }));
   }, [page, query]);
 
   useEffect(() => {
@@ -81,6 +81,7 @@ export const MoviesPage = () => {
       document
         .querySelectorAll(".cardImage")
         .forEach((image) => MyObserver.observe(image));
+    toTheTop();
   }, [movies]);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = (e) => {

@@ -301,6 +301,7 @@ export type T_PERSON_PROFESSIONS =
   | "Художник";
 
 export type T_PERSON_AWARDS_SORTFIELD =
+  | ""
   | "personId"
   | "winning"
   | "nomination.award.year"
@@ -429,17 +430,20 @@ export interface I_MOVIE_STATE {
   total: number;
   pages: number;
   movies: I_MOVIE[] | T_MOVIE_SEARCH[];
-  movie: I_MOVIE | object;
-  images: I_IMAGE[];
+  movie: I_MOVIE | object; 
   selectFields: string[];
 }
 
 export interface I_PERSON_STATE {
   sortField: T_PERSON_SORTFIELD;
+  awardsSortField: T_PERSON_AWARDS_SORTFIELD;
   sortType: number;
+  awardsSortType: number;
   page: number;
+  awardsPage: number;
   query: string;
   limit: number;
+  awardsLimit: number;
   id: number;
   loading: boolean;
   error: string;

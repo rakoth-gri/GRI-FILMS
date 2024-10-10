@@ -21,10 +21,14 @@ import { PERSON_SELECTFIELDS_LIST } from "../consts/api";
 const initialState = {
   selectFields: PERSON_SELECTFIELDS_LIST,
   sortField: "countAwards",
+  awardsSortField: "",
   sortType: -1,
+  awardsSortType: -1,
   page: 1,
+  awardsPage: 1,
   query: "",
   limit: 10,
+  awardsLimit: 10,
   id: 0,
   loading: false,
   error: "",
@@ -51,26 +55,21 @@ const personSlice = createSlice({
     ) {
       // @ts-ignore
       state[name as keyof I_PERSON_STATE] = value;
-      if (name !== "page") state.page = 1;
+      if (name !== "page" && name !== "awardsPage") state.page = 1;
     },
-    changePersonSex(state, {payload}: PayloadAction<'sex'>) {
-      state[payload] = state.sex === 'Мужской' ? 'Женский' : 'Мужской'
+    changePersonSex(state, { payload }: PayloadAction<"sex">) {
+      state[payload] = state.sex === "Мужской" ? "Женский" : "Мужской";
     },
     cleanUpSinglePersonInfo(state) {
       state.personAwards = [];
       state.person = {};
-      state.sortField = "countAwards";
-      state.sortType = -1;
-      state.limit = 5;
+      state.awardsPage = 1;
+      state.awardsLimit = 10;
+      state.awardsSortType = -1;
+      state.awardsSortField = "";
     },
     cleanUpPersonsInfo(state) {
-      state.persons = [];      
-      state.sortField = "countAwards";
-      state.sortType = -1;
-      state.limit = 5;
-      state.sex = 'Мужской'
-      state.profession = ''
-      state.age = [5, 100]
+      // state.age = [5, 100];
     },
   },
   extraReducers: (builder) => {
@@ -82,10 +81,7 @@ const personSlice = createSlice({
       // @ts-ignore
       .addCase(
         personThunk.fulfilled,
-        (
-          state,
-          { payload }: PayloadAction<I_API_OBJECT<I_PERSON_FULL[]>>
-        ) => {
+        (state, { payload }: PayloadAction<I_API_OBJECT<I_PERSON_FULL[]>>) => {
           state.persons = payload.data;
           state.total = payload.total;
           state.pages = payload.pages;
@@ -177,6 +173,10 @@ const personSlice = createSlice({
   },
 });
 
-export const { changePersonStateQueryParams, cleanUpSinglePersonInfo, changePersonSex, cleanUpPersonsInfo } =
-  personSlice.actions;
+export const {
+  changePersonStateQueryParams,
+  cleanUpSinglePersonInfo,
+  changePersonSex,
+  cleanUpPersonsInfo,
+} = personSlice.actions;
 export default personSlice.reducer;

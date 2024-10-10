@@ -38,6 +38,7 @@ export const MyStudioSortType = memo(
   ({ list, name, value, action, ...props }: I_MyStudioSortType) => {
     const changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
       const { name, value } = e.target;
+      // @ts-ignore
       action({ name, value });
     };
 

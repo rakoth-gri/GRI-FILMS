@@ -32,6 +32,7 @@ export const MySelect = memo(({
 
   // @ts-ignore
   const value = useAppSelector((s) => s[reducer][name]);
+  
 
   const changeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;

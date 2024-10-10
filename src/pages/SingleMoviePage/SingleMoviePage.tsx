@@ -120,7 +120,7 @@ export const SingleMoviePage = () => {
 
   return (
     <>
-      <Back onClick={() => location(-1)}> {null} </Back>
+      <Back to={E_ROUTES.movies}> {null} </Back>
       <MyFlexContainer
         id={`${id}`}
         spacing={1}

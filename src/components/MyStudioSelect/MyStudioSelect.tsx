@@ -22,6 +22,7 @@ export const MyStudioSelect = memo(
   ({ list, value, name, action, ...props }: I_MyStudioSelect) => {
     const changeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
       const { name, value } = e.target;
+      // @ts-ignore
       action({ name, value });
     };
 

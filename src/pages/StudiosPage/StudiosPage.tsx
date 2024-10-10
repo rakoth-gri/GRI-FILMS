@@ -120,6 +120,7 @@ export const StudiosPage = () => {
           list={studios}
           loading={loading}
           error={error}
+          // @ts-ignore
           cb={renderCallback}
         />
       </MyFlexContainer>

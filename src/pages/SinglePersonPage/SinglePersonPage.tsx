@@ -35,6 +35,7 @@ import {
   END_POINTS,
   SORTTYPE_SELECT_LIST,
   LIMIT_PARAM_SELECT_LIST,
+  PERSON_AWARDS_SORTFIELD_SELECT_LIST,
 } from "../../consts/api";
 // types
 import { RootState } from "../../store/store";
@@ -68,12 +69,12 @@ const prepareToRender = <T extends object>(
 ) =>
   l.length ? <SingleMoviePropsList list={l} title={title} cb={cb} /> : null;
 
-const prepareToRenderCallback = (movie: I_PERSON_MOVIES, i?: number) => (
+const personMoviesCB = (movie: I_PERSON_MOVIES, i?: number) => (
   // @ts-ignore
   <SimilarMoviesCard key={i} {...movie} />
 );
 
-const personAwardsCallback = (personAwards: I_PERSON_AWARDS, i?: number) => (
+const personAwardsCB = (personAwards: I_PERSON_AWARDS, i?: number) => (
   <PersonAwardCard key={i} {...personAwards} />
 );
 
@@ -91,7 +92,7 @@ export const SinglePersonPage = () => {
   const personAwards = useAppSelector(
     (s: RootState) => s.personSliceReducer.personAwards
   );
-  const page = useAppSelector((s: RootState) => s.personSliceReducer.page);
+  const awardsPage = useAppSelector((s: RootState) => s.personSliceReducer.awardsPage);
   const loading = useAppSelector(
     (s: RootState) => s.personSliceReducer.loading
   );
@@ -116,7 +117,7 @@ export const SinglePersonPage = () => {
           method: "personAwards",
         })
       );
-  }, [page]);
+  }, [awardsPage]);
 
   useEffect(() => {
     return () => {
@@ -307,15 +308,22 @@ export const SinglePersonPage = () => {
       >
         {" "}
         <MySelect
+          list={PERSON_AWARDS_SORTFIELD_SELECT_LIST}
+          name={"awardsSortField"}
+          action={changePersonStateQueryParams}
+          reducer={"personSliceReducer"}
+          onClick={stopPropagation}
+        />
+        <MySelect
           list={LIMIT_PARAM_SELECT_LIST}
-          name={"limit"}
+          name={"awardsLimit"}
           action={changePersonStateQueryParams}
           reducer={"personSliceReducer"}
           onClick={stopPropagation}
         />
         <MySortType
           list={SORTTYPE_SELECT_LIST}
-          name={"sortType"}
+          name={"awardsSortType"}
           reducer="personSliceReducer"
           action={changePersonStateQueryParams}
           onClick={stopPropagation}
@@ -326,21 +334,22 @@ export const SinglePersonPage = () => {
         <PersonAwardsContainer
           list={personAwards}
           title="Награды"
-          cb={personAwardsCallback}
+          cb={personAwardsCB}
           sx={{ m: { xs: "0px", sm: "0.5rem" } }}
         />
       ) : (
         <MyError> По Вашему запросу ничего не найдено... </MyError>
       )}
       <MyPagination
-        page={page}
+        name='awardsPage'
+        page={awardsPage}
         action={changePersonStateQueryParams}
         reducer="personSliceReducer"
       />
       {prepareToRender(
         movies,
         "Фильмы, ШОУ, кинопремии:",
-        prepareToRenderCallback
+        personMoviesCB
       )}
       <Divider />
       <Box sx={getBoxStyles({ mr: { xs: "0px", md: "0.5rem" } })}>

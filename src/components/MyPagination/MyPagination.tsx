@@ -12,6 +12,7 @@ import { T_ACTION_QUERY_PAYLOAD } from "../../types/types";
 import "./MyPaginationComp.sass";
 
 interface I_MyPagination extends HTMLAttributes<HTMLElement> {
+  name?: 'page' | 'awardsPage';
   reducer: keyof RootState;
   action: ActionCreatorWithPayload<T_ACTION_QUERY_PAYLOAD>;
   size?: "small" | "medium" | "large";
@@ -28,6 +29,7 @@ const MyPaginationStyles = {
 };
 
 export const MyPagination = memo(({
+  name = 'page',
   action,
   reducer,
   page,
@@ -40,7 +42,7 @@ export const MyPagination = memo(({
   const pages= useAppSelector((s) => s[reducer].pages);
 
   const changeHandler = (e: ChangeEvent<unknown>, page: number) => {
-    dispatch(action({ name: "page", value: page }));
+    dispatch(action({ name, value: page }));
   };
 
   console.log('inside pagination...');

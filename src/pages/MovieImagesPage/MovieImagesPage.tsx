@@ -13,8 +13,7 @@ import { MyMasonry } from "../../components/MyMasonry";
 import { END_POINTS, IMAGE_SELECTFIELDS_LIST } from "../../consts/api";
 // types:
 import { E_ROUTES } from "../../types/types";
-// utils:
-// import { observerCB, options } from "../../services/utils";
+
 
 export const MovieImagesPage: FC = () => {
   const { movieId } = useParams();
@@ -26,11 +25,6 @@ export const MovieImagesPage: FC = () => {
     isOpenFilter: false,
     isModalShown: false,
   });
-
-  // const MyObserver = useMemo(
-  //   () => new IntersectionObserver(observerCB, options),
-  //   []
-  // );
 
   const {
     data: images,
@@ -44,13 +38,6 @@ export const MovieImagesPage: FC = () => {
     // @ts-ignore
     movieId,
   });
-
-  // useEffect(() => {
-  //   if (images?.data?.length)
-  //     document
-  //       .querySelectorAll(".movieImage")
-  //       .forEach((img) => MyObserver.observe(img));
-  // }, [images]);
 
   useEffect(() => {
     window.scrollTo(0,0)
@@ -98,6 +85,11 @@ export const MovieImagesPage: FC = () => {
         постеры и изображения:
       </MyTitle>      
       <MyLoader color="info" variant="query" loading={isLoading} />
+      <SimplePagination
+        page={state.page}
+        pages={state.pages}
+        clickHandler={clickHandler}
+      />
       {images && (
         <MyMasonry
           error={error as string}
@@ -106,11 +98,7 @@ export const MovieImagesPage: FC = () => {
           ImagesModalHandler={ImagesModalHandler}
         />
       )}
-      <SimplePagination
-        page={state.page}
-        pages={state.pages}
-        clickHandler={clickHandler}
-      />
+      
     </>
   );
 };

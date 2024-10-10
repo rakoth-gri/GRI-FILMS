@@ -8,7 +8,7 @@ import { MyModalWrapper } from "../MyModalWrapper";
 import { I_IMAGE } from "../../types/types";
 
 const imagesModalBoxStyles = {
-  width: "70%",
+  width: "90%",
   height: "80%",
 };
 
@@ -37,7 +37,7 @@ export const MyImagesModal = ({
   };
 
   return (
-    <MyModalWrapper {...props} sx={{ fontSize: "1.12em" }}>
+    <MyModalWrapper {...props} sx={{ fontSize: "1.12em", m: '0px' }}>
       <Box sx={imagesModalBoxStyles}>
         <CardMedia
           src={images[count]?.url}

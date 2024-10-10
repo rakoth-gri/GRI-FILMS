@@ -186,27 +186,6 @@ class Server {
     }
   }
 
-  //! IMAGE  -----------------------------------------------------
-
-  static async image(
-    url: string,
-    queryParams: Record<string, string>,
-    method: T_OBJ_KEYS<typeof responseConstructor>
-  ) {
-    try {
-      let res = await Server.fetchindDataBySelectFields(
-        url,
-        queryParams,
-        method,
-        IMAGE_SELECTFIELDS_LIST
-      );
-      if (res.status !== 200) throw new Error(res.data);
-      return responseConstructor[method](res.data) as I_API_OBJECT<I_IMAGE[]>;
-    } catch (e) {
-      return (e as Error).message as string;
-    }
-  }
-
   //! REVIEW  -----------------------------------------------------
 
   static async reviewByMovieId(

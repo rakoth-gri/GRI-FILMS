@@ -112,7 +112,7 @@ export const queryConstructor = {
     limit = "5",
     sortType = "-1",
     personId = "8816",
-    sortField = "winning",
+    sortField,
   }: {
     page: string;
     limit: string;
@@ -121,7 +121,7 @@ export const queryConstructor = {
     sortField: T_PERSON_AWARDS_SORTFIELD;
   }) => ({
     personId,
-    sortField,
+    sortField: sortField || "winning",
     sortType,
     page,
     limit,

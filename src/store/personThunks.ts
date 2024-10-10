@@ -17,7 +17,7 @@ const personThunk = createAsyncThunk<
   string | I_API_OBJECT<I_PERSON_FULL[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | "image">;
   },
   {
     rejectValue: string;
@@ -71,7 +71,7 @@ const personSearchThunk = createAsyncThunk<
   string | I_API_OBJECT<I_PERSON_SEARCH[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | "image">;
   },
   {
     rejectValue: string;
@@ -81,6 +81,7 @@ const personSearchThunk = createAsyncThunk<
   "person/personSearchThunk",
   async ({ url, method }, { rejectWithValue, getState }) => {
     const { query, page, limit } = getState().personSliceReducer;
+       
     const res = await Server[method](
       url,
       { query, page: `${page}`, limit: `${limit}` },
@@ -99,7 +100,7 @@ const personByIdThunk = createAsyncThunk<
   {
     url: string;
     id: number;
-    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | "image">;
   },
   {
     rejectValue: string;
@@ -121,7 +122,7 @@ const personAwardsThunk = createAsyncThunk<
   {
     url: string;
     personId: string;
-    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | "image">;
   },
   {
     rejectValue: string;
@@ -130,15 +131,17 @@ const personAwardsThunk = createAsyncThunk<
 >(
   "person/personAwardsThunk",
   async ({ url, personId, method }, { rejectWithValue, getState }) => {
-    const { limit, sortType, page } = getState().personSliceReducer;
+    const { awardsLimit, awardsSortType, awardsPage, awardsSortField } =
+      getState().personSliceReducer;
 
     const res = await Server[method](
       url,
       {
         personId,
-        limit: `${limit}`,
-        sortType: `${sortType}`,
-        page: `${page}`,
+        limit: `${awardsLimit}`,
+        sortType: `${awardsSortType}`,
+        page: `${awardsPage}`,
+        sortField: `${awardsSortField}`,
       },
       method
     );

@@ -37,7 +37,7 @@ import {
   SORTTYPE_SELECT_LIST,
 } from "../../consts/api";
 // utils
-import { observerCB, options } from "../../services/utils";
+import { observerCB, options, toTheTop } from "../../services/utils";
 
 const personPageTogglerStyles = { fontFamily: "Roboto" };
 
@@ -78,6 +78,7 @@ export const PersonsPage = () => {
       document
         .querySelectorAll(".personImage")
         .forEach((img) => MyObserver.observe(img));
+    toTheTop();
   }, [persons]);
 
   useEffect(() => {

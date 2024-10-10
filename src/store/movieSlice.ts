@@ -37,8 +37,7 @@ const initialState = {
   total: 0,
   pages: 0,
   movies: [],
-  movie: {},
-  images: [],
+  movie: {},  
   selectFields: [
     "id",
     "name",
@@ -77,14 +76,7 @@ const movieSlice = createSlice({
         return;
       }
       state.selectFields.push(payload);
-    },
-    movieImagesPageCleanUp: (state) => {
-      // state.page = 1;
-      state.sortField = "rating.kp";
-      state.sortType = -1;
-      state.limit = 10;
-      state.images = [];
-    },
+    },   
     addToFavorites: (state, { payload }: PayloadAction<I_MOVIE>) => {
       if (state.favorites.find((f) => f.id === payload.id)) {
         state.favorites = state.favorites.filter((f) => f.id !== payload.id);
@@ -166,35 +158,34 @@ const movieSlice = createSlice({
         }
       )
       // ! movieIdImagesThunk -----------------------------------------
-      .addCase(movieIdImagesThunk.pending, (state) => {
-        state.loading = true;
-      })
-      // @ts-ignore
-      .addCase(
-        movieIdImagesThunk.fulfilled,
-        (state, { payload }: PayloadAction<I_API_OBJECT<I_IMAGE[]>>) => {
-          state.images = payload.data;
-          state.pages = payload.pages;
-          state.total = payload.total;
-          state.error = "";
-          state.loading = false;
-        }
-      )
-      // @ts-ignore
-      .addCase(
-        movieIdImagesThunk.rejected,
-        (state, { payload }: PayloadAction<string>) => {
-          state.error = payload;
-          state.loading = false;
-        }
-      );
+      // .addCase(movieIdImagesThunk.pending, (state) => {
+      //   state.loading = true;
+      // })
+      // // @ts-ignore
+      // .addCase(
+      //   movieIdImagesThunk.fulfilled,
+      //   (state, { payload }: PayloadAction<I_API_OBJECT<I_IMAGE[]>>) => {
+      //     state.images = payload.data;
+      //     state.pages = payload.pages;
+      //     state.total = payload.total;
+      //     state.error = "";
+      //     state.loading = false;
+      //   }
+      // )
+      // // @ts-ignore
+      // .addCase(
+      //   movieIdImagesThunk.rejected,
+      //   (state, { payload }: PayloadAction<string>) => {
+      //     state.error = payload;
+      //     state.loading = false;
+      //   }
+      // );
   },
 });
 
 export const {
   changeMovieStateQueryParams,
-  changeMovieStateSelectFields,
-  movieImagesPageCleanUp,
+  changeMovieStateSelectFields,  
   cleanUpSingleMovieInfo,
   addToFavorites,
 } = movieSlice.actions;
