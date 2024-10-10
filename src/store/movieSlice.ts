@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   movieThunk,
   movieSearchThunk,
-  movieByIdThunk,
-  movieIdImagesThunk,
+  movieByIdThunk,  
 } from "./movieThunks";
 // types
 import type { PayloadAction } from "@reduxjs/toolkit";

@@ -16,7 +16,7 @@ const reviewByMovieIdThunk = createAsyncThunk<
   string | I_API_OBJECT<I_REVIEW[]>,
   {
     url: T_OBJ_VALUES<typeof END_POINTS>;
-    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">;
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | 'image'>;
     movieId: string;
   },
   {

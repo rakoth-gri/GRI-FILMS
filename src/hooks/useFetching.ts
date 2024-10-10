@@ -23,7 +23,7 @@ export const useFetching = () => {
   const fetchData = async (
     url: string,
     queryParams: Record<string, string>,
-    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250">
+    method: Exclude<T_OBJ_KEYS<typeof queryConstructor>, "top250" | 'image'>
   ) => {
     try {
       setState((p) => ({ ...p, loading: true }));
