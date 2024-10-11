@@ -36,7 +36,7 @@ import {
 } from "../../consts/api";
 // types:
 import { RootState } from "../../store/store";
-import { I_MOVIE, T_MOVIE_SEARCH } from "../../types/types";
+import { I_MOVIE} from "../../types/types";
 // utils
 import { observerCB, options, toTheTop } from "../../services/utils";
 
@@ -109,7 +109,12 @@ export const MoviesPage = () => {
         action={changeMovieStateQueryParams}
         reducer="movieSliceReducer"
         placeholder="Введите название фильма:"
-        // autoFocus
+        autoFocus
+      />
+      <MyPagination
+        page={page}
+        action={changeMovieStateQueryParams}
+        reducer="movieSliceReducer"
       />
       <MyFilterWrapper
         onClick={() => setIsOpenFilter((prev) => !prev)}
@@ -202,11 +207,7 @@ export const MoviesPage = () => {
           cb={renderCallback}
         />
       </MyFlexContainer>
-      <MyPagination
-        page={page}
-        action={changeMovieStateQueryParams}
-        reducer="movieSliceReducer"
-      />
+      
     </>
   );
 };

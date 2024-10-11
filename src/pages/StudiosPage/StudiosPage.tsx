@@ -21,7 +21,7 @@ import {
 } from "../../consts/api";
 import { I_STUDIO } from "../../types/types";
 
-const renderCallback = (item: I_STUDIO, i?: number) => (
+const StudiosPageCB = (item: I_STUDIO, i?: number) => (
   <MyStudioCard key={item.id} {...item} />
 );
 
@@ -114,13 +114,13 @@ export const StudiosPage = () => {
           onClick={stopPropagation}
         />
       </MyFilterWrapper>
-      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh" }}>
+      <MyFlexContainer spacing={2} sx={{ minHeight: "45vh", m: {xs: '0px', sm: '0.5rem'} }}>
         <Render
           list={studios}
           loading={loading}
           error={error}
           // @ts-ignore
-          cb={renderCallback}
+          cb={StudiosPageCB}
         />
       </MyFlexContainer>
       <MyStudioPagination

@@ -61,7 +61,7 @@ const movieSlice = createSlice({
     ) {
       // @ts-ignore
       state[name] = value;
-      if (name !== "page") state.page = 1;
+      // if (name !== "page") state.page = 1;
     },
     changeMovieStateSelectFields(state, { payload }: PayloadAction<string>) {
       if (state.selectFields.includes(payload)) {

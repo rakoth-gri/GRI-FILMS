@@ -1,14 +1,6 @@
-import {
-  useDeferredValue,
-  useState,
-  // InputEvent,
-  MouseEvent,
-  KeyboardEvent,
-  useEffect,
-  useRef,
-} from "react";
+import { useRef } from "react";
 import { MyTitle } from "../../components/MyTitle";
-import { Box, Input, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
 const MyHomePageText = styled(Box)(({ theme }) => ({
   fontSize: "1.2em",
@@ -28,28 +20,6 @@ const MyHomePageText = styled(Box)(({ theme }) => ({
 }));
 
 export const HomePage = () => {
-  const [text, setText] = useState("");
-  const deferredText = useDeferredValue(text);
-
-  // const ref = useRef<null | HTMLDivElement>(null);
-
-  // useEffect(() => {
-  //   console.log("INSIDE_ EFFECT...");
-  // }, [deferredText]);
-
-  // const keyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.code === "Enter") {
-  //     alert((e.target as HTMLInputElement).value?.trim());
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   function handleScroll(e: MouseEvent<HTMLHtmlElement>) {
-  //     console.log(this.scrollTop, this.offsetHeight, this.scrollHeight);
-  //   }
-  //   ref?.current?.addEventListener("scroll", handleScroll);
-  // }, []);
-
   return (
     <>
       <MyTitle
@@ -60,22 +30,10 @@ export const HomePage = () => {
       >
         главная
       </MyTitle>
-      {/* <Input
-        fullWidth={true}
-        name="text"
-        placeholder="Enter..."
-        sx={{ color: "var(--app-default-color)", m: "0.5rem" }}
-        value={text}
-        onInput={(e: InputEvent<HTMLInputElement>) => setText(e.target.value)}
-        type={"search"}
-        onKeyUp={keyUpHandler}
-      /> */}
       <Box
         component={"section"}
         sx={{
           p: { xs: "0.25rem", md: "0.5rem" },
-          height: "60vh",
-          overflow: "auto",
         }}
         className="scrolled"
         // ref={ref}
@@ -128,3 +86,12 @@ export const HomePage = () => {
     </>
   );
 };
+
+// const ref = useRef<null | HTMLDivElement>(null);
+
+// useEffect(() => {
+//   function handleScroll(e: MouseEvent<HTMLHtmlElement>) {
+//     console.log(this.scrollTop, this.offsetHeight, this.scrollHeight);
+//   }
+//   ref?.current?.addEventListener("scroll", handleScroll);
+// }, []);s

@@ -31,6 +31,7 @@ const reviewSlice = createSlice({
     ) {
       // @ts-ignore
       state[name as keyof I_REVIEW_STATE] = value;
+      // if (name !== 'page') state.page = 1
     },
     cleanUpReviewInfo: (state) => {
       state.reviews = [];

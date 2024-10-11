@@ -54,7 +54,7 @@ export const MyStudioCard = ({
         </MyTitle>
         <time> {createdAt ? new Date(createdAt).toLocaleString() : null} </time>
       </Box>
-      <Span style={{margin: '0px'}}>Назначение: {type}</Span>
+      <Span style={{margin: '0px'}} cls='studios__spec'>Назначение: {type}</Span>
       <MyFlexContainer
         component={"p"}
         justify="flex-start"
@@ -62,10 +62,10 @@ export const MyStudioCard = ({
         spacing={1}
         mr={'0px'}
       >
-        Продукты:
-        {movies.map((m, i) => (
-          <Link to={`${E_ROUTES.movies}/${m}`} key={i}>
-            <Span> Картина {i + 1}</Span>
+        Кинокартины:
+        {movies.map((id, ind) => (
+          <Link to={`${E_ROUTES.movies}/${id}`} key={ind}>
+            <Span cls='studios__link'> ID_{id}</Span>
           </Link>
         ))}
       </MyFlexContainer>

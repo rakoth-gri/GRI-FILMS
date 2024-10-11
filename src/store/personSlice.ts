@@ -55,7 +55,7 @@ const personSlice = createSlice({
     ) {
       // @ts-ignore
       state[name as keyof I_PERSON_STATE] = value;
-      if (name !== "page" && name !== "awardsPage") state.page = 1;
+      // if (name !== "page") state.page = 1;
     },
     changePersonSex(state, { payload }: PayloadAction<"sex">) {
       state[payload] = state.sex === "Мужской" ? "Женский" : "Мужской";

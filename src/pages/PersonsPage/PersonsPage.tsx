@@ -123,6 +123,11 @@ export const PersonsPage = () => {
         placeholder="Введите имя персоны:"
         autoFocus
       />
+      <MyPagination
+        action={changePersonStateQueryParams}
+        reducer="personSliceReducer"
+        page={page}
+      />
       <MyFilterWrapper
         isOpenFilter={isOpenFilter}
         onClick={() => setIsOpenFilter((prev) => !prev)}
@@ -209,12 +214,7 @@ export const PersonsPage = () => {
           error={error}
           cb={renderCallback}
         />
-      </MyFlexContainer>
-      <MyPagination
-        action={changePersonStateQueryParams}
-        reducer="personSliceReducer"
-        page={page}
-      />
+      </MyFlexContainer>      
     </Fragment>
   );
 };

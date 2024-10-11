@@ -196,7 +196,7 @@ export const queryConstructor = {
     page = "1",
     limit = "10",
     sortType = "-1",
-    // title,
+    title,
   }: {
     sortField: T_STUDIO_SORTFIELD;    
     page: string;
@@ -208,7 +208,7 @@ export const queryConstructor = {
     limit,
     sortField: sortField || "title",
     sortType,
-    // title
+    title
   }),
 };
 
